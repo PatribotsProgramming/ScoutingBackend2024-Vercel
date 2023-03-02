@@ -170,3 +170,22 @@ to randomly generate a unique id every single time, as to not break any of the w
 	  + title
 	  + id
 	  + classNameDecorator
+
+- - -
+## Starting the development server
+
+Now that you (hopefully) have a form that you like, it's time to build.
+
+
+__Building your production__ 
+First and foremost, add this line in your ```package.json``` file: 
+
+```"homepage": "./",```
+
+In your main project directory, run ```npm run build```. This will create a folder called __Build__. This is the final production build that you will distribute. In order to view this file, 
+
+### Local
+
+
+```npm start```
+

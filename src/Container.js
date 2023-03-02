@@ -76,6 +76,11 @@ class Container extends React.Component{
         type: "counter",
         decorator: "cone"
       },
+      {id: uuidv4(),
+      tittle: "Fumbles",
+      value: 0,
+      type: "counter",
+      },
       {
         id: uuidv4(),
         title: "Upper Cube",
