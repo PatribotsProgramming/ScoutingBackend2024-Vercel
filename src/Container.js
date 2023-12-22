@@ -1,5 +1,33 @@
+
+/**
+ *  --- TODO ---
+ * Firebase backend -- COMPLETE
+ * Scouting Visualization With Simple ASF???
+ * Required Fields (with required field datatypes)
+ * Optional upper and lower bounds for counters
+ * Save data to local storage
+ * Write an actual function to clear the form 
+ * Rewrite the whole damn thing
+*/
+
+/**
+ * FIREBASE STRUCTURE:
+ * https://simple-asf-default-rtdb.firebaseio.com
+ *  > byMatch
+ *    > matchNumber
+ *      > teamNumber
+ *        > [all the match data minus the match number]
+ *  > byTeam
+ *    > teamNumber
+ *      > matchNumber
+ *        > [all the match data minus the team number]
+ * 
+ * Sadly you have to make two api requests to do this, but it's not that bad
+ * 
+ */
+
 import logo from './logo.svg';
-import notFound from './images/notFound.png'
+import notFound from 'C:/Users/adame/Documents/Programming/Robotics/Simple-ASF/src/images/notFound.png'
 import patribotsLogo from './images/patribotsLogo.png'
 import './App.css';
 
@@ -12,6 +40,24 @@ import Dropdown from './widgets/Dropdown';
 
 import {v4 as uuidv4} from "uuid"
 import React from 'react';
+
+import { getDatabase, ref, update } from "firebase/database";
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD_JpLIerXg9Y4sN1WxVsZwi7-hMGSfj9Q",
+  authDomain: "simple-asf.firebaseapp.com",
+  projectId: "simple-asf",
+  storageBucket: "simple-asf.appspot.com",
+  messagingSenderId: "566920479564",
+  appId: "1:566920479564:web:7ded2e6c23388c02a245e9",
+  measurementId: "G-1TFHYXKQRF"
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
 
 class Container extends React.Component{
 
@@ -76,10 +122,11 @@ class Container extends React.Component{
         type: "counter",
         decorator: "cone"
       },
-      {id: uuidv4(),
-      tittle: "Fumbles",
-      value: 0,
-      type: "counter",
+      {
+        id: uuidv4(),
+        title: "Fumbles",
+        value: 0,
+        type: "counter",
       },
       {
         id: uuidv4(),
@@ -244,7 +291,7 @@ class Container extends React.Component{
   }
   
   gatherData = () => {
-    var arr = []
+    var formData = []
 
     for (var i = 0; i < this.state.items.length; i++){
       if (this.state.items[i].type !== "submit"
@@ -252,12 +299,12 @@ class Container extends React.Component{
           && this.state.items[i].type !== "image"
           && this.state.items[i].type !== "header"){
 
-            arr.push([this.state.items[i].title, this.state.items[i].value])
+            formData.push([this.state.items[i].title, this.state.items[i].value])
 
           }
     }
 
-    return arr
+    return formData
   }
 
   increaseCounter = (id) => {
@@ -313,22 +360,72 @@ class Container extends React.Component{
     })
   }
 
+  writeMatchDataToDB = (data) => {
+    const db = getDatabase();
+    
+    var json = {};
+
+    data.forEach(item => {
+      json[item[0]] = item[1]
+    });
+
+    let matchNumber =  json["Match Number"];
+    let teamNumber = json["Team Number"];
+
+    if (matchNumber === "" || teamNumber === ""){
+      alert("Please enter a match number and team number")
+      return false
+    }
+    
+    delete json["Match Number"];
+    delete json["Team Number"];
+
+    update(ref(db, 'byMatch/' + matchNumber + "/" + teamNumber), {...json});
+    update(ref(db, 'byTeamNumber/' + teamNumber + "/" + matchNumber), {...json});
+
+    return true
+    
+  };
+
   handleFormSubmit = (e) =>{
     e.preventDefault()
 
-    var data = this.gatherData()
+    let data = this.gatherData()
+    
+    let successfullySubmitted = this.writeMatchDataToDB(data)
+    
+    if (successfullySubmitted) {this.wipeForm(); console.log("submitted")}
+    
+  }
 
-    var formDataObject = new FormData()
+  wipeForm = () => {
+    // THIS DOESN'T WORK FOR SOME REASON
+    this.setState({
+      items: this.state.items.map(item => {
+        if (item.type === "checkbox") {
+          item.value = false
+        }
+        else if (item.type === "textbox"){
+          item.value = ""
+        }
+        else if (item.type === "textbox-long"){
+          item.value = ""
+        }
+        else if (item.type === "counter"){
+          item.value = 0
+        }
+        else if (item.type === "submit"){
+          item.value = ""
+        }
+        else if (item.type === "dropdown"){
+          item.value = 0
+        }
+        return item
+      })
+    })
 
-    for (var i = 0; i < data.length; i++){
-      formDataObject.append(data[i][0], data[i][1])
-    }
 
-    console.log(formDataObject)
 
-    fetch(this.scriptUrl, {method: 'POST', body: formDataObject})
-    .catch(err => console.log(err))
-    window.location.reload();
   }
 
 
@@ -436,6 +533,8 @@ class Container extends React.Component{
           }
         })
         }
+
+        
       </ul>
     );
   }
