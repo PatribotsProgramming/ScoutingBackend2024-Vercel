@@ -6,15 +6,14 @@ class Dropdown extends React.Component{
     value = this.props.value;
     id = this.props.id;
     title = this.props.title;
-    items = this.props.items;
-    handleDropdownChange = this.props.handleDropdownChange;
-    classNameDecorator = this.props.decorator
+    items = this.props.options.map((item) => {return {id: this.props.options.indexOf(item), title: item}});
+    changeHandler = this.props.changeHandler;
 
     render(){
         return (
-            <div className={"widget " + this.classNameDecorator}>
+            <div className="widget">
                 <div
-                className="parkingTitle"
+                className="dropdownTitle"
                 >
                     {this.title}
                 </div>
@@ -22,7 +21,7 @@ class Dropdown extends React.Component{
                 <select
                     type="dropown"
                     className="dropdown widget"
-                    onChange = {this.handleDropdownChange}
+                    onChange = {(e) => this.props.changeHandler(this.id, e.target.value)}
                     id = {this.id}
                     value = {this.props.value}
                 >
@@ -30,7 +29,7 @@ class Dropdown extends React.Component{
                         return (
                         <option 
                             key={item.id} 
-                            value={this.items.indexOf(item)}
+                            value={item.title}
                         >
                             {item.title}
                         </option>

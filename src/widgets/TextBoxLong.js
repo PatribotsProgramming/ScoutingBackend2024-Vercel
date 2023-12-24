@@ -3,32 +3,25 @@ import React from "react";
 
 class TextBoxLong extends React.Component{
 
-    state = {
-        value: "",
-        id: this.props.id,
-        title: this.props.title,
-    }
-
-    handleTextBoxChange = (value) => {
-        this.setState({value: value})
-    }
+    title = this.props.title
+    id = this.props.id
+    classNameDecorator = this.props.decorator
 
     render(){
         return (
-            <span className="widget">
-                <div className="subtitle">
-                    {this.state.title}
+            <span className={"widget " + this.classNameDecorator}>
+                <div className={"textTitle " + this.classNameDecorator}>
+                    {this.title}
                 </div>
             
                 <textarea
+                    id={this.id}
                     type="text"
-                    className="textbox-long widget"
+                    className="text-box widget"
                     onChange={e => {
-                        this.handleTextBoxChange(e.target.value)
+                        console.log(this.props)
+                        this.props.changeHandler(this.id, e.target.value)
                     }}
-                    id={this.state.id}
-                    value={this.state.value}
-                    title={this.state.title}
                 />
 
             </span>

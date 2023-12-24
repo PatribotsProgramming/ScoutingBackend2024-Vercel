@@ -75,7 +75,38 @@ const layout =
     "title": "Test Checkbox",
     "type": "checkbox",
     "value": false
+  },
+  {
+    "title": "Test Counter",
+    "type": "counter",
+    "value": 0,
+    "increment": 1,
+    "resetToValue": 0,
+    "maxValue": 10,
+    "minValue": 0
+  },
+  {
+    "title": "Test Text Box Long",
+    "type": "textboxlong",
+    "value": "",
+    "resetToValue": "This is a test"
+  },
+  {
+    "title": "Test Dropdown",
+    "type": "dropdown",
+    "value": 0,
+    "options": [
+      "option 1",
+      "option 2",
+      "option 3"
+    ],
+    "resetToValue": 0
+  },
+  {
+    "title": "Submit",
+    "type": "submit",
   }
+  
 ]
  
 
@@ -85,12 +116,14 @@ const isInteractable = (type) => {
       return false;
     case "label":
       return false;
+    case "submit":
+      return false;
     default:
       return true;
   }
 }
 
-// Just a lil qol function to add ids to the layout
+// Just a lil QOL function to add ids to the layout
 // The last version had you do this manually (ugh)
 const addIds = (layout) => {
   Object.keys(layout).forEach((item) => {
@@ -174,6 +207,23 @@ class Container extends React.Component{
         })
     })
   }
+
+  handleCounterChange = (id, value, limiter) => {
+    this.setState({
+      interactables: this.state.interactables.map((item) => {
+          if (item.id === id) {
+            item.value += value
+            if (value > 0 && item.value > limiter) {
+              item.value -= value
+            }
+            else if (value < 0 && item.value < limiter) {
+              item.value -= value
+            }
+          }
+          return item
+        })
+    })
+  }
   
   writeMatchDataToDB = (data) => {
     const db = getDatabase();
@@ -202,32 +252,48 @@ class Container extends React.Component{
     
   };
 
+  handleDropdownChange = (id, value) => {
+    this.setState({
+      interactables: this.state.interactables.map((item) => {
+          if (item.id === id) {
+            item.value = value
+          }
+          return item
+        })
+    })
+  }
+
   handleFormSubmit = (e) =>{
+    console.log("submiting")
     e.preventDefault()
 
-    let data = this.gatherData()
+    let data = this.state.interactables.map((item) => {
+      return [item.title, item.value]
+    })
+
+    console.log(data)
     
     let successfullySubmitted = this.writeMatchDataToDB(data)
     
     if (successfullySubmitted) {this.wipeForm(); console.log("submitted")}
+    else {console.log("not submitted, something went wrong")}
     
   }
 
   render () {
     return (
-      
       <ul className="outer_container">
         {Object.keys(layout).map((item) => {
           /**
            * Widget types:
-           * header
-           * label
-           * checkbox
-           * textbox
-           * textboxlong
-           * counter
+           * header ✅
+           * label ✅
+           * checkbox ✅
+           * textbox ✅
+           * textboxlong ✅
+           * counter ✅
+           * dropdown ✅
            * submit
-           * dropdown
            */
           
           switch (layout[item].type) {
@@ -239,6 +305,16 @@ class Container extends React.Component{
               return <CheckBox id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
             case "textbox":
               return <TextBox  id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
+            case "textboxlong":
+              return <TextBoxLong id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
+            case "counter":
+              return <Counter id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCounterChange} increment={layout[item].increment} maxValue={layout[item].maxValue} minValue={layout[item].minValue}/>
+            case "dropdown":
+              return <Dropdown id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleDropdownChange} options={layout[item].options}/>
+            case "submit":
+              return <Submit id={layout[item].id} changeHandler={this.handleFormSubmit} title={layout[item].title}/>
+            default:
+              return <li>error: undefined widget type [{layout[item.type]}]</li>
           }
         })}
         <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>

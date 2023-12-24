@@ -9,7 +9,10 @@ class Counter extends React.Component{
     value = this.props.value;
     id = this.props.id;
     title = this.props.title;
-    classNameDecorator = this.props.decorator
+    classNameDecorator = this.props.decorator;
+    increment = this.props.increment !== undefined ? this.props.increment : 1;
+    maxValue = this.props.maxValue !== undefined ? this.props.maxValue : 100;
+    minValue = this.props.minValue !== undefined ? this.props.minValue : -100;
 
     render(){
 
@@ -20,16 +23,15 @@ class Counter extends React.Component{
                         {this.title}
                     </div>
 
-                    <div className="value">
+                    <div className="value" id={this.props.id}>
                             {this.props.value}
                         </div> 
                     
                     <div className="btn-container">
                         
                         <button
-                            className={"btn dbtn"}
-                            onClick={() => this.props.decreaseCounter(this.id)}
-                        >
+                            className="btn dbtn"
+                            onClick={() => this.props.changeHandler(this.id, -this.increment, this.minValue)}>
                             <img
                                 src = {minus}
                                 alt = {notFound}
@@ -41,9 +43,8 @@ class Counter extends React.Component{
 
                         <button
                             className={"btn ubtn"}
-                            onClick={() => this.props.increaseCounter(this.id)}
-                            src={plus}
-                        >
+                            onClick={() => this.props.changeHandler(this.id, this.increment, this.maxValue)}
+                            src={plus}>
                             <img
                                 src = {plus}
                                 alt = {notFound}
