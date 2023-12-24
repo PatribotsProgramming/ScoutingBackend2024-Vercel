@@ -10,15 +10,17 @@ class TextBox extends React.Component{
     render(){
         return (
             <span className={"widget " + this.classNameDecorator}>
-                <div className={"textTitle" + this.classNameDecorator}>
+                <div className={"textTitle " + this.classNameDecorator}>
                     {this.title}
                 </div>
             
                 <input
+                    id={this.id}
                     type="text"
                     className="text-box widget"
                     onChange={e => {
-                        this.props.handleTextBoxChange(this.id, e.target.value)
+                        console.log(this.props)
+                        this.props.changeHandler(this.id, e.target.value)
                     }}
                 />
 

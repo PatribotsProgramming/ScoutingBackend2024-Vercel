@@ -18,10 +18,11 @@ class CheckBox extends React.Component{
                 </div>
             
                 <input
+                    id={this.id}
                     type="checkbox"
                     className="checkbox"
                     value={this.value}
-                    onChange={() => this.props.handleCheckBoxChange(this.id)}
+                    onChange={() => this.props.changeHandler(this.id)}
                 />
                 
             </div>
