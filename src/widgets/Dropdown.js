@@ -11,16 +11,16 @@ class Dropdown extends React.Component{
 
     render(){
         return (
-            <div className="widget">
+            <div className={"widget dropdown-container " + (this.decorator ? this.decorator : "")}>
                 <div
-                className="dropdownTitle"
+                className="subtitle"
                 >
                     {this.title}
                 </div>
                 
                 <select
                     type="dropown"
-                    className="dropdown widget"
+                    className="dropdown"
                     onChange = {(e) => this.props.changeHandler(this.id, e.target.value)}
                     id = {this.id}
                     value = {this.props.value}

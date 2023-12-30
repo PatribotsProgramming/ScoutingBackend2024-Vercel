@@ -4,7 +4,7 @@
  * Firebase backend -- COMPLETE
  * Scouting Visualization With Simple ASF???
  * Required Fields (with required field datatypes)
- * Optional upper and lower bounds for counters
+ * Optional upper and lower bounds for counters -- COMPLETE
  * Save data to local storage
  * Write an actual function to clear the form 
  * Rewrite the whole damn thing :heart: 
@@ -36,7 +36,6 @@ import CheckBox from './widgets/CheckBox';
 import TextBox from './widgets/TextBox'
 import TextBoxLong from './widgets/TextBoxLong'
 import Counter from './widgets/Counter'
-import Submit from './widgets/Submit'
 import Dropdown from './widgets/Dropdown';
 
 import {v4 as uuidv4} from "uuid"
@@ -60,8 +59,9 @@ const app = initializeApp(firebaseConfig);
 const layout = 
 [
   {
-    "type": "header",
-    "value": "Example Scouting Form"
+    "type": "header", 
+    "value": "Example Scouting Form",
+    "decorator": "title"
   },
   {
     "title": "Name",
@@ -69,7 +69,8 @@ const layout =
     "value": "",
     "required": true,
     "datatype": "string",
-    "resetToValue": "Adam"
+    "resetToValue": "Adam",
+    "decorator": "name_input"
   },
   {
     "title": "Test Checkbox",
@@ -267,59 +268,61 @@ class Container extends React.Component{
     console.log("submiting")
     e.preventDefault()
 
+    let missingRequiredFields = []
     let data = this.state.interactables.map((item) => {
+      if (item.required && (item.value === "" || item.value === 0 || item.value === undefined)) {
+        missingRequiredFields.push(item.title)
+      }
       return [item.title, item.value]
     })
 
+    if (missingRequiredFields.length > 0) {
+      alert("You are missing the following " + missingRequiredFields.length + " required fields: " + missingRequiredFields.join(",")); 
+      console.log("not submitted, missing required field(s) [" + missingRequiredFields.join(",") + "]")
+      return
+    }
+
     console.log(data)
     
-    let successfullySubmitted = this.writeMatchDataToDB(data)
+    localStorage.setItem("matchData", JSON.stringify([...localStorage.getItem("matchData"), data]))
+
+    // let successfullySubmitted = this.writeMatchDataToDB(data)
     
-    if (successfullySubmitted) {this.wipeForm(); console.log("submitted")}
-    else {console.log("not submitted, something went wrong")}
+    // if (successfullySubmitted) {this.wipeForm(); console.log("submitted")}
+    // else {console.log("not submitted, something went wrong")}
     
   }
 
   render () {
     return (
-      <ul className="outer_container">
-        {Object.keys(layout).map((item) => {
-          /**
-           * Widget types:
-           * header ✅
-           * label ✅
-           * checkbox ✅
-           * textbox ✅
-           * textboxlong ✅
-           * counter ✅
-           * dropdown ✅
-           * submit
-           */
-          
-          switch (layout[item].type) {
-            case "header":
-              return <h1 id={layout[item].id}>{layout[item].value}</h1>
-            case "label":
-              return <span id={layout[item].id}>{layout[item].value}</span>
-            case "checkbox":
-              return <CheckBox id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
-            case "textbox":
-              return <TextBox  id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
-            case "textboxlong":
-              return <TextBoxLong id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
-            case "counter":
-              return <Counter id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCounterChange} increment={layout[item].increment} maxValue={layout[item].maxValue} minValue={layout[item].minValue}/>
-            case "dropdown":
-              return <Dropdown id={layout[item].id} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleDropdownChange} options={layout[item].options}/>
-            case "submit":
-              return <Submit id={layout[item].id} changeHandler={this.handleFormSubmit} title={layout[item].title}/>
-            default:
-              return <li>error: undefined widget type [{layout[item.type]}]</li>
-          }
-        })}
-        <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>
-        <button onClick={this.wipeForm}>Clear State</button>
-      </ul>
+      <div className="app">
+        <ul className="outer-container">
+          {Object.keys(layout).map((item) => {          
+            switch (layout[item].type) {
+              case "header":
+                return <h1          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h1>
+              case "label":
+                return <span        id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</span>
+              case "checkbox":
+                return <CheckBox    id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
+              case "textbox":
+                return <TextBox     id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
+              case "textboxlong":
+                return <TextBoxLong id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleTextBoxChange}/>
+              case "counter":
+                return <Counter     id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCounterChange} increment={layout[item].increment} maxValue={layout[item].maxValue} minValue={layout[item].minValue}/>
+              case "dropdown":
+                return <Dropdown    id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleDropdownChange} options={layout[item].options}/>
+              case "submit":
+                return <span className='widget submit-container'><button      id={layout[item.id]} className={"submit " + (this.decorator ? this.decorator : "")} onClick={this.handleFormSubmit}>{layout[item].title}</button></span>
+              default:
+                return <div>error: undefined widget type [{layout[item.type]}]</div>
+            }
+          })}
+          {/* <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>
+          <button onClick={this.wipeForm}>Clear State</button> */}
+        </ul>
+      </div>
     );
   }
 }

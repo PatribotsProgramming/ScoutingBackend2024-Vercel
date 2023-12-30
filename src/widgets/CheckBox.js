@@ -6,14 +6,12 @@ class CheckBox extends React.Component{
     value = this.props.value    
     id = this.props.id
     title = this.props.title
-    classNameDecorator = this.props.decorator
+    decorator = this.props.decorator
 
     render(){
         return (
-            <div className={"widget " + this.classNameDecorator}>
-                <div
-                className={"subtitle" + this.classNameDecorator}
-                >
+            <div className={"widget checkbox-container " + (this.decorator ? this.decorator : "")}>
+                <div className="subtitle">
                     {this.title}
                 </div>
             

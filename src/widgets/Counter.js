@@ -13,20 +13,17 @@ class Counter extends React.Component{
     increment = this.props.increment !== undefined ? this.props.increment : 1;
     maxValue = this.props.maxValue !== undefined ? this.props.maxValue : 100;
     minValue = this.props.minValue !== undefined ? this.props.minValue : -100;
+    resetToValue = this.props.resetToValue !== undefined ? this.props.resetToValue : 0;
 
     render(){
 
         return (
-                <div className={"widget " + this.classNameDecorator}>
+                <div className={"widget counter-container " + (this.decorator ? this.decorator : "")}>
 
-                    <div className="counterTitle">
+                    <div className="subtitle">
                         {this.title}
                     </div>
 
-                    <div className="value" id={this.props.id}>
-                            {this.props.value}
-                        </div> 
-                    
                     <div className="btn-container">
                         
                         <button
@@ -35,11 +32,8 @@ class Counter extends React.Component{
                             <img
                                 src = {minus}
                                 alt = {notFound}
-                                className="btn-ico-down"
-                            />
+                                className="btn-ico-down"/>
                         </button>
-                        
-                           
 
                         <button
                             className={"btn ubtn"}
@@ -48,11 +42,14 @@ class Counter extends React.Component{
                             <img
                                 src = {plus}
                                 alt = {notFound}
-                                className="btn-ico-up"
-                                
-                            />
+                                className="btn-ico-up"/>
                         </button>
                     </div>
+
+                    <div className="counter-value" id={this.props.id}>
+                        {this.props.value}
+                    </div> 
+                    
                     
                 </div>
         )

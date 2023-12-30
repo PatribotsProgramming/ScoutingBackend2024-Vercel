@@ -9,22 +9,22 @@ class TextBoxLong extends React.Component{
 
     render(){
         return (
-            <span className={"widget " + this.classNameDecorator}>
-                <div className={"textTitle " + this.classNameDecorator}>
+            <div className={"widget textboxLong-container " + (this.decorator ? this.decorator : "")}>
+                <div className="subtitle">
                     {this.title}
                 </div>
             
                 <textarea
                     id={this.id}
                     type="text"
-                    className="text-box widget"
+                    className="textbox widget"
                     onChange={e => {
                         console.log(this.props)
                         this.props.changeHandler(this.id, e.target.value)
                     }}
                 />
 
-            </span>
+            </div>
         )
     }
 }

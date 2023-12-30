@@ -5,26 +5,25 @@ class TextBox extends React.Component{
 
     title = this.props.title
     id = this.props.id
-    classNameDecorator = this.props.decorator
+    decorator = this.props.decorator
 
     render(){
         return (
-            <span className={"widget " + this.classNameDecorator}>
-                <div className={"textTitle " + this.classNameDecorator}>
+            <div className={"widget textbox-container " + (this.decorator ? this.decorator : "")}>
+                <div className="subtitle">
                     {this.title}
                 </div>
             
                 <input
                     id={this.id}
                     type="text"
-                    className="text-box widget"
+                    className="textbox"
                     onChange={e => {
-                        console.log(this.props)
                         this.props.changeHandler(this.id, e.target.value)
                     }}
                 />
 
-            </span>
+            </div>
         )
     }
 }
