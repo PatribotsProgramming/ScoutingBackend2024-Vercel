@@ -64,6 +64,11 @@ const layout =
     "decorator": "title"
   },
   {
+    "type": "label",
+    "value": "This is an example scouting form",
+    "decorator": "label"
+  },
+  {
     "title": "Name",
     "type": "textbox",
     "value": "",
@@ -213,6 +218,10 @@ class Container extends React.Component{
     this.setState({
       interactables: this.state.interactables.map((item) => {
           if (item.id === id) {
+            if (limiter === undefined) {
+              item.value = item.resetToValue
+              return item
+            }
             item.value += value
             if (value > 0 && item.value > limiter) {
               item.value -= value
@@ -302,7 +311,7 @@ class Container extends React.Component{
               case "header":
                 return <h1          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h1>
               case "label":
-                return <span        id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</span>
+                return <h3        id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h3>
               case "checkbox":
                 return <CheckBox    id={layout[item].id} title={layout[item].title} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
               case "textbox":

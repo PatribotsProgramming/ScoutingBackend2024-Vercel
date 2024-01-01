@@ -24,31 +24,26 @@ class Counter extends React.Component{
                         {this.title}
                     </div>
 
+                    <div className="counter-value" id={this.props.id} onDoubleClick={() => this.props.changeHandler(this.id, 100)}>
+                        {this.props.value}
+                    </div> 
+
                     <div className="btn-container">
                         
                         <button
                             className="btn dbtn"
                             onClick={() => this.props.changeHandler(this.id, -this.increment, this.minValue)}>
-                            <img
-                                src = {minus}
-                                alt = {notFound}
-                                className="btn-ico-down"/>
+                            -
                         </button>
 
                         <button
                             className={"btn ubtn"}
                             onClick={() => this.props.changeHandler(this.id, this.increment, this.maxValue)}
                             src={plus}>
-                            <img
-                                src = {plus}
-                                alt = {notFound}
-                                className="btn-ico-up"/>
+                            +
                         </button>
                     </div>
 
-                    <div className="counter-value" id={this.props.id}>
-                        {this.props.value}
-                    </div> 
                     
                     
                 </div>
