@@ -23,7 +23,7 @@ Type Scale - 1.333 Perfect Fourth
 /* Container.css */
 
 body {
-    font-family: 'VazirMatn', sans-serif; /* Use your custom font family */
+    font-family: 'Oswald', Oswald; /* Use your custom font family */
     background-color: #0e0905;
 }
 
@@ -57,6 +57,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-top: 1px solid var(--text-color);
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 50%;
+}
+
+.widget:hover {
+    transition-property: width;
+    transition-duration: 0.25s;
+    width: 50%;
 }
 
 h1 {
@@ -68,21 +79,6 @@ h3 {
     font: 'VazirMatn', sans-serif;
     font-size: 1.333rem;
     font-weight: normal;
-}
-
-.widget {
-    border-top: 1px solid var(--text-color);
-    border-bottom: 1px solid var(--text-color);
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    width: 50%;
-}
-
-.widget:hover {
-    transition-property: width;
-    transition-duration: 0.5s;
-    width: 60%;
 }
 
 .textbox {
@@ -110,6 +106,7 @@ h3 {
     border-radius: 5px;
     margin: 0.5rem;
     font-size: 2rem;
+    font-family: 'Oswald', sans-serif;
     cursor: pointer;
     width: 3rem
 }
@@ -180,6 +177,7 @@ h3 {
     padding-right: 1rem;
     margin: 0.5rem;
     font-size: 2rem;
+    font-family: 'Oswald', 'sans-serif';
     cursor: pointer;
 }
 
