@@ -15,9 +15,10 @@ Type Scale - 1.333 Perfect Fourth
 :root {
     --text-color: #F4EADF;
     --background-color: #0e0905;
+    --lighter-background-color: #ffffff2f;
     --primary-color: #debf9a;
     --secondary-color: #3a7326;
-    --accent-color: #4bc35f;
+    --accent-color: #4bc35f25;
 }
 
 /* Container.css */
@@ -54,10 +55,12 @@ body {
 
 .widget {
     display: flex;
+    justify-items: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-top: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--text-color);
     padding: 1rem;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -65,9 +68,17 @@ body {
 }
 
 .widget:hover {
-    transition-property: width;
+    transition-property: width, border-radius, background-color;
     transition-duration: 0.25s;
-    width: 50%;
+    width: 60%;
+    background-color: var(--accent-color);
+    border-radius: 10px;
+    
+}
+
+.widget:not(:hover) {
+    transition-property: width, border-radius,background-color;
+    transition-duration: 0.25s;
 }
 
 h1 {
@@ -109,11 +120,6 @@ h3 {
     font-family: 'Oswald', sans-serif;
     cursor: pointer;
     width: 3rem
-}
-
-.btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--background-color);
 }
 
 .btn:active {
@@ -181,9 +187,21 @@ h3 {
     cursor: pointer;
 }
 
-.submit:hover {
+button:hover {
     background-color: var(--secondary-color);
     color: var(--background-color);
+}
+
+button:hover {
+    transition-property: background-color, color;
+    transition-duration: 0.25s;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+}
+
+.submit:not(:hover) {
+    transition-property: background-color, color;
+    transition-duration: 0.25s;
 }
 
 .submit:active {
