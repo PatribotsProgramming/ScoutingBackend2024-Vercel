@@ -24,6 +24,7 @@ class Dropdown extends React.Component{
                     onChange = {(e) => this.props.changeHandler(this.id, e.target.value)}
                     id = {this.id}
                     value = {this.props.value}
+                    
                 >
                     {this.items.map(item => {
                         return (
