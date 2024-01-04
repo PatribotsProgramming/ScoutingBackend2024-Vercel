@@ -6,6 +6,7 @@ class TextBox extends React.Component{
     title = this.props.title
     id = this.props.id
     decorator = this.props.decorator
+    value = this.props.value
 
     render(){
         return (
@@ -21,6 +22,7 @@ class TextBox extends React.Component{
                     onChange={e => {
                         this.props.changeHandler(this.id, e.target.value)
                     }}
+                    value={this.value}
                 />
 
             </div>

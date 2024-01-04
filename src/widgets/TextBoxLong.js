@@ -6,6 +6,7 @@ class TextBoxLong extends React.Component{
     title = this.props.title
     id = this.props.id
     classNameDecorator = this.props.decorator
+    value = this.props.value
 
     render(){
         return (
@@ -22,6 +23,7 @@ class TextBoxLong extends React.Component{
                         console.log(this.props)
                         this.props.changeHandler(this.id, e.target.value)
                     }}
+                    value={this.value}
                 />
 
             </div>
