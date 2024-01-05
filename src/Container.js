@@ -401,8 +401,6 @@ Also, feel free to make a pull request if you have any ideas for improvements or
             }
           })}
           
-          <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>
-          <button onClick={this.wipeForm}>Clear State</button>
           <img src={logo} alt="Patribots Logo" style={{height:0,width:0}} onClick={this.logoClick}/>
         </ul>
       </div>
