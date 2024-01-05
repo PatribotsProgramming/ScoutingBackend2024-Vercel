@@ -27,14 +27,21 @@ class Dropdown extends React.Component{
                     
                 >
                     {this.items.map(item => {
-                        return (
-                        <option 
-                            key={item.id} 
-                            value={item.title}
-                        >
-                            {item.title}
-                        </option>
-                        );
+                        try {
+                            return (
+                            <option 
+                                key={item.id} 
+                                value={item.title}
+                            >
+                                {item.title}
+                            </option>
+                            );
+                        }
+                        catch(err){
+                            alert("Error: " + err);
+                            console.log(err);
+                            return null;
+                        }
                     })}
                 </select>
 

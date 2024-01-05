@@ -21,6 +21,7 @@ import Dropdown from './widgets/Dropdown';
 import layout from './layout.json'
 import {firebaseConfig, sortMetrics, renderRequiredStars} from './Config.js'
 
+import logo from './images/patribotsLogo.png';
 
 import {v4 as uuidv4} from "uuid"
 import React from 'react';
@@ -350,9 +351,28 @@ class Container extends React.Component{
     return this.state.interactables.filter((item) => (item.id === id))[0]
   }
 
+  logoClick = () => {
+    this.setState({
+      clicks: (this.state.clicks === undefined ? 1 : this.state.clicks) + 1
+    })
+    if (this.state.clicks > 1) {
+      alert("You have clicked the logo " + this.state.clicks + " times. You have no life.")
+      console.log(
+`%cThis scouting application was made by Adam Webb, an alumni of FRC Team 4738, the Patribots. 
+This application is open source and can be found at https://github.com/Faraday-dot-py/Simple-ASF
+I hope you enjoy using this application as much as I enjoyed making it, and good luck to you in your competition!
+
+PS. If you're reading this, you either really have no life or you are a developer (same thing either way). 
+If you are a developer, please consider contributing to this project. I would love to see this project grow and become a useful tool for scouting teams around the world. 
+If you are a user, please consider sharing this application with other teams. 
+Also, feel free to make a pull request if you have any ideas for improvements or new features. Thanks!`, "font-weight: bold")
+    }
+  }
+
   render () {
     return (
       <div className="app">
+        <image src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR71FESRUZEUb2_52JI8EZhNkaQ3fn0p1vFU8UANUePHUI2qQbzsFqS12lnWCv1Fj6S87k&usqp=CAU"}></image>
         <ul className="outer-container">
           {Object.keys(layout).map((item) => {   
             if (isInteractable(layout[item].type)) {
@@ -380,8 +400,10 @@ class Container extends React.Component{
                 return <div>error: undefined widget type [{layout[item.type]}]</div>
             }
           })}
-          {/* <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>
-          <button onClick={this.wipeForm}>Clear State</button> */}
+          
+          <button onClick={() => {console.log(this.state.interactables)}}>Log State</button>
+          <button onClick={this.wipeForm}>Clear State</button>
+          <img src={logo} alt="Patribots Logo" style={{height:0,width:0}} onClick={this.logoClick}/>
         </ul>
       </div>
     );

@@ -12,6 +12,7 @@ Body - Vazirmatn
 Type Scale - 1.333 Perfect Fourth
 */
 
+
 :root {
     --text-color: #F4EADF;
     --background-color: #0e0905;
@@ -21,18 +22,10 @@ Type Scale - 1.333 Perfect Fourth
     --accent-color: #7e7e7e25;
 }
 
-/* Container.css */
 
 body {
-    font-family: 'Oswald', Oswald; /* Use your custom font family */
+    font-family: 'Oswald', Oswald;
     background-color: #0e0905;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .app {
@@ -41,6 +34,8 @@ body {
     justify-content: center;
     align-items: center;
     color: #F4EADF;
+    max-width: 50%;
+    margin: auto;
 }
 
 .outer-container {
@@ -75,7 +70,7 @@ body {
 }
 
 .widget:not(:hover) {
-    border-radius: 0; /* Reset border-radius when not hovered */
+    border-radius: 0;
 }
 
 h1 {
@@ -161,7 +156,6 @@ h3 {
     padding-right: 1rem;
     margin: 0.5rem;
     font-size: 2rem;
-    font-family: 'Oswald', 'sans-serif';
     cursor: pointer;
 }
 
@@ -176,8 +170,8 @@ button {
     border-radius: 5px;
     margin: 0.5rem;
     font-size: 2rem;
-    font-family: 'Oswald', sans-serif;
     cursor: pointer;
+    font-family: 'Oswald', 'sans-serif';
     
 }
 
@@ -199,4 +193,3 @@ button:active {
     background-color: var(--secondary-color);
     color: var(--text-color);
 }
-
