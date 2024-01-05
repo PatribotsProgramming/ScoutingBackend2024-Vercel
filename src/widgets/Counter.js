@@ -34,8 +34,7 @@ class Counter extends React.Component{
 
                         <button
                             className={"btn ubtn"}
-                            onClick={() => this.props.changeHandler(this.id, this.increment, this.maxValue)}
-                            src={plus}>
+                            onClick={() => this.props.changeHandler(this.id, this.increment, this.maxValue)}>
                             +
                         </button>
                     </div>
