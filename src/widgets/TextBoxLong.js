@@ -20,10 +20,9 @@ class TextBoxLong extends React.Component{
                     type="text"
                     className="textbox"
                     onChange={e => {
-                        console.log(this.props)
                         this.props.changeHandler(this.id, e.target.value)
                     }}
-                    value={this.value}
+                    value={this.props.value}
                 />
 
             </div>

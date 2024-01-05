@@ -15,7 +15,7 @@ Type Scale - 1.333 Perfect Fourth
 :root {
     --text-color: #F4EADF;
     --background-color: #0e0905;
-    --lighter-background-color: #1b1b1b2f;
+    --lighter-background-color: #2727273c;
     --primary-color: #debf9a;
     --secondary-color: #dec09ae0;
     --accent-color: #7e7e7e25;
@@ -65,25 +65,23 @@ body {
     padding-left: 2rem;
     padding-right: 2rem;
     width: 50%;
+    transition: width 0.25s, background-color 0.25s ease, border-radius 0.25s ease;
 }
 
 .widget:hover {
-    transition-property: width, border-radius, background-color;
-    transition-duration: 0.25s;
     width: 60%;
     background-color: var(--lighter-background-color);
     border-radius: 10px;
-    
 }
 
 .widget:not(:hover) {
-    transition-property: width, border-radius,background-color;
-    transition-duration: 0.25s;
+    border-radius: 0; /* Reset border-radius when not hovered */
 }
 
 h1 {
     font: 'VazirMatn', sans-serif;
     font-size: 3rem;
+    color: var(--primary-color);
 }
 
 h3 {
@@ -93,11 +91,14 @@ h3 {
 }
 
 .textbox {
+    width: 12rem;
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 1rem;
     border-radius: 5px;
     border: 1px solid #ddd;
+    font: 'VazirMatn', sans-serif;
+    text-align: center;
 }
 
 .subtitle {
@@ -113,8 +114,8 @@ h3 {
 }
 
 .checkbox {
-    width: 2rem;
-    height: 2rem;
+    width: 2.1rem;
+    height: 2.1rem;
     background-color: white;
     border-radius: 50%;
     vertical-align: middle;
@@ -124,6 +125,8 @@ h3 {
     outline: none;
     cursor: pointer;
 }
+
+
 
 .checkbox:checked {
     background-color: var(--primary-color);

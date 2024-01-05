@@ -22,7 +22,7 @@ class TextBox extends React.Component{
                     onChange={e => {
                         this.props.changeHandler(this.id, e.target.value)
                     }}
-                    value={this.value}
+                    value={this.props.value}
                 />
 
             </div>
