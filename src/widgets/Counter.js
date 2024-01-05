@@ -1,8 +1,4 @@
 import React from "react";
-import plus from "C:/Users/adame/Documents/Programming/Robotics/Simple-ASF/src/images/plus.png"
-import minus from "C:/Users/adame/Documents/Programming/Robotics/Simple-ASF/src/images/minus.png"
-import notFound from "C:/Users/adame/Documents/Programming/Robotics/Simple-ASF/src/images/notFound.png"
-
 
 class Counter extends React.Component{
 
