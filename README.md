@@ -179,3 +179,6 @@ Click the "Deploy" button at the bottom<br />
 After waiting about a minute, your app should be deployed! <br />
 Navigate to the URL that Vercel gives you to see your app in action. <br />
 And verify that it works by submitting a form and looking at the [Firebase database](https://console.firebase.google.com). <br />
+<br/>
+The nice thing about vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
+So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. <br />
