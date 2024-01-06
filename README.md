@@ -1,18 +1,24 @@
-<h1>Setup</h1>
+# Setup
 
-<h2> Requirements </h2>
+## Requirements 
 
 -  Code Editor (Github Codespaces are nice, which are free for students)
 -  Npm (Pre-insalled on all Github Codespaces)
 -  Firebase Account
-- - -
+-  Vercel Account
 ## Firebase Setup:
-[Follow these instructions to step two to setup your firebase realtime database](https://firebase.google.com/docs/web/setup)
-Notes:
+[Follow these instructions setup your firebase realtime database](https://firebase.google.com/docs/web/setup)*
+
+***IMPORTANT: Only do steps 1-2 and make sure to read the notes below!!!**
+
+**Notes:**
 - Make sure that you keep Google Analytics enabled when prompted
 - Use "Default account for firebase" when promted for the google analytics account
-
-Grab the **Firebase project configuration** code snippet and edit it so that it looks like this:
+- When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
+  - The ``.env`` file is located in the root directory of the project
+  - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
+  - You won't need any of the other code that is shown, just the variable values
+<br/>
 ```
 REACT_APP_API_KEY = [API_KEY]
 REACT_APP_AUTH_DOMAIN = [AUTH_DOMAIN]
@@ -22,6 +28,18 @@ REACT_APP_MESSAGING_SENDER_ID = [MESSAGING_SENDER_ID]
 REACT_APP_APP_ID = [APP_ID]
 REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
 ```
+
+In the end, your .env file should look something like this:
+```
+REACT_APP_API_KEY = 1234567890
+REACT_APP_AUTH_DOMAIN = 1234567890
+REACT_APP_PROJECT_ID = 1234567890
+REACT_APP_STORAGE_BUCKET = 1234567890
+REACT_APP_MESSAGING_SENDER_ID = 1234567890
+REACT_APP_APP_ID = 1234567890
+REACT_APP_MEASUREMENT_ID = 1234567890
+```
+
 Paste the edited Firebase project config into the ``.env`` file in the root directory of the project.
 
 Navigate to your firebase console and click on the build dropdown, and click on ``Realtime Database``<br />
@@ -37,33 +55,25 @@ Finally, go to the tab that says ``Rules`` and replace the code with the followi
 }
 ```
 Press ``Publish`` and you're done with Firebase setup!
-- - -
 
-<h2> Installing Dependencies </h2>
+## Installing Dependencies 
 
-Installing dependencies is done with ``npm install [package name]``
-Here are the dependencies that you will need to install:
-- firebase
-- react
-- uuidv4
+In your terminal, run ``npm install`` in the root directory of the project. <br />
 
-- - -
 
-<h2> Building a Scouting App </h2>
+## Building a Scouting App 
 Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  <br />
-You can use this as a template for your own scouting app.<br />
 
 **You can get a copy of this repository by running ``git clone https://github.com/Faraday-dot-py/Simple-ASF.git`` in your terminal**
 <br />
-<br />
 
-<h3> Seeing your app for the first time </h3>
-This one is pretty simple. <br />
-In your terminal, run ``npm start`` in the root directory of the project. <br />
-A new tab should open in your browser with the example app. <br />
-You won't be using this, so you can delete it :)
+### Seeing your app for the first time 
 
-<h3> All the widgets you need </h3>
+This one is pretty simple. <br/>
+In your terminal, run ``npm start`` in the root directory of the project.<br/>
+A new tab should open in your browser with the example app. You won't be using this, so you can delete it :)
+
+### All the widgets you need 
 
 A **widget** is a component that renders a specific part of the app. <br />
 There are many widgets that you can use to build your app,
@@ -147,10 +157,12 @@ Finally, any input can have a ``value`` prop, which is the initial value of the 
 
 <br/>
 <br/>
+
 These widgets should be put into the ``/src/layout.json`` file as an array of dictionaries. <br />
 An example form for the 2023 season is included in the repository when it is first cloned.
 
-<h3> Additional Configuration </h3>
+## Additional Configuration 
+
 In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. <br />
 The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the firebase database URL. <br />
 The second is the ``/src/.env`` file. This file contains the configuration for the firebase database, which you should have already set up. <br />
@@ -164,14 +176,14 @@ The `sortMetrics` parameter is an array of strings that determines how the datab
 
 The `renderRequiredStars` parameter is a boolean that controls whether asterisks are appended to the end of any field that is marked as required. When set to `true`, the application will visually indicate required fields by adding an asterisk to their labels. In the example configuration, `renderRequiredStars` is set to `true`, enabling this feature.
 
-## Usage in Configuration Files
+### Usage in Configuration Files
 
 When editing the ``/src/config.json`` file, stay above the line, you only need to edit the ``sortMetrics`` and ``renderRequiredStars`` parameters. <br /><br />
 You can also change the title of the app by going to the ``package.json`` file and changing the ``name`` parameter. <br /><br />
 The final thing that you may want to edit is the ``/src/App.css`` file. This file contains the CSS for the app, and you can edit it to change the look of your app. <br />
 There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. <br />
 
-<h2> Deploying your app </h2>
+## Deploying your app 
 Once you have finished editing your app, you can deploy it to the web. <br />
 Vercel makes this super simple, all you have to do is:
 1. Create a Vercel account
@@ -180,22 +192,25 @@ Navigate to [vercel.com](https://vercel.com) and create an account. <br />
 2. Link your repo
 Once you have created an account, click the "Add New" > "Project" button in the top right corner. <br />
 
-Follow the prompts to link the proper Github repository. <br />
+    1. Follow the prompts to link the proper Github repository. <br />
 
-Rename the project to whatever you want. <br />
+    2. Rename the project to whatever you want. <br />
 
-3. Add environment variables
-Open the "Environment Variables" dropdown in the project settings. <br />
-Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables <br />
-If this doesn't work for some reason, you can manually add each environment variable. <br />
-**Note: Make sure that all spelling and capitalization is correct, otherwise your app will not work.** (Copy paste what you can)<br />
+    3. Add environment variables
+    Open the "Environment Variables" dropdown in the project settings. <br />
+    Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables <br />
+    If this doesn't work for some reason, you can manually add each environment variable. <br />
+    **Note: Make sure that all spelling and capitalization is correct, otherwise your app will not work.** (Copy paste what you can)<br />
 
 4. Deploy your app
 Click the "Deploy" button at the bottom<br />
 
 After waiting about a minute, your app should be deployed! <br />
 Navigate to the URL that Vercel gives you to see your app in action. <br />
-And verify that it works by submitting a form and looking at the [Firebase database](https://console.firebase.google.com). <br />
-<br/>
+
+Verify that it works by submitting a form and navigating to [Your Firebase Dashboard](https://console.firebase.google.com), selecting your project, and opening the Realtime Database on the left panel  <br />
+In there should be the data that you just submitted. <br />
+
+
 The nice thing about vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
 So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. <br />
