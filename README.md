@@ -8,6 +8,9 @@
 - - -
 ## Firebase Setup:
 [Follow these instructions to step two to setup your firebase realtime database](https://firebase.google.com/docs/web/setup)
+Notes:
+- Make sure that you keep Google Analytics enabled when prompted
+- Use "Default account for firebase" when promted for the google analytics account
 
 Grab the **Firebase project configuration** code snippet and edit it so that it looks like this:
 ```
@@ -20,6 +23,20 @@ REACT_APP_APP_ID = [APP_ID]
 REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
 ```
 Paste the edited Firebase project config into the ```.env``` file in the root directory of the project.
+
+Navigate to your firebase console and click on the build dropdown, and click on ```Realtime Database```<br />
+Click on ```Create Database```, click ```Next```, select ```Start in test mode```, and select "Enable"<br />
+Save the URL of the page you're currently on, this is where you will be able to view your database<br />
+Finally, go to the tab that says ```Rules``` and replace the code with the following:
+```
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
+Press ```Publish``` and you're done with Firebase setup!
 - - -
 
 <h2> Installing Dependencies </h2>
