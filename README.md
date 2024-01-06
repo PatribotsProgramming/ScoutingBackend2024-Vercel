@@ -22,12 +22,12 @@ REACT_APP_MESSAGING_SENDER_ID = [MESSAGING_SENDER_ID]
 REACT_APP_APP_ID = [APP_ID]
 REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
 ```
-Paste the edited Firebase project config into the ```.env``` file in the root directory of the project.
+Paste the edited Firebase project config into the ``.env`` file in the root directory of the project.
 
-Navigate to your firebase console and click on the build dropdown, and click on ```Realtime Database```<br />
-Click on ```Create Database```, click ```Next```, select ```Start in test mode```, and select "Enable"<br />
+Navigate to your firebase console and click on the build dropdown, and click on ``Realtime Database``<br />
+Click on ``Create Database``, click ``Next``, select ``Start in test mode``, and select "Enable"<br />
 Save the URL of the page you're currently on, this is where you will be able to view your database<br />
-Finally, go to the tab that says ```Rules``` and replace the code with the following:
+Finally, go to the tab that says ``Rules`` and replace the code with the following:
 ```
 {
   "rules": {
@@ -36,12 +36,12 @@ Finally, go to the tab that says ```Rules``` and replace the code with the follo
   }
 }
 ```
-Press ```Publish``` and you're done with Firebase setup!
+Press ``Publish`` and you're done with Firebase setup!
 - - -
 
 <h2> Installing Dependencies </h2>
 
-Installing dependencies is done with ```npm install [package name]```
+Installing dependencies is done with ``npm install [package name]``
 Here are the dependencies that you will need to install:
 - firebase
 - react
@@ -52,14 +52,14 @@ Here are the dependencies that you will need to install:
 <h2> Building a Scouting App </h2>
 Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  <br />
 You can use this as a template for your own scouting app.<br />
-<br/>
-**You can get a copy of this repository by running ```git clone https://github.com/Faraday-dot-py/Simple-ASF.git``` in your terminal**
+
+**You can get a copy of this repository by running ``git clone https://github.com/Faraday-dot-py/Simple-ASF.git`` in your terminal**
 <br />
 <br />
 
 <h3> Seeing your app for the first time </h3>
 This one is pretty simple. <br />
-In your terminal, run ```npm start``` in the root directory of the project. <br />
+In your terminal, run ``npm start`` in the root directory of the project. <br />
 A new tab should open in your browser with the example app. <br />
 You won't be using this, so you can delete it :)
 
@@ -67,12 +67,12 @@ You won't be using this, so you can delete it :)
 
 A **widget** is a component that renders a specific part of the app. <br />
 There are many widgets that you can use to build your app,
-all of which are located in the ```src/widgets``` directory. <br />
+all of which are located in the ``src/widgets`` directory. <br />
 
 All widgets need a certain set of parameters, or props, to work. <br />
-Most are different depending on what widget you are rendering, but all widgets need a ```type``` prop to tell the compiler what you want to render. <br/>
-All widgets also need a ```title``` prop, which is the title of the widget. <br />
-Finally, any input can have a ```value``` prop, which is the initial value of the input when the page first loads **(DIFFERENT THAN THE ```resetToValue```)**. <br />
+Most are different depending on what widget you are rendering, but all widgets need a ``type`` prop to tell the compiler what you want to render. <br/>
+All widgets also need a ``title`` prop, which is the title of the widget. <br />
+Finally, any input can have a ``value`` prop, which is the initial value of the input when the page first loads **(DIFFERENT THAN THE ``resetToValue``)**. <br />
 ### 1. Header
 
 - **Widget Type**: `header`
@@ -147,13 +147,13 @@ Finally, any input can have a ```value``` prop, which is the initial value of th
 
 <br/>
 <br/>
-These widgets should be put into the ```/src/layout.json``` file as an array of dictionaries. <br />
+These widgets should be put into the ``/src/layout.json`` file as an array of dictionaries. <br />
 An example form for the 2023 season is included in the repository when it is first cloned.
 
 <h3> Additional Configuration </h3>
-In addition to the ```/src/layout.json``` file, there are two other files that you will need to edit to get your app working. <br />
-The first is the ```/src/config.json``` file. This file contains the configuration for the app, such as the title and the firebase database URL. <br />
-The second is the ```/src/.env``` file. This file contains the configuration for the firebase database, which you should have already set up. <br />
+In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. <br />
+The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the firebase database URL. <br />
+The second is the ``/src/.env`` file. This file contains the configuration for the firebase database, which you should have already set up. <br />
 
 
 ### `sortMetrics` Parameter
@@ -166,9 +166,9 @@ The `renderRequiredStars` parameter is a boolean that controls whether asterisks
 
 ## Usage in Configuration Files
 
-When editing the ```/src/config.json``` file, stay above the line, you only need to edit the ```sortMetrics``` and ```renderRequiredStars``` parameters. <br /><br />
-You can also change the title of the app by going to the ```package.json``` file and changing the ```name``` parameter. <br /><br />
-The final thing that you may want to edit is the ```/src/App.css``` file. This file contains the CSS for the app, and you can edit it to change the look of your app. <br />
+When editing the ``/src/config.json`` file, stay above the line, you only need to edit the ``sortMetrics`` and ``renderRequiredStars`` parameters. <br /><br />
+You can also change the title of the app by going to the ``package.json`` file and changing the ``name`` parameter. <br /><br />
+The final thing that you may want to edit is the ``/src/App.css`` file. This file contains the CSS for the app, and you can edit it to change the look of your app. <br />
 There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. <br />
 
 <h2> Deploying your app </h2>
@@ -186,7 +186,7 @@ Rename the project to whatever you want. <br />
 
 3. Add environment variables
 Open the "Environment Variables" dropdown in the project settings. <br />
-Copy the entirety of your ```.env``` file into the ```key``` field, and it should auto-populate with all of your environment variables <br />
+Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables <br />
 If this doesn't work for some reason, you can manually add each environment variable. <br />
 **Note: Make sure that all spelling and capitalization is correct, otherwise your app will not work.** (Copy paste what you can)<br />
 
