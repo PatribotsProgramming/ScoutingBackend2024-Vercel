@@ -13,12 +13,12 @@ Meaning, you can use this framework to create a scouting app for the 2030 season
 
 ## Requirements 
 
--  Code Editor (Github Codespaces are nice, and are free for students)
--  Npm (Pre-installed on all Github Codespaces)
+-  Code Editor
+-  Npm
 -  Firebase Account
 -  Vercel Account
 ## Firebase Setup:
-[Follow these instructions setup your firebase realtime database](https://firebase.google.com/docs/web/setup)*
+[Follow these instructions set up your Firebase realtime database](https://firebase.google.com/docs/web/setup)*
 
 ***IMPORTANT: Only do steps 1-2 and make sure to read the notes below!!!**
 
