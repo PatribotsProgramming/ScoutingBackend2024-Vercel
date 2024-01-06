@@ -79,6 +79,7 @@ h1 {
     font-size: 3rem;
     color: var(--primary-color);
     border: none !important;
+    width: 100% !important;
 }
 
 h3 {
