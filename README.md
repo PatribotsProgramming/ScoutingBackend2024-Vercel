@@ -30,6 +30,7 @@ Meaning, you can use this framework to create a scouting app for the 2030 season
   - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
   - You won't need any of the other code that is shown, just the variable values
 <br/>
+
 ```
 REACT_APP_API_KEY = [API_KEY]
 REACT_APP_AUTH_DOMAIN = [AUTH_DOMAIN]
