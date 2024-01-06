@@ -285,9 +285,9 @@ Also, feel free to make a pull request if you have any ideas for improvements or
             }
             switch (layout[item].type) {
               case "header":
-                return <h1          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h1>
+                return <h1          id={layout[item].id} className={"widget header " + layout[item].decorator}>{layout[item].value}</h1>
               case "label":
-                return <h3          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h3>
+                return <h3          id={layout[item].id} className={"widget label " + layout[item].decorator}>{layout[item].value}</h3>
               case "checkbox":
                 return <CheckBox    id={layout[item].id} title={layout[item].title + (renderRequiredStars ? (layout[item].required ? " *" : "") : "")} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
               case "textbox":

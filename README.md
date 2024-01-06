@@ -1,3 +1,13 @@
+# Simple Alliance Scouting Framework
+The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition. <br />
+It is built using React, and is designed to be easy to use for people with little to no coding experience. <br />
+It is also designed to be easily customizable, so that you can make your app look however you want. <br />
+<br/>
+One of the main strenths of this framework is that it can be used to create a scouting app for any game, not just the current one. <br />
+Meaning, you can use this framework to create a scouting app for the 2030 season, even though we have no idea what it will entail. (shout out to my friends in 2030)
+
+
+
 # Setup
 
 ## Requirements 
@@ -13,7 +23,7 @@
 
 **Notes:**
 - Make sure that you keep Google Analytics enabled when prompted
-- Use "Default account for firebase" when promted for the google analytics account
+- Use "Default account for firebase" when prompted for the google analytics account
 - When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
   - The ``.env`` file is located in the root directory of the project
   - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
@@ -30,6 +40,7 @@ REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
 ```
 
 In the end, your .env file should look something like this:
+
 ```
 REACT_APP_API_KEY = 1234567890
 REACT_APP_AUTH_DOMAIN = 1234567890
