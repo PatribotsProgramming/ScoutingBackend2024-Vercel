@@ -1,19 +1,20 @@
 # Simple Alliance Scouting Framework
 The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition. <br />
 It is built using React, and is designed to be easy to use for people with little to no coding experience. <br />
-It is also designed to be easily customizable, so that you can make your app look however you want. <br />
+It is also designed to be easily customizable so you can make your app look however you want. <br />
 <br/>
-One of the main strenths of this framework is that it can be used to create a scouting app for any game, not just the current one. <br />
+One of the main strengths of this framework is that it can be used to create a scouting app for any game, not just the current one. <br />
 Meaning, you can use this framework to create a scouting app for the 2030 season, even though we have no idea what it will entail. (shout out to my friends in 2030)
 
+[Example form for 2023](https://simple-asf.vercel.app/)
 
 
 # Setup
 
 ## Requirements 
 
--  Code Editor (Github Codespaces are nice, which are free for students)
--  Npm (Pre-insalled on all Github Codespaces)
+-  Code Editor (Github Codespaces are nice, and are free for students)
+-  Npm (Pre-installed on all Github Codespaces)
 -  Firebase Account
 -  Vercel Account
 ## Firebase Setup:
@@ -23,7 +24,7 @@ Meaning, you can use this framework to create a scouting app for the 2030 season
 
 **Notes:**
 - Make sure that you keep Google Analytics enabled when prompted
-- Use "Default account for firebase" when prompted for the google analytics account
+- Use "Default account for firebase" when prompted for the Google Analytics account
 - When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
   - The ``.env`` file is located in the root directory of the project
   - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
@@ -53,7 +54,7 @@ REACT_APP_MEASUREMENT_ID = 1234567890
 
 Paste the edited Firebase project config into the ``.env`` file in the root directory of the project.
 
-Navigate to your firebase console and click on the build dropdown, and click on ``Realtime Database``<br />
+Navigate to your Firebase console and click on the build dropdown, and click on ``Realtime Database``<br />
 Click on ``Create Database``, click ``Next``, select ``Start in test mode``, and select "Enable"<br />
 Save the URL of the page you're currently on, this is where you will be able to view your database<br />
 Finally, go to the tab that says ``Rules`` and replace the code with the following:
@@ -65,7 +66,7 @@ Finally, go to the tab that says ``Rules`` and replace the code with the followi
   }
 }
 ```
-Press ``Publish`` and you're done with Firebase setup!
+Press ``Publish`` and you're done with the Firebase setup!
 
 ## Installing Dependencies 
 
@@ -175,8 +176,8 @@ An example form for the 2023 season is included in the repository when it is fir
 ## Additional Configuration 
 
 In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. <br />
-The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the firebase database URL. <br />
-The second is the ``/src/.env`` file. This file contains the configuration for the firebase database, which you should have already set up. <br />
+The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the Firebase database URL. <br />
+The second is the ``/src/.env`` file. This file contains the configuration for the Firebase database, which you should have already set up. <br />
 
 
 ### `sortMetrics` Parameter
@@ -203,7 +204,7 @@ Navigate to [vercel.com](https://vercel.com) and create an account. <br />
 2. Link your repo
 Once you have created an account, click the "Add New" > "Project" button in the top right corner. <br />
 
-    1. Follow the prompts to link the proper Github repository. <br />
+    1. Follow the prompts to link the proper GitHub repository. <br />
 
     2. Rename the project to whatever you want. <br />
 
@@ -211,7 +212,7 @@ Once you have created an account, click the "Add New" > "Project" button in the 
     Open the "Environment Variables" dropdown in the project settings. <br />
     Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables <br />
     If this doesn't work for some reason, you can manually add each environment variable. <br />
-    **Note: Make sure that all spelling and capitalization is correct, otherwise your app will not work.** (Copy paste what you can)<br />
+    **Note: Make sure that all spelling and capitalization are correct, otherwise your app will not work.** (Copy and paste what you can)<br />
 
 4. Deploy your app
 Click the "Deploy" button at the bottom<br />
@@ -223,5 +224,5 @@ Verify that it works by submitting a form and navigating to [Your Firebase Dashb
 In there should be the data that you just submitted. <br />
 
 
-The nice thing about vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
+The nice thing about Vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
 So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. <br />
