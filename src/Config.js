@@ -1,6 +1,6 @@
 
 // ONLY EDIT HERE
-const sortMetrics = ["Match Number", "Name"]
+const sortMetrics = ["Match Number", "Team Number"]
 
 const renderRequiredStars = true;
 

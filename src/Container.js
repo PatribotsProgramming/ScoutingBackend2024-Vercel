@@ -260,7 +260,7 @@ class Container extends React.Component{
     
     let json = {};
     data.forEach((item) => {
-      json[item[0]] = item[1]
+      json[item[0]] = ((item[1] === undefined) ? "" : item[1])
     })
 
     let path = ""
