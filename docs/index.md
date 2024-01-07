@@ -1,16 +1,10 @@
 title: Simple Alliance Scouting Framework
 
-
-The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition. 
-
-It is built using React, and is designed to be easy to use for people with little to no coding experience. 
-
-It is also designed to be easily customizable so you can make your app look however you want. 
-
-
-
-One of the main strengths of this framework is that it can be used to create a scouting app for any game, not just the current one. 
-
+The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition. <br />
+It is built using React, and is designed to be easy to use for people with little to no coding experience. <br />
+It is also designed to be easily customizable so you can make your app look however you want. <br />
+<br/>
+One of the main strengths of this framework is that it can be used to create a scouting app for any game, not just the current one. <br />
 Meaning, you can use this framework to create a scouting app for the 2030 season, even though we have no idea what it will entail. (shout out to my friends in 2030)
 
 [Example form for 2023](https://simple-asf.vercel.app/)
@@ -20,8 +14,8 @@ Meaning, you can use this framework to create a scouting app for the 2030 season
 
 ## Requirements 
 
--  Code Editor
--  Npm
+-  Code Editor (Github Codespaces are nice, and are free for students)
+-  Npm (Pre-installed on all Github Codespaces)
 -  Firebase Account
 -  Vercel Account
 ## Firebase Setup:
@@ -29,16 +23,14 @@ Meaning, you can use this framework to create a scouting app for the 2030 season
 
 ***IMPORTANT: Only do steps 1-2 and make sure to read the notes below!!!**
 
-!!!Note
+!!!Notes
     - Make sure that you keep Google Analytics enabled when prompted
     - Use "Default account for firebase" when prompted for the Google Analytics account
-
-- When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
-  - The ``.env`` file is located in the root directory of the project
-  - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
-  - You won't need any of the other code that is shown, just the variable values
-
-
+    - When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
+      - The ``.env`` file is located in the root directory of the project
+      - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
+      - You won't need any of the other code that is shown, just the variable values
+<br/>
 
 ```
 REACT_APP_API_KEY = [API_KEY]
@@ -62,14 +54,9 @@ REACT_APP_APP_ID = 1234567890
 REACT_APP_MEASUREMENT_ID = 1234567890
 ```
 
-Paste the edited Firebase project config into the ``.env`` file in the root directory of the project.
-
-Navigate to your Firebase console and click on the build dropdown, and click on ``Realtime Database``
-
-Click on ``Create Database``, click ``Next``, select ``Start in test mode``, and select "Enable"
-
-Save the URL of the page you're currently on, this is where you will be able to view your database
-
+Navigate to your Firebase console, click on the build dropdown, and click on ``Realtime Database``<br />
+Click on ``Create Database``, click ``Next``, select ``Start in test mode``, and select "Enable"<br />
+Save the URL of the page you're currently on, this is where you will be able to view your database<br />
 Finally, go to the tab that says ``Rules`` and replace the code with the following:
 ```
 {
@@ -83,42 +70,31 @@ Press ``Publish`` and you're done with the Firebase setup!
 
 ## Installing Dependencies 
 
-In your terminal, run ``npm install`` in the root directory of the project. 
-
+In your terminal, run ``npm install`` in the root directory of the project. <br />
 
 
 ## Building a Scouting App 
-Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  
-
+Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  <br />
 
 **You can get a copy of this repository by running ``git clone https://github.com/Faraday-dot-py/Simple-ASF.git`` in your terminal**
-
-
+<br />
 
 ### Seeing your app for the first time 
 
-This one is pretty simple. 
-
-In your terminal, run ``npm start`` in the root directory of the project.
-
+This one is pretty simple. <br/>
+In your terminal, run ``npm start`` in the root directory of the project.<br/>
 A new tab should open in your browser with the example app. You won't be using this, so you can delete it :)
 
 ### All the widgets you need 
 
-A **widget** is a component that renders a specific part of the app. 
-
+A **widget** is a component that renders a specific part of the app. <br />
 There are many widgets that you can use to build your app,
-all of which are located in the ``src/widgets`` directory. 
+all of which are located in the ``src/widgets`` directory. <br />
 
-
-All widgets need a certain set of parameters, or props, to work. 
-
-Most are different depending on what widget you are rendering, but all widgets need a ``type`` prop to tell the compiler what you want to render. 
-
-All widgets also need a ``title`` prop, which is the title of the widget. 
-
-Finally, any input can have a ``value`` prop, which is the initial value of the input when the page first loads **(DIFFERENT THAN THE ``resetToValue``)**. 
-
+All widgets need a certain set of parameters, or props, to work. <br />
+Most are different depending on what widget you are rendering, but all widgets need a ``type`` prop to tell the compiler what you want to render. <br/>
+All widgets also need a ``title`` prop, which is the title of the widget. <br />
+Finally, any input can have a ``value`` prop, which is the initial value of the input when the page first loads **(DIFFERENT THAN THE ``resetToValue``)**. <br />
 ### 1. Header
 
 - **Widget Type**: `header`
@@ -191,20 +167,17 @@ Finally, any input can have a ``value`` prop, which is the initial value of the 
   - **`title*` (Required)**: The title of the submit button.
   - **`type*` (Required)**: The type of the widget, must be "submit".
 
+<br/>
+<br/>
 
-
-These widgets should be put into the ``/src/layout.json`` file as an array of dictionaries. 
-
+These widgets should be put into the ``/src/layout.json`` file as an array of dictionaries. <br />
 An example form for the 2023 season is included in the repository when it is first cloned.
 
 ## Additional Configuration 
 
-In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. 
-
-The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the Firebase database URL. 
-
-The second is the ``/src/.env`` file. This file contains the configuration for the Firebase database, which you should have already set up. 
-
+In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. <br />
+The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the Firebase database URL. <br />
+The second is the ``/src/.env`` file. This file contains the configuration for the Firebase database, which you should have already set up. <br />
 
 
 ### `sortMetrics` Parameter
@@ -217,61 +190,39 @@ The `renderRequiredStars` parameter is a boolean that controls whether asterisks
 
 ### Usage in Configuration Files
 
-When editing the ``/src/config.json`` file, stay above the line, you only need to edit the ``sortMetrics`` and ``renderRequiredStars`` parameters. 
-
-
-You can also change the title of the app by going to the ``package.json`` file and changing the ``name`` parameter. 
-
-
-The final thing that you may want to edit is the ``/src/App.css`` file. This file contains the CSS for the app, and you can edit it to change the look of your app. 
-
-There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. 
-
+When editing the ``/src/config.json`` file, stay above the line, you only need to edit the ``sortMetrics`` and ``renderRequiredStars`` parameters. <br /><br />
+You can also change the title of the app by going to the ``package.json`` file and changing the ``name`` parameter. <br /><br />
+The final thing that you may want to edit is the ``/src/App.css`` file. This file contains the CSS for the app, and you can edit it to change the look of your app. <br />
+There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. <br />
 
 ## Deploying your app 
-Once you have finished editing your app, you can deploy it to the web. 
-
+Once you have finished editing your app, you can deploy it to the web. <br />
 Vercel makes this super simple, all you have to do is:
 1. Create a Vercel account
-Navigate to [vercel.com](https://vercel.com) and create an account. 
-
+Navigate to [vercel.com](https://vercel.com) and create an account. <br />
 
 2. Link your repo
-Once you have created an account, click the "Add New" > "Project" button in the top right corner. 
+Once you have created an account, click the "Add New" > "Project" button in the top right corner. <br />
 
+    1. Follow the prompts to link the proper GitHub repository. <br />
 
-    1. Follow the prompts to link the proper GitHub repository. 
-
-
-    2. Rename the project to whatever you want. 
-
+    2. Rename the project to whatever you want. <br />
 
     3. Add environment variables
-    Open the "Environment Variables" dropdown in the project settings. 
-
-    Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables 
-
-    If this doesn't work for some reason, you can manually add each environment variable. 
-
-!!!Note
-    Make sure that all spelling and capitalization are correct, otherwise your app will not work. (Copy and paste what you can)
-
+    Open the "Environment Variables" dropdown in the project settings. <br />
+    Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables <br />
+    If this doesn't work for some reason, you can manually add each environment variable. <br />
+    **Note: Make sure that all spelling and capitalization are correct, otherwise your app will not work.** (Copy and paste what you can)<br />
 
 4. Deploy your app
-Click the "Deploy" button at the bottom
+Click the "Deploy" button at the bottom<br />
+
+After waiting about a minute, your app should be deployed! <br />
+Navigate to the URL that Vercel gives you to see your app in action. <br />
+
+Verify that it works by submitting a form and navigating to [Your Firebase Dashboard](https://console.firebase.google.com), selecting your project, and opening the Realtime Database on the left panel  <br />
+In there should be the data that you just submitted. <br />
 
 
-After waiting about a minute, your app should be deployed! 
-
-Navigate to the URL that Vercel gives you to see your app in action. 
-
-
-Verify that it works by submitting a form and navigating to [Your Firebase Dashboard](https://console.firebase.google.com), selecting your project, and opening the Realtime Database on the left panel  
-
-In there should be the data that you just submitted. 
-
-
-
-The nice thing about Vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. 
-
-So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. 
+The nice thing about Vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
+So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. <br />
