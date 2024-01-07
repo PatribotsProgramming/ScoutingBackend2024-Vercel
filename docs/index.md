@@ -1,20 +1,45 @@
+title: Simple Alliance Scouting Framework
+
+
+The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition. 
+
+It is built using React, and is designed to be easy to use for people with little to no coding experience. 
+
+It is also designed to be easily customizable so you can make your app look however you want. 
+
+
+
+One of the main strengths of this framework is that it can be used to create a scouting app for any game, not just the current one. 
+
+Meaning, you can use this framework to create a scouting app for the 2030 season, even though we have no idea what it will entail. (shout out to my friends in 2030)
+
+[Example form for 2023](https://simple-asf.vercel.app/)
+
+
 # Setup
 
-## Requirements
+## Requirements 
 
--  Code Editor (Github Codespaces are nice, which are free for students)
--  Npm (Pre-insalled on all Github Codespaces)
+-  Code Editor
+-  Npm
 -  Firebase Account
-
-- - -
-
+-  Vercel Account
 ## Firebase Setup:
-[Follow these instructions to step two to setup your firebase realtime database](https://firebase.google.com/docs/web/setup)
+[Follow these instructions set up your Firebase realtime database](https://firebase.google.com/docs/web/setup)*
+
+***IMPORTANT: Only do steps 1-2 and make sure to read the notes below!!!**
+
 !!!Note
     - Make sure that you keep Google Analytics enabled when prompted
-    - Use "Default account for firebase" when promted for the google analytics account
+    - Use "Default account for firebase" when prompted for the Google Analytics account
 
-Grab the **Firebase project configuration** code snippet and edit it so that it looks like this:
+- When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the ``.env`` following the format below
+  - The ``.env`` file is located in the root directory of the project
+  - The ``.env`` file is hidden by default, so you may need to enable hidden files to see it
+  - You won't need any of the other code that is shown, just the variable values
+
+
+
 ```
 REACT_APP_API_KEY = [API_KEY]
 REACT_APP_AUTH_DOMAIN = [AUTH_DOMAIN]
@@ -22,11 +47,24 @@ REACT_APP_PROJECT_ID = [PROJECT_ID]
 REACT_APP_STORAGE_BUCKET = [STORAGE_BUCKET]
 REACT_APP_MESSAGING_SENDER_ID = [MESSAGING_SENDER_ID]
 REACT_APP_APP_ID = [APP_ID]
-RconsoleEACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
+REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
 ```
+
+In the end, your .env file should look something like this:
+
+```
+REACT_APP_API_KEY = 1234567890
+REACT_APP_AUTH_DOMAIN = 1234567890
+REACT_APP_PROJECT_ID = 1234567890
+REACT_APP_STORAGE_BUCKET = 1234567890
+REACT_APP_MESSAGING_SENDER_ID = 1234567890
+REACT_APP_APP_ID = 1234567890
+REACT_APP_MEASUREMENT_ID = 1234567890
+```
+
 Paste the edited Firebase project config into the ``.env`` file in the root directory of the project.
 
-Navigate to your firebase console and click on the build dropdown, and click on ``Realtime Database``
+Navigate to your Firebase console and click on the build dropdown, and click on ``Realtime Database``
 
 Click on ``Create Database``, click ``Next``, select ``Start in test mode``, and select "Enable"
 
@@ -41,40 +79,31 @@ Finally, go to the tab that says ``Rules`` and replace the code with the followi
   }
 }
 ```
-Press ``Publish`` and you're done with Firebase setup!
-- - -
+Press ``Publish`` and you're done with the Firebase setup!
 
-## Installing Dependencies
+## Installing Dependencies 
 
-Installing dependencies is done with ``npm install [package name]``
-Here are the dependencies that you will need to install:
-- firebase
-- react
-- uuidv4
-
-- - -
-
-## Building a Scouting App
-Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.
-
-You can use this as a template for your own scouting app.
-
-
-!!!Clone Repo
-    **You can get a copy of this repository by running `git clone https://github.com/Faraday-dot-py/Simple-ASF.git` in your terminal**
+In your terminal, run ``npm install`` in the root directory of the project. 
 
 
 
-### Seeing your app for the first time
+## Building a Scouting App 
+Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  
+
+
+**You can get a copy of this repository by running ``git clone https://github.com/Faraday-dot-py/Simple-ASF.git`` in your terminal**
+
+
+
+### Seeing your app for the first time 
+
 This one is pretty simple. 
 
-In your terminal, run ``npm start`` in the root directory of the project. 
+In your terminal, run ``npm start`` in the root directory of the project.
 
-A new tab should open in your browser with the example app. 
+A new tab should open in your browser with the example app. You won't be using this, so you can delete it :)
 
-You won't be using this, so you can delete it :)
-
-### All the widgets you need
+### All the widgets you need 
 
 A **widget** is a component that renders a specific part of the app. 
 
@@ -90,80 +119,77 @@ All widgets also need a ``title`` prop, which is the title of the widget.
 
 Finally, any input can have a ``value`` prop, which is the initial value of the input when the page first loads **(DIFFERENT THAN THE ``resetToValue``)**. 
 
-#### 1. Header
-!!!Header
-    - **Widget Type**: `header`
-    - **Widget Props**:
-    - **`type*` (Required)**: The type of the widget, must be "header".
-    - **`value*` (Required)**: The text content of the header.
-    - **`decorator`**: A decorator or style identifier for the header (optional).
+### 1. Header
 
-#### 2. Label
-!!!Label
-    - **Widget Type**: `label`
-    - **Widget Props**:
-    - **`type*` (Required)**: The type of the widget, must be "label".
-    - **`value*` (Required)**: The text content of the label.
-    - **`decorator`**: A decorator or style identifier for the label (optional).
+- **Widget Type**: `header`
+- **Widget Props**:
+  - **`type*` (Required)**: The type of the widget, must be "header".
+  - **`value*` (Required)**: The text content of the header.
+  - **`decorator`**: A decorator or style identifier for the header (optional).
 
-#### 3. Textbox
-!!!Textbox
-    - **Widget Type**: `textbox`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the textbox.
-    - **`type*` (Required)**: The type of the widget, must be "textbox".
-    - **`value`**: The initial value of the textbox.
-    - **`required`**: Indicates whether the field is required.
-    - **`resetToValue`**: The value to reset the textbox to.
-    - **`decorator`**: A decorator or style identifier for the textbox (optional).
+### 2. Label
+- **Widget Type**: `label`
+- **Widget Props**:
+  - **`type*` (Required)**: The type of the widget, must be "label".
+  - **`value*` (Required)**: The text content of the label.
+  - **`decorator`**: A decorator or style identifier for the label (optional).
 
-#### 4. Checkbox
-!!!Checkbox
-    - **Widget Type**: `checkbox`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the checkbox.
-    - **`type*` (Required)**: The type of the widget, must be "checkbox".
-    - **`value`**: The initial value of the checkbox.
+### 3. Textbox
 
-#### 5. Counter
-!!!Counter
-    - **Widget Type**: `counter`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the counter.
-    - **`type*` (Required)**: The type of the widget, must be "counter".
-    - **`value`**: The initial value of the counter.
-    - **`increment`**: The value to increment or decrement by.
-    - **`resetToValue`**: The value to reset the counter to.
-    - **`maxValue`**: The maximum allowed value.
-    - **`minValue`**: The minimum allowed value.
+- **Widget Type**: `textbox`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the textbox.
+  - **`type*` (Required)**: The type of the widget, must be "textbox".
+  - **`value`**: The initial value of the textbox.
+  - **`required`**: Indicates whether the field is required.
+  - **`resetToValue`**: The value to reset the textbox to.
+  - **`decorator`**: A decorator or style identifier for the textbox (optional).
 
-#### 6. Textbox Long
-!!!Textbox-Long
-    - **Widget Type**: `textboxlong`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the long textbox.
-    - **`type*` (Required)**: The type of the widget, must be "textboxlong".
-    - **`value`**: The initial value of the long textbox.
-    - **`resetToValue`**: The value to reset the long textbox to.
+### 4. Checkbox
 
-#### 7. Dropdown
-!!!Dropdown
-    - **Widget Type**: `dropdown`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the dropdown.
-    - **`type*` (Required)**: The type of the widget, must be "dropdown".
-    - **`value`**: The initial value of the dropdown.
-    - **`options*` (Required)**: An array of options for the dropdown.
-    - **`resetToValue`**: The value to reset the dropdown to.
+- **Widget Type**: `checkbox`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the checkbox.
+  - **`type*` (Required)**: The type of the widget, must be "checkbox".
+  - **`value`**: The initial value of the checkbox.
 
-#### 8. Submit
-!!!Submit
-    - **Widget Type**: `submit`
-    - **Widget Props**:
-    - **`title*` (Required)**: The title of the submit button.
-    - **`type*` (Required)**: The type of the widget, must be "submit".
+### 5. Counter
 
+- **Widget Type**: `counter`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the counter.
+  - **`type*` (Required)**: The type of the widget, must be "counter".
+  - **`value`**: The initial value of the counter.
+  - **`increment`**: The value to increment or decrement by.
+  - **`resetToValue`**: The value to reset the counter to.
+  - **`maxValue`**: The maximum allowed value.
+  - **`minValue`**: The minimum allowed value.
 
+### 6. Textbox Long
+
+- **Widget Type**: `textboxlong`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the long textbox.
+  - **`type*` (Required)**: The type of the widget, must be "textboxlong".
+  - **`value`**: The initial value of the long textbox.
+  - **`resetToValue`**: The value to reset the long textbox to.
+
+### 7. Dropdown
+
+- **Widget Type**: `dropdown`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the dropdown.
+  - **`type*` (Required)**: The type of the widget, must be "dropdown".
+  - **`value`**: The initial value of the dropdown.
+  - **`options*` (Required)**: An array of options for the dropdown.
+  - **`resetToValue`**: The value to reset the dropdown to.
+
+### 8. Submit
+
+- **Widget Type**: `submit`
+- **Widget Props**:
+  - **`title*` (Required)**: The title of the submit button.
+  - **`type*` (Required)**: The type of the widget, must be "submit".
 
 
 
@@ -171,12 +197,13 @@ These widgets should be put into the ``/src/layout.json`` file as an array of di
 
 An example form for the 2023 season is included in the repository when it is first cloned.
 
-<h3> Additional Configuration </h3>
+## Additional Configuration 
+
 In addition to the ``/src/layout.json`` file, there are two other files that you will need to edit to get your app working. 
 
-The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the firebase database URL. 
+The first is the ``/src/config.json`` file. This file contains the configuration for the app, such as the title and the Firebase database URL. 
 
-The second is the ``/src/.env`` file. This file contains the configuration for the firebase database, which you should have already set up. 
+The second is the ``/src/.env`` file. This file contains the configuration for the Firebase database, which you should have already set up. 
 
 
 
@@ -188,7 +215,7 @@ The `sortMetrics` parameter is an array of strings that determines how the datab
 
 The `renderRequiredStars` parameter is a boolean that controls whether asterisks are appended to the end of any field that is marked as required. When set to `true`, the application will visually indicate required fields by adding an asterisk to their labels. In the example configuration, `renderRequiredStars` is set to `true`, enabling this feature.
 
-## Usage in Configuration Files
+### Usage in Configuration Files
 
 When editing the ``/src/config.json`` file, stay above the line, you only need to edit the ``sortMetrics`` and ``renderRequiredStars`` parameters. 
 
@@ -201,7 +228,7 @@ The final thing that you may want to edit is the ``/src/App.css`` file. This fil
 There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. 
 
 
-## Deploying your app
+## Deploying your app 
 Once you have finished editing your app, you can deploy it to the web. 
 
 Vercel makes this super simple, all you have to do is:
@@ -213,21 +240,21 @@ Navigate to [vercel.com](https://vercel.com) and create an account.
 Once you have created an account, click the "Add New" > "Project" button in the top right corner. 
 
 
-Follow the prompts to link the proper Github repository. 
+    1. Follow the prompts to link the proper GitHub repository. 
 
 
-Rename the project to whatever you want. 
+    2. Rename the project to whatever you want. 
 
 
-3. Add environment variables
-Open the "Environment Variables" dropdown in the project settings. 
+    3. Add environment variables
+    Open the "Environment Variables" dropdown in the project settings. 
 
-Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables 
+    Copy the entirety of your ``.env`` file into the ``key`` field, and it should auto-populate with all of your environment variables 
 
-If this doesn't work for some reason, you can manually add each environment variable. 
+    If this doesn't work for some reason, you can manually add each environment variable. 
 
 !!!Note
-    Make sure that all spelling and capitalization is correct, otherwise your app will not work.** (Copy paste what you can)
+    Make sure that all spelling and capitalization are correct, otherwise your app will not work. (Copy and paste what you can)
 
 
 4. Deploy your app
@@ -238,10 +265,13 @@ After waiting about a minute, your app should be deployed!
 
 Navigate to the URL that Vercel gives you to see your app in action. 
 
-And verify that it works by submitting a form and looking at the [Firebase database](https://console.firebase.google.com). 
+
+Verify that it works by submitting a form and navigating to [Your Firebase Dashboard](https://console.firebase.google.com), selecting your project, and opening the Realtime Database on the left panel  
+
+In there should be the data that you just submitted. 
 
 
 
-The nice thing about vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. 
+The nice thing about Vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. 
 
 So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. 
