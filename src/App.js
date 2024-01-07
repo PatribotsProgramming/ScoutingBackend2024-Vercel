@@ -13,8 +13,34 @@ import Blogs from "./pages/blogs";
 import SignUp from "./pages/signup";
 import Contact from "./pages/contact";
 
+import {firebaseConfig, sortMetrics } from './Config.js'
+import { getDatabase, ref, onValue, set } from "firebase/database";
+import { initializeApp } from "firebase/app";
+
+const db = getDatabase();
+
+const dbRef = ref(db, '/');
+
+Object.keys(layout).forEach((item) => {
+	layout[item].id = uuidv4()
+})
+
 function App() {
+	state = {
+		matchData: undefined
+	};
+
+	onDatabaseUpdate = (snapshot) => {
+		const data = snapshot.val();
+		console.log("Db was updated:", data);
+		this.setState({ matchData: data });
+	};
+
+	
+	onValue(dbRef, this.onDatabaseUpdate);
+
 	return (
+		
 		<Router>
 			<Navbar />
 			<Routes>
