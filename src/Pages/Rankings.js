@@ -1,18 +1,16 @@
 // Filename - component/about.js
 
 import React from "react";
+import Chart from "react-google-charts";
+import PieChart from "../widgets/PieChart";
+import BarChart from "../widgets/BarChart";
 
-function About() {
+function Rankings() {
 	return (
-		<div>
-			<h2>
-				Rankings
-			</h2>
-			Read more about us at :
-			<a href="https://www.geeksforgeeks.org/about/">
-				https://www.geeksforgeeks.org/about/
-			</a>
-		</div>
-	);
+        <div className="Rankings">
+        <PieChart />
+        <BarChart />
+        </div>
+    );
 }
-export default About;
+export default Rankings;    

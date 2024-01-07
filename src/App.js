@@ -23,12 +23,12 @@ class App extends Component {
 						</li>
 						<li>
 							<Link to="/Rankings">
-								About Us
+								Rankings
 							</Link>
 						</li>
 						<li>
 							<Link to="/RawData">
-								Contact Us
+								Raw Data
 							</Link>
 						</li>
 					</ul>
@@ -38,6 +38,16 @@ class App extends Component {
 							path="/"
 							element={<Home />}
 						></Route>
+                        <Route
+                            exact
+                            path="/Rankings"
+                            element={<Rankings />}
+                        ></Route>
+                        <Route
+                            exact
+                            path="/RawData"
+                            element={<RawData />}
+                        ></Route>
 					</Routes>
 				</div>
 			</Router>

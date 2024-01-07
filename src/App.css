@@ -14,7 +14,7 @@ Type Scale - 1.333 Perfect Fourth
 
 :root {
     --text-color: #F4EADF;
-    --background-color: #0e0905;
+    --background-color: #ece9e7;
     --lighter-background-color: #2727273c;
     --primary-color: #debf9a;
     --secondary-color: #dec09ae0;
@@ -24,7 +24,7 @@ Type Scale - 1.333 Perfect Fourth
 
 body {
     font-family: 'Oswald', Oswald;
-    background-color: #0e0905;
+    background-color: #ede8e3;
 }
 
 .app {
@@ -197,3 +197,5 @@ button:active {
     background-color: var(--secondary-color);
     color: var(--text-color);
 }
+
+
