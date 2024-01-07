@@ -8,8 +8,6 @@
     "type": "label",
     "value": "Identification",
     "decorator": "label"
-  },
-  {
-    "type": "ScatterChart"
   }
+  
 ]
