@@ -1,0 +1,772 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/Faraday-dot-py/Simple-ASF/">
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Simple-ASF Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Simple-ASF Documentation" class="md-header__button md-logo" aria-label="Simple-ASF Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Simple-ASF Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+    
+  
+  Setup
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Simple-ASF Documentation" class="md-nav__button md-logo" aria-label="Simple-ASF Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Simple-ASF Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Setup
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Setup
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firebase-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firebase Setup:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-scouting-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building a Scouting App
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building a Scouting App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seeing-your-app-for-the-first-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeing your app for the first time
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-the-widgets-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      All the widgets you need
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Label
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-textbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Textbox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-checkbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Checkbox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Counter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-textbox-long" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Textbox Long
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-dropdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Dropdown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Submit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sortmetrics-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      sortMetrics Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renderrequiredstars-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      renderRequiredStars Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-in-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage in Configuration Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-your-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying your app
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="setup">Setup</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Code Editor (Github Codespaces are nice, and are free for students)</li>
+<li>Npm (Pre-installed on all Github Codespaces)</li>
+<li>Firebase Account</li>
+<li>Vercel Account</li>
+</ul>
+<h2 id="firebase-setup">Firebase Setup:</h2>
+<p><a href="https://firebase.google.com/docs/web/setup">Follow these instructions set up your Firebase realtime database</a>*</p>
+<p><strong>*IMPORTANT: Only do steps 1-2 and make sure to read the notes below!!!</strong></p>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<ul>
+<li>Make sure that you keep Google Analytics enabled when prompted</li>
+<li>Use "Default account for firebase" when prompted for the Google Analytics account</li>
+<li>When shown the React Firebase Config code, copy the variable values and paste them into their corresponding places in the <code>.env</code> following the format below</li>
+<li>The <code>.env</code> file is located in the root directory of the project</li>
+<li>The <code>.env</code> file is hidden by default, so you may need to enable hidden files to see it</li>
+<li>You won't need any of the other code that is shown, just the variable values</li>
+</ul>
+</div>
+<p><br/></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>REACT_APP_API_KEY = [API_KEY]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>REACT_APP_AUTH_DOMAIN = [AUTH_DOMAIN]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>REACT_APP_PROJECT_ID = [PROJECT_ID]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>REACT_APP_STORAGE_BUCKET = [STORAGE_BUCKET]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>REACT_APP_MESSAGING_SENDER_ID = [MESSAGING_SENDER_ID]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>REACT_APP_APP_ID = [APP_ID]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>REACT_APP_MEASUREMENT_ID = [MEASUREMENT_ID]
+</code></pre></div>
+<p>In the end, your .env file should look something like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>REACT_APP_API_KEY = 1234567890
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>REACT_APP_AUTH_DOMAIN = 1234567890
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>REACT_APP_PROJECT_ID = 1234567890
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>REACT_APP_STORAGE_BUCKET = 1234567890
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>REACT_APP_MESSAGING_SENDER_ID = 1234567890
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>REACT_APP_APP_ID = 1234567890
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>REACT_APP_MEASUREMENT_ID = 1234567890
+</code></pre></div>
+<p>Navigate to your Firebase console, click on the build dropdown, and click on <code>Realtime Database</code><br />
+Click on <code>Create Database</code>, click <code>Next</code>, select <code>Start in test mode</code>, and select "Enable"<br />
+Save the URL of the page you're currently on, this is where you will be able to view your database<br />
+Finally, go to the tab that says <code>Rules</code> and replace the code with the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;rules&quot;: {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    &quot;.read&quot;: true,
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    &quot;.write&quot;: true
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  }
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>}
+</code></pre></div>
+Press <code>Publish</code> and you're done with the Firebase setup!</p>
+<h2 id="installing-dependencies">Installing Dependencies</h2>
+<p>In your terminal, run <code>npm install</code> in the root directory of the project. <br /></p>
+<h2 id="building-a-scouting-app">Building a Scouting App</h2>
+<p>Included in this repository is the layout for a basic scouting app for the 2023 season as a demo.  <br /></p>
+<p><strong>You can get a copy of this repository by running <code>git clone https://github.com/Faraday-dot-py/Simple-ASF.git</code> in your terminal</strong>
+<br /></p>
+<h3 id="seeing-your-app-for-the-first-time">Seeing your app for the first time</h3>
+<p>This one is pretty simple. <br/>
+In your terminal, run <code>npm start</code> in the root directory of the project.<br/>
+A new tab should open in your browser with the example app. You won't be using this, so you can delete it :)</p>
+<h3 id="all-the-widgets-you-need">All the widgets you need</h3>
+<p>A <strong>widget</strong> is a component that renders a specific part of the app. <br />
+There are many widgets that you can use to build your app,
+all of which are located in the <code>src/widgets</code> directory. <br /></p>
+<p>All widgets need a certain set of parameters, or props, to work. <br />
+Most are different depending on what widget you are rendering, but all widgets need a <code>type</code> prop to tell the compiler what you want to render. <br/>
+All widgets also need a <code>title</code> prop, which is the title of the widget. <br />
+Finally, any input can have a <code>value</code> prop, which is the initial value of the input when the page first loads <strong>(DIFFERENT THAN THE <code>resetToValue</code>)</strong>. <br /></p>
+<h3 id="1-header">1. Header</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>header</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "header".</li>
+<li><strong><code>value*</code> (Required)</strong>: The text content of the header.</li>
+<li><strong><code>decorator</code></strong>: A decorator or style identifier for the header (optional).</li>
+</ul>
+<h3 id="2-label">2. Label</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>label</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "label".</li>
+<li><strong><code>value*</code> (Required)</strong>: The text content of the label.</li>
+<li><strong><code>decorator</code></strong>: A decorator or style identifier for the label (optional).</li>
+</ul>
+<h3 id="3-textbox">3. Textbox</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>textbox</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the textbox.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "textbox".</li>
+<li><strong><code>value</code></strong>: The initial value of the textbox.</li>
+<li><strong><code>required</code></strong>: Indicates whether the field is required.</li>
+<li><strong><code>resetToValue</code></strong>: The value to reset the textbox to.</li>
+<li><strong><code>decorator</code></strong>: A decorator or style identifier for the textbox (optional).</li>
+</ul>
+<h3 id="4-checkbox">4. Checkbox</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>checkbox</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the checkbox.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "checkbox".</li>
+<li><strong><code>value</code></strong>: The initial value of the checkbox.</li>
+</ul>
+<h3 id="5-counter">5. Counter</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>counter</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the counter.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "counter".</li>
+<li><strong><code>value</code></strong>: The initial value of the counter.</li>
+<li><strong><code>increment</code></strong>: The value to increment or decrement by.</li>
+<li><strong><code>resetToValue</code></strong>: The value to reset the counter to.</li>
+<li><strong><code>maxValue</code></strong>: The maximum allowed value.</li>
+<li><strong><code>minValue</code></strong>: The minimum allowed value.</li>
+</ul>
+<h3 id="6-textbox-long">6. Textbox Long</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>textboxlong</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the long textbox.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "textboxlong".</li>
+<li><strong><code>value</code></strong>: The initial value of the long textbox.</li>
+<li><strong><code>resetToValue</code></strong>: The value to reset the long textbox to.</li>
+</ul>
+<h3 id="7-dropdown">7. Dropdown</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>dropdown</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the dropdown.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "dropdown".</li>
+<li><strong><code>value</code></strong>: The initial value of the dropdown.</li>
+<li><strong><code>options*</code> (Required)</strong>: An array of options for the dropdown.</li>
+<li><strong><code>resetToValue</code></strong>: The value to reset the dropdown to.</li>
+</ul>
+<h3 id="8-submit">8. Submit</h3>
+<ul>
+<li><strong>Widget Type</strong>: <code>submit</code></li>
+<li><strong>Widget Props</strong>:</li>
+<li><strong><code>title*</code> (Required)</strong>: The title of the submit button.</li>
+<li><strong><code>type*</code> (Required)</strong>: The type of the widget, must be "submit".</li>
+</ul>
+<p><br/>
+<br/></p>
+<p>These widgets should be put into the <code>/src/layout.json</code> file as an array of dictionaries. <br />
+An example form for the 2023 season is included in the repository when it is first cloned.</p>
+<h2 id="additional-configuration">Additional Configuration</h2>
+<p>In addition to the <code>/src/layout.json</code> file, there are two other files that you will need to edit to get your app working. <br />
+The first is the <code>/src/config.json</code> file. This file contains the configuration for the app, such as the title and the Firebase database URL. <br />
+The second is the <code>/src/.env</code> file. This file contains the configuration for the Firebase database, which you should have already set up. <br /></p>
+<h3 id="sortmetrics-parameter"><code>sortMetrics</code> Parameter</h3>
+<p>The <code>sortMetrics</code> parameter is an array of strings that determines how the database is sorted within the application. Each string in the array corresponds to the title of a valid input field, and the database will be sorted based on the specified metrics. In the provided example, <code>sortMetrics</code> is defined as <code>["Match Number", "Name"]</code>, indicating that the database should be sorted first by "Match Number" and then by "Name".</p>
+<h3 id="renderrequiredstars-parameter"><code>renderRequiredStars</code> Parameter</h3>
+<p>The <code>renderRequiredStars</code> parameter is a boolean that controls whether asterisks are appended to the end of any field that is marked as required. When set to <code>true</code>, the application will visually indicate required fields by adding an asterisk to their labels. In the example configuration, <code>renderRequiredStars</code> is set to <code>true</code>, enabling this feature.</p>
+<h3 id="usage-in-configuration-files">Usage in Configuration Files</h3>
+<p>When editing the <code>/src/config.json</code> file, stay above the line, you only need to edit the <code>sortMetrics</code> and <code>renderRequiredStars</code> parameters. <br /><br />
+You can also change the title of the app by going to the <code>package.json</code> file and changing the <code>name</code> parameter. <br /><br />
+The final thing that you may want to edit is the <code>/src/App.css</code> file. This file contains the CSS for the app, and you can edit it to change the look of your app. <br />
+There is already premade CSS, so I wouldn't mess with it unless you know what you are doing. <br /></p>
+<h2 id="deploying-your-app">Deploying your app</h2>
+<p>Once you have finished editing your app, you can deploy it to the web. <br />
+Vercel makes this super simple, all you have to do is:
+1. Create a Vercel account
+Navigate to <a href="https://vercel.com">vercel.com</a> and create an account. <br /></p>
+<ol>
+<li>
+<p>Link your repo
+Once you have created an account, click the "Add New" &gt; "Project" button in the top right corner. <br /></p>
+<ol>
+<li>
+<p>Follow the prompts to link the proper GitHub repository. <br /></p>
+</li>
+<li>
+<p>Rename the project to whatever you want. <br /></p>
+</li>
+<li>
+<p>Add environment variables
+Open the "Environment Variables" dropdown in the project settings. <br />
+Copy the entirety of your <code>.env</code> file into the <code>key</code> field, and it should auto-populate with all of your environment variables <br />
+If this doesn't work for some reason, you can manually add each environment variable. <br />
+<strong>Note: Make sure that all spelling and capitalization are correct, otherwise your app will not work.</strong> (Copy and paste what you can)<br /></p>
+</li>
+</ol>
+</li>
+<li>
+<p>Deploy your app
+Click the "Deploy" button at the bottom<br /></p>
+</li>
+</ol>
+<p>After waiting about a minute, your app should be deployed! <br />
+Navigate to the URL that Vercel gives you to see your app in action. <br /></p>
+<p>Verify that it works by submitting a form and navigating to <a href="https://console.firebase.google.com">Your Firebase Dashboard</a>, selecting your project, and opening the Realtime Database on the left panel  <br />
+In there should be the data that you just submitted. <br /></p>
+<p>The nice thing about Vercel, is that it will automatically update your website for you whenever you push to the main branch of your repository. <br />
+So if you want to change the way that your form looks, all you have to do is edit it and push it to Github. <br /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/james-willett"  target="_blank" rel="noopener">James Willett</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
