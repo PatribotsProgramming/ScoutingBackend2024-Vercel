@@ -1,7 +1,7 @@
 [
   {
     "type": "header", 
-    "value": "Example Scouting App",
+    "value": "Backend",
     "decorator": "title"
   },
   {
@@ -16,4 +16,5 @@
       
     ]
   }
+  
 ]
