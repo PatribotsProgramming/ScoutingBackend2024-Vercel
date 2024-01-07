@@ -31,8 +31,9 @@ class BarGraph extends React.Component{
                 // Then it passes the formatted data into the graph
                 // Make sure to try to use the builtin parameters for the title and subtitle of the graph
                     // But if you can't, then you can just use the title and subtitle props and make new divs
-                
+                    
                 }
+
             </div>
         )
     }

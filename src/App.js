@@ -11,6 +11,7 @@ import Home from "./Pages/home";
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import "./App.css";
+import Patribots from "./images/patribotsLogo.png";
 
 class App extends Component {
 	render() {

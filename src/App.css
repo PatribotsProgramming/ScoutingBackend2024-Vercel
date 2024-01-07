@@ -213,6 +213,9 @@ h3 {
     display: flex;
     align-items: center;
     background-color: rgb(240, 240, 240);
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background-color, .5s;
 }
 
 .navbar-but:hover {
@@ -223,4 +226,5 @@ h3 {
     width: 50%;
     margin: 0 auto;
     text-align: center;
+    color: black;
 }
