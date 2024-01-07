@@ -7,9 +7,9 @@ import {
 	Route,
 	Link,
 } from "react-router-dom";
-import Home from "./component/home";
-import About from "./component/about";
-import Contact from "./component/contact";
+import Home from "./Pages/home";
+import Rankings from "./Pages/Rankings";
+import RawData from "./Pages/RawData";
 import "./App.css";
 
 class App extends Component {
@@ -17,21 +17,23 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
-					<ul className="App-header">
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/about">
-								About Us
-							</Link>
-						</li>
-						<li>
-							<Link to="/contact">
-								Contact Us
-							</Link>
-						</li>
-					</ul>
+					<div className="App-header">
+						<Link className="navbar-but" to="/">
+							<div className="nav-text">
+								Home
+							</div>
+						</Link>
+						<Link className="navbar-but" to="/Rankings">
+							<div className="nav-text">
+								Rankings
+							</div>
+						</Link>
+						<Link className="navbar-but" to="/RawData">
+							<div className="nav-text">
+								Raw Data
+							</div>
+						</Link>
+					</div>
 					<Routes>
 						<Route
 							exact
@@ -40,13 +42,13 @@ class App extends Component {
 						></Route>
 						<Route
 							exact
-							path="/about"
-							element={<About />}
+							path="/Rankings"
+							element={<Rankings />}
 						></Route>
 						<Route
 							exact
-							path="/contact"
-							element={<Contact />}
+							path="/RawData"
+							element={<RawData />}
 						></Route>
 					</Routes>
 				</div>

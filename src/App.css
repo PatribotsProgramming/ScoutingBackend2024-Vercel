@@ -13,10 +13,10 @@ Type Scale - 1.333 Perfect Fourth
 */
 
 :root {
-    --text-color: #F4EADF;
-    --background-color: #0e0905;
-    --lighter-background-color: #2727273c;
-    --primary-color: #debf9a;
+    --text-color: black;
+    --background-color: white;
+    --lighter-background-color: white;
+    --primary-color: black;
     --secondary-color: #dec09ae0;
     --accent-color: #7e7e7e25;
 }
@@ -24,7 +24,10 @@ Type Scale - 1.333 Perfect Fourth
 
 body {
     font-family: 'Oswald', Oswald;
-    background-color: #0e0905;
+    background-color: white;
+    color: black;
+    margin-top: 50px;
+    margin-left: 0;
 }
 
 .app {
@@ -149,8 +152,7 @@ h3 {
     font: 'Oswald', sans-serif;
 }
 
-
-button {
+.button {
     background-color: var(--primary-color);
     color: var(--background-color);
     border: 1px solid var(--text-color);
@@ -167,7 +169,7 @@ button {
     width: 3rem;
 }
 
-button {
+.button {
     background-color: var(--primary-color);
     color: var(--background-color);
     border: 1px solid var(--text-color);
@@ -179,21 +181,46 @@ button {
     
 }
 
-button:hover {
+.button:hover {
     transition-property: background-color, color;
     transition-duration: 0.25s;
     background-color: var(--background-color);
     color: var(--secondary-color);
 }
 
-button:not(:hover) {
+.button:not(:hover) {
     transition-property: background-color, color;
     transition-duration: 0.25s;
 }
 
-button:active {
+.button:active {
     transition-property: background-color, color;
     transition-duration: 0.1s;
     background-color: var(--secondary-color);
     color: var(--text-color);
+}
+
+.App-header {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.navbar-but {
+    display: flex;
+    align-items: center;
+    background-color: rgb(240, 240, 240);
+}
+
+.navbar-but:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+.nav-text {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
 }
