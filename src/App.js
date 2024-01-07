@@ -11,43 +11,46 @@ import Home from "./Pages/home";
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import "./App.css";
+import Patribots from "./images/patribotsLogo.png";
 
 class App extends Component {
 	render() {
 		return (
 			<Router>
 				<div className="App">
-					<ul className="App-header">
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/Rankings">
+					<div className="App-header">
+						<Link className="navbar-but" to="/">
+							<div className="nav-text">
+								Home
+							</div>
+						</Link>
+						<Link className="navbar-but" to="/Rankings">
+							<div className="nav-text">
 								Rankings
-							</Link>
-						</li>
-						<li>
-							<Link to="/RawData">
+							</div>
+						</Link>
+						<Link className="navbar-but" to="/RawData">
+							<div className="nav-text">
 								Raw Data
-							</Link>
-						</li>
-					</ul>
+							</div>
+						</Link>
+					</div>
 					<Routes>
 						<Route
 							exact
 							path="/"
 							element={<Home />}
 						></Route>
-                        <Route
-                            exact
-                            path="/Rankings"
-                            element={<Rankings />}
-                        ></Route>
-                        <Route
-                            exact
-                            path="/RawData"
-                            element={<RawData />}
-                        ></Route>
+						<Route
+							exact
+							path="/Rankings"
+							element={<Rankings />}
+						></Route>
+						<Route
+							exact
+							path="/RawData"
+							element={<RawData />}
+						></Route>
 					</Routes>
 				</div>
 			</Router>
