@@ -1,4 +1,4 @@
-#Simple Alliance Scouting Framework (Simple ASF)
+# Simple Alliance Scouting Framework (Simple ASF)
 
 The Simple Alliance Scouting Framework is a simple, easy-to-use framework for creating scouting apps for the FIRST Robotics Competition.
 It is built using React, and is designed to be easy to use for people with little to no coding experience.
