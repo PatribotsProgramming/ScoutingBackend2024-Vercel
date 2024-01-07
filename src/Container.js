@@ -11,12 +11,12 @@
 */
 
 import './App.css';
-
-import CheckBox from './widgets/CheckBox';
-import TextBox from './widgets/TextBox'
-import TextBoxLong from './widgets/TextBoxLong'
+import Chart from './components/charts'
+// import CheckBox from './widgets/CheckBox';
+// import TextBox from './widgets/TextBox'
+// import TextBoxLong from './widgets/TextBoxLong'
 import Counter from './widgets/Counter'
-import Dropdown from './widgets/Dropdown';
+// import Dropdown from './widgets/Dropdown';
 
 import layout from './layout.json'
 import {firebaseConfig, sortMetrics, renderRequiredStars} from './Config.js'
@@ -42,9 +42,9 @@ Object.keys(layout).forEach((item) => {
 
 class Container extends React.Component{
   
-  state = {
-    interactables: layout.filter((item) => (isInteractable(item.type)))
-  }
+//   state = {
+//     interactables: layout.filter((item) => (isInteractable(item.type)))
+//   }
 
   
 
@@ -54,8 +54,8 @@ class Container extends React.Component{
         <image src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR71FESRUZEUb2_52JI8EZhNkaQ3fn0p1vFU8UANUePHUI2qQbzsFqS12lnWCv1Fj6S87k&usqp=CAU"}></image>
         <ul className="outer-container">
           {Object.keys(layout).map((item) => {   
-            if (isInteractable(layout[item].type)) {
-            }
+            // if (isInteractable(layout[item].type)) {
+            // }
             switch (layout[item].type) {
               case "header":
                 return <h1          id={layout[item].id} className={"widget header " + layout[item].decorator}>{layout[item].value}</h1>

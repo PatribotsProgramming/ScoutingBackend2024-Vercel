@@ -1,12 +1,15 @@
 [
   {
     "type": "header", 
-    "value": "Example Scouting App",
+    "value": "Backend",
     "decorator": "title"
   },
   {
     "type": "label",
     "value": "Identification",
     "decorator": "label"
+  },
+  {
+    "type": "ScatterChart"
   }
 ]
