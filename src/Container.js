@@ -257,12 +257,12 @@ class Container extends React.Component{
     return this.state.interactables.filter((item) => (item.id === id))[0]
   }
 
-  logoClick = () => {
+  c = () => {
     this.setState({
-      clicks: (this.state.clicks === undefined ? 1 : this.state.clicks) + 1
+      d: (this.state.d === undefined ? 1 : this.state.d) + 1
     })
-    if (this.state.clicks > 1) {
-      alert("You have clicked the logo " + this.state.clicks + " times. You have no life.")
+    if (this.state.d > 4738) {
+      alert("You have clicked the logo " + this.state.d + " times. You have no life.")
       console.log(
 `%cThis scouting application was made by Adam Webb, an alumni of FRC Team 4738, the Patribots. 
 This application is open source and can be found at https://github.com/Faraday-dot-py/Simple-ASF
@@ -285,9 +285,9 @@ Also, feel free to make a pull request if you have any ideas for improvements or
             }
             switch (layout[item].type) {
               case "header":
-                return <h1          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h1>
+                return <h1          id={layout[item].id} className={"widget header " + layout[item].decorator}>{layout[item].value}</h1>
               case "label":
-                return <h3          id={layout[item].id} className={layout[item].decorator}>{layout[item].value}</h3>
+                return <h3          id={layout[item].id} className={"widget label " + layout[item].decorator}>{layout[item].value}</h3>
               case "checkbox":
                 return <CheckBox    id={layout[item].id} title={layout[item].title + (renderRequiredStars ? (layout[item].required ? " *" : "") : "")} decorator={layout[item].decorator} value={layout[item].value} resetToValue={layout[item].resetToValue} changeHandler={this.handleCheckBoxChange}/>
               case "textbox":
@@ -307,7 +307,7 @@ Also, feel free to make a pull request if you have any ideas for improvements or
             }
           })}
           
-          <img src={logo} alt="Patribots Logo" style={{height:0,width:0}} onClick={this.logoClick}/>
+          <img src={logo} alt="" style={{height:0,width:0}} onClick={this.c}/>
         </ul>
       </div>
     );

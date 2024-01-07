@@ -61,6 +61,7 @@ body {
     padding-right: 2rem;
     width: 50%;
     transition: width 0.25s, background-color 0.25s ease, border-radius 0.25s ease;
+    text-align: center;
 }
 
 .widget:hover {
@@ -77,12 +78,15 @@ h1 {
     font: 'VazirMatn', sans-serif;
     font-size: 3rem;
     color: var(--primary-color);
+    border: none !important;
+    width: 100% !important;
 }
 
 h3 {
     font: 'VazirMatn', sans-serif;
     font-size: 1.999rem;
     font-weight: bold;
+    border: none !important;
 }
 
 .textbox {
@@ -147,7 +151,7 @@ h3 {
 }
 
 
-.submit {
+button {
     background-color: var(--primary-color);
     color: var(--background-color);
     border: 1px solid var(--text-color);
@@ -157,6 +161,7 @@ h3 {
     margin: 0.5rem;
     font-size: 2rem;
     cursor: pointer;
+    max-width: 13rem;
 }
 
 .btn {
