@@ -2,8 +2,6 @@
 // ONLY EDIT HERE
 const sortMetrics = ["Match Number", "Team Number"]
 
-const renderRequiredStars = true;
-
 // DO NOT EDIT BELOW
 //---------------------------------------
 
@@ -17,4 +15,4 @@ const firebaseConfig = {
     measurementId:  process.env.REACT_APP_MEASUREMENT_ID
 };
 
-export {firebaseConfig, sortMetrics, renderRequiredStars};
+export {firebaseConfig, sortMetrics };
