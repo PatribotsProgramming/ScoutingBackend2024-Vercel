@@ -8,7 +8,6 @@ import BarChart from "../widgets/BarChart";
 function Rankings() {
 	return (
         <div className="Rankings">
-        <PieChart />
         <BarChart />
         </div>
     );
