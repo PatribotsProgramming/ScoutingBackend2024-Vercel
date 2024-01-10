@@ -106,7 +106,7 @@ const data = `[
           "Cube Upper Teleop": 0,
           "Docked Auto": false,
           "Docked Teleop": false,
-          "Engaged Auto": false,
+          "Engaged Auto": true,
           "Engaged Teleop": false,
           "Fumbles": 0,
           "Name": "Adam",
@@ -116,9 +116,13 @@ const data = `[
       }
   }
 ]`;
-
+export const getTeamData = (team) => {
+  return bigTeamMap.get(team);
+}
 export const rawData = JSON.parse(data);
 export const dataTest = convertToTableForm(rawData);
+export const bigTeamMap = convertToTeamMap(dataTest);
+export const teamData = getTeamAverage("1538");
 
 console.log(dataTest);
 function convertToTableForm(data) {
@@ -126,20 +130,9 @@ function convertToTableForm(data) {
   let table = [];
 
   // rows of the table
-  let row = [];
+  let row = getIndividualDatapoints(data);
   
-  // bots in first match (designated by r1, r2, r3, b1, b2, b3)
-  let keys2 = Object.keys(data[0]);
-  // if there are no matches, return empty table
-  if (keys2.length == 0) {
-    return table;
-  }
-  // gets all the data points using the data from the first bot in the first match
-  let keys = Object.keys(data[0][keys2[0]]);
-  // pushes those data points to the first row of the table (the header)
-  for (let i = 0; i < keys.length; i++) {
-    row.push(keys[i]);
-  }
+  
   // pushes the first row to the table
   table.push(row);
   for (let i = 0; i < data.length; i++) {
