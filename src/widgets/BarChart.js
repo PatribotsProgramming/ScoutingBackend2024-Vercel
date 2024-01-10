@@ -15,17 +15,9 @@ export const options = {
 };
 
 function getData() {
-    const dbRef = db.ref(db, "/Team");
-    return get(dbRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            return snapshot.val();
-        }
-    }).catch((error) => {
-        console.log(error);
-    })
-    .then((data) => {
-        return data;
-    })
+    fetch('https://scouting-website-ee380-default-rtdb.firebaseio.com/')
+    .then(response => response.json())
+    .then(data => this.setState({ items: data }));
 }
 
 const charts = () => {
