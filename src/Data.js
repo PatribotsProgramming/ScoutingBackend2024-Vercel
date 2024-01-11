@@ -2,19 +2,23 @@
 
 import {data} from './SampleData.js';
 
-// gets sampledata from SampleData.JSON
+
 
 const eventCode = '2024Testing';
-// export const getTeamData = (team) => {
-//   return bigTeamMap.get(team);
-// }
+
+export const getTeamData = (team) => {
+  return bigTeamMap.get(team);
+}
+
 export const rawData = JSON.parse(data)['scouting'][eventCode];
 console.log(rawData);
-export const dataTest = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
+console.log(convertNumDataToTableForm(rawData));
+export const dataTest = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
 console.log(dataTest);
 // console.log(resortColumn(dataTest, 1, 2));
 
-// export const bigTeamMap = convertToTeamMap(dataTest);
+export const bigTeamMap = convertToTeamMap(dataTest);
+console.log(bigTeamMap);
 // export const teamData = getTeamAverage("1538");
 
 
@@ -37,6 +41,7 @@ function convertToTableForm(data, datatype) {
   else {
     table.push(row[1]);
   }
+  console.log(table);
   console.log(data);
   const matches = Object.keys(data);
   
@@ -75,7 +80,6 @@ function convertAllToTableForm(data) {
   let comments = convertCommentsToTableForm(data);
   let numData = convertNumDataToTableForm(data);
   let table = [];
-  let row = []
   table.push([comments[0], numData[0]].flat());
   table[0].pop();
   console.log(table);
@@ -103,7 +107,8 @@ function resortColumn(data, columnInitial, columnGoal) {
 }
 
 function resortColumnByPoint(data, point, columnGoal) {
-  for (let i = 0; i < data.length; i++) {
+  console.log(data);
+  for (let i = 0; i < data[0].length; i++) {
     if (data[0][i] == point) {
       return resortColumn(data, i, columnGoal);
     }
@@ -136,20 +141,20 @@ function getIndividualDatapoints(data) {
   return datapoints;
 }
 
-// function convertToTeamMap(data) {
-//   let teamMap = new Map();
-//   const points = getIndividualDatapoints(rawData);
-//   for (let i = 1; i < data.length; i++) {
-//     if (!teamMap.has(data[i][0])) {
-//       teamMap.set(data[i][0], [data[0], data[i]]);
-//     }
-//     else {
-//       teamMap.get(data[i][0]).push(data[i]);
-//     }
-//   }
-//   console.log(teamMap);
-//   return teamMap;
-// }
+function convertToTeamMap(data) {
+  let teamMap = new Map();
+  const points = getIndividualDatapoints(rawData);
+  for (let i = 1; i < data.length; i++) {
+    if (!teamMap.has(data[i][0])) {
+      teamMap.set(data[i][0], [data[0], data[i]]);
+    }
+    else {
+      teamMap.get(data[i][0]).push(data[i]);
+    }
+  }
+  console.log(teamMap);
+  return teamMap;
+}
 
 
 
