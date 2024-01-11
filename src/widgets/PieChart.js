@@ -14,20 +14,6 @@ export const options = {
   title: "My Daily Activities",
 };
 
-function getData() {
-    const dbRef = db.ref(db, "/Team");
-    return get(dbRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            return snapshot.val();
-        }
-    }).catch((error) => {
-        console.log(error);
-    })
-    .then((data) => {
-        return data;
-    })
-}
-
 const charts = () => {
   return (
     <Chart

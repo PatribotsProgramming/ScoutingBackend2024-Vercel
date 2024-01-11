@@ -1,26 +1,25 @@
+import React, { useState, useEffect } from 'react';
 import { Chart } from "react-google-charts";
-import { db } from "../Config";
-import { ref, child, get, onChildAdded, onValue, set, Database, getDatabase, DataSnapshot, push } from 'firebase/database'
+import { getAllData } from './JsonData'; 
 
-export const data = [
-  ["Task", "Hours per Day"],
-  ["Work", 11],
-  ["Eat", 2],
-  ["Commute", 2],
-  ["Watch TV", 2],
-  ["Sleep", 7],
-];
-export const options = {
-  title: "My Daily Activities",
-};
+const Charts = () => {
+  const [data, setData] = useState([
+    ["Team", "Number"], 
+  ]);
 
-function getData() {
-    fetch('https://scouting-website-ee380-default-rtdb.firebaseio.com/')
-    .then(response => response.json())
-    .then(data => this.setState({ items: data }));
-}
+  //test code not working need Frank's backend's code to test better
+  useEffect(() => {
+    getAllData().then(jsonString => {
+      const jsonData = JSON.parse(jsonString);
+      const chartData = Object.entries(jsonData).map(([key, value]) => [key, value]);
+      setData(prevData => [...prevData, ...chartData]);
+    });
+  }, []);
 
-const charts = () => {
+  const options = {
+    title: "Team Numbers",
+  };
+
   return (
     <Chart
       chartType="BarChart"
@@ -29,6 +28,7 @@ const charts = () => {
       width={"100%"}
       height={"400px"}
     />
-  )
+  );
 }
-export default charts
+
+export default Charts;
