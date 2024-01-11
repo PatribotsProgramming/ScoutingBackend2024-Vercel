@@ -1,128 +1,17 @@
-// export const data = [
-//     //get snapshot and sell children
-//     //get node modules
-//     //sort by catagories (PointData vs CommentData)
-//   ];
+import {data} from './SampleData.js';
 
-const points = 27;
+// gets sampledata from SampleData.JSON
 
-
-
-// Jacob did this what it do?: 
-
-
-// const getData = () => {
-//   return getData(ref(db, '/')).then((snapshot) => {
-//     if (snapshot.exists()) {
-//       return snapshot.val();
-//     }
-//   }).catch((error) => {
-//     console.error(error);
-//   }).then((data) => {
-//     return data;
-//   })
-// }
-
-const data = `[
-  {
-      "r1": {
-          "Team": "4738",
-          "Additional Notes": "hi",
-          "Alliance Color": "Red",
-          "Chargepad Failure": false,
-          "Cone Lower Auto": 0,
-          "Cone Lower Teleop": 0,
-          "Cone Middle Auto": 0,
-          "Cone Middle Teleop": 0,
-          "Cone Upper Auto": 0,
-          "Cone Upper Teleop": 0,
-          "Critical Failure": false,
-          "Crossed Auto Line": false,
-          "Cube Lower Auto": 0,
-          "Cube Lower Teleop": 0,
-          "Cube Middle Auto": 0,
-          "Cube Middle Teleop": 0,
-          "Cube Upper Auto": 0,
-          "Cube Upper Teleop": 0,
-          "Docked Auto": false,
-          "Docked Teleop": false,
-          "Engaged Auto": false,
-          "Engaged Teleop": false,
-          "Fumbles": 0,
-          "Name": "Adam",
-          "Supercharged Pieces": 0,
-          "What they did well": "",
-          "What they need to improve": ""
-      },
-      "b1": {
-        "Team": "1538",
-        "Additional Notes": "hi",
-        "Alliance Color": "Red",
-        "Chargepad Failure": false,
-        "Cone Lower Auto": 0,
-        "Cone Lower Teleop": 0,
-        "Cone Middle Auto": 0,
-        "Cone Middle Teleop": 0,
-        "Cone Upper Auto": 0,
-        "Cone Upper Teleop": 0,
-        "Critical Failure": false,
-        "Crossed Auto Line": false,
-        "Cube Lower Auto": 0,
-        "Cube Lower Teleop": 0,
-        "Cube Middle Auto": 0,
-        "Cube Middle Teleop": 0,
-        "Cube Upper Auto": 0,
-        "Cube Upper Teleop": 0,
-        "Docked Auto": false,
-        "Docked Teleop": false,
-        "Engaged Auto": false,
-        "Engaged Teleop": false,
-        "Fumbles": 0,
-        "Name": "Adam",
-        "Supercharged Pieces": 0,
-        "What they did well": "",
-        "What they need to improve": ""
-    }
-  },
-  {
-      "r1": {
-          "Team" : "1538",
-          "Additional Notes": "",
-          "Alliance Color": "Red",
-          "Chargepad Failure": false,
-          "Cone Lower Auto": 0,
-          "Cone Lower Teleop": 0,
-          "Cone Middle Auto": 0,
-          "Cone Middle Teleop": 0,
-          "Cone Upper Auto": 0,
-          "Cone Upper Teleop": 0,
-          "Critical Failure": false,
-          "Crossed Auto Line": false,
-          "Cube Lower Auto": 0,
-          "Cube Lower Teleop": 0,
-          "Cube Middle Auto": 0,
-          "Cube Middle Teleop": 0,
-          "Cube Upper Auto": 0,
-          "Cube Upper Teleop": 0,
-          "Docked Auto": false,
-          "Docked Teleop": false,
-          "Engaged Auto": true,
-          "Engaged Teleop": false,
-          "Fumbles": 0,
-          "Name": "Adam",
-          "Supercharged Pieces": 0,
-          "What they did well": "",
-          "What they need to improve": ""
-      }
-  }
-]`;
+const eventCode = '2024Testing';
 export const getTeamData = (team) => {
   return bigTeamMap.get(team);
 }
-export const rawData = JSON.parse(data);
+export const rawData = JSON.parse(data)['scouting'][eventCode];
 export const dataTest = convertToTableForm(rawData);
 export const bigTeamMap = convertToTeamMap(dataTest);
 export const teamData = getTeamAverage("1538");
+
+
 
 console.log(dataTest);
 function convertToTableForm(data) {
@@ -157,9 +46,10 @@ function convertToTableForm(data) {
 
 
 function getIndividualDatapoints(data) {
-  let datapoints = [];
-  // bots in first match (designated by r1, r2, r3, b1, b2, b3)
-  let keys2 = Object.keys(data[0]);
+  let datapoints = [[], []];
+  console.log(data);
+  let keys2 = Object.keys(data);
+  console.log(keys);
   // if there are no matches, return empty table
   if (keys2.length == 0) {
     return table;
@@ -174,7 +64,6 @@ function getIndividualDatapoints(data) {
 }
 
 function convertToTeamMap(data) {
-  // overall map structure
   let teamMap = new Map();
   const points = getIndividualDatapoints(rawData);
   for (let i = 1; i < data.length; i++) {
@@ -195,28 +84,27 @@ function convertToTeamMap(data) {
 function getTeamAverage(team) {
   let dataMap = new Map();
   let teamData = getTeamData(team);
+  console.log(teamData);
   let points = getIndividualDatapoints(rawData);
-  for (let i = 1; i < points.length; i++) {
+  for (let i = 1; i < points.length; i++) { 
     dataMap.set(points[i], 0);
   }
   for (let i = 1; i < teamData.length; i++) {
     for (let j = 1; j < teamData[i].length; j++) {
-      if (isNumeric(points[i])) {
-        dataMap.set(points[j], dataMap.get(points[j]) + teamData[i][j]);
-      }
+      dataMap.set(points[j], dataMap.get(points[j]) + teamData[i][j]);
     }
   }
 
-  for (let i = 0; i < points.length - 1; i++) {
-    if (isNumeric(points[i])) {
-      dataMap.set(points[i], dataMap.get(points[i]) / (teamData.length - 1));
+  for (let i = 1; i < points.length - 1; i++) {
+    dataMap.set(points[i], dataMap.get(points[i]) / (teamData.length - 1));
+  }
+  for (let i = 1; i < points.length - 1; i++) {
+    if (isNaN(dataMap.get(points[[i]]))) {
+      dataMap.delete(points[i]);
     }
   }
-
+  dataMap.set("Team", team);
   console.log(dataMap);
   return dataMap;
 }
 
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n) || n == true || n == false;
-}

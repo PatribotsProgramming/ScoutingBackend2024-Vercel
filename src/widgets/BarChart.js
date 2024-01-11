@@ -9,7 +9,8 @@ const charts = () => {
   return (
     <Chart
       chartType="Table"
-      data={getTeamData("1538")}
+      data={dataTest}
+      // data = {dataTest}
       options={options}
       width={"100%"}
       height={"400px"}
