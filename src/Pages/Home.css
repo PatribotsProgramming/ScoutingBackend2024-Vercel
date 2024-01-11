@@ -1,0 +1,63 @@
+:root {
+    --text-color: #E0E0E0; /* softer color for text */
+    --background-color: #282828; /* softer color for background */
+    --lighter-background-color: #383838; /* slightly lighter color for hover effects */
+    --primary-color: #BB86FC; /* primary color */
+    --secondary-color: #3700B3; /* secondary color */
+    --accent-color: #03DAC6; /* accent color */
+}
+
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a modern font */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Add some spacing and center the content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style the heading */
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Style the paragraph */
+p {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.charts {
+    border: 1px solid var(--lighter-background-color);
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 4%;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex; /* turn the container into a flex container */
+    justify-content: space-around; /* evenly distribute items along the line */
+    align-items: center; /* center items along the cross-axis */
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
+}
+
+.charts:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}

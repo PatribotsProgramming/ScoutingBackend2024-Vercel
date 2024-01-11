@@ -7,7 +7,7 @@ import {
 	Route,
 	Link,
 } from "react-router-dom";
-import Home from "./Pages/home";
+import Home from "./Pages/Home";
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import "./App.css";
