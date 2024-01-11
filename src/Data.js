@@ -9,21 +9,31 @@ const eventCode = '2024Testing';
 export const getTeamData = (team) => {
   return bigTeamMap.get(team);
 }
+export const getTeamNumData = (team) => {
+  return numTeamMap.get(team);
+}
+export const getTeamCommentData = (team) => {
+  return commentTeamMap.get(team);
+}
 
 export const rawData = JSON.parse(data)['scouting'][eventCode];
 console.log(rawData);
 console.log(convertNumDataToTableForm(rawData));
-export const dataTest = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
-console.log(dataTest);
+export const allData = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
+export const commentData = resortColumnByPoint(convertCommentsToTableForm(rawData), 'Team', 0);
+export const numData = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
+console.log(allData);
 // console.log(resortColumn(dataTest, 1, 2));
 
-export const bigTeamMap = convertToTeamMap(dataTest);
+export const bigTeamMap = convertToTeamMap(allData);
+export const commentTeamMap = convertToTeamMap(commentData);
+export const numTeamMap = convertToTeamMap(numData);
 console.log(bigTeamMap);
-// export const teamData = getTeamAverage("1538");
+console.log(getTeamAverage("4567"));
 
 
 
-console.log(dataTest);
+console.log(allData);
 function convertToTableForm(data, datatype) {
   // overall data structure
   let table = [];
@@ -141,7 +151,7 @@ function getIndividualDatapoints(data) {
   return datapoints;
 }
 
-function convertToTeamMap(data) {
+function convertToTeamMap(data, datatype) {
   let teamMap = new Map();
   const points = getIndividualDatapoints(rawData);
   for (let i = 1; i < data.length; i++) {
@@ -159,30 +169,12 @@ function convertToTeamMap(data) {
 
 
 
-// function getTeamAverage(team) {
-//   let dataMap = new Map();
-//   let teamData = getTeamData(team);
-//   console.log(teamData);
-//   let points = getIndividualDatapoints(rawData);
-//   for (let i = 1; i < points.length; i++) { 
-//     dataMap.set(points[i], 0);
-//   }
-//   for (let i = 1; i < teamData.length; i++) {
-//     for (let j = 1; j < teamData[i].length; j++) {
-//       dataMap.set(points[j], dataMap.get(points[j]) + teamData[i][j]);
-//     }
-//   }
-
-//   for (let i = 1; i < points.length - 1; i++) {
-//     dataMap.set(points[i], dataMap.get(points[i]) / (teamData.length - 1));
-//   }
-//   for (let i = 1; i < points.length - 1; i++) {
-//     if (isNaN(dataMap.get(points[[i]]))) {
-//       dataMap.delete(points[i]);
-//     }
-//   }
-//   dataMap.set("Team", team);
-//   console.log(dataMap);
-//   return dataMap;
-// }
+function getTeamAverage(team) {
+  let dataMap = new Map();
+  let teamData = getTeamNumData(team);
+  console.log(teamData);
+  
+  console.log(dataMap);
+  return dataMap;
+}
 
