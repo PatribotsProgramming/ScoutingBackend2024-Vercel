@@ -25,7 +25,7 @@ export const data = [`{
             "Speaker Auto": "0",
             "Speaker Teleop": "0",
             "Temp Failure": false,
-            "Trap": "0"
+            "Trap": "1"
           }
         },
         "blue2-5677": {

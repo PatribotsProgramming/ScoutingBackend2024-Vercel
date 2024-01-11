@@ -10,8 +10,10 @@ const eventCode = '2024Testing';
 // }
 export const rawData = JSON.parse(data)['scouting'][eventCode];
 console.log(rawData);
-export const dataTest = convertAllToTableForm(rawData);
+export const dataTest = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
 console.log(dataTest);
+// console.log(resortColumn(dataTest, 1, 2));
+
 // export const bigTeamMap = convertToTeamMap(dataTest);
 // export const teamData = getTeamAverage("1538");
 
@@ -24,25 +26,35 @@ function convertToTableForm(data, datatype) {
 
   // rows of the table
   let row = getIndividualDatapoints(data);
-  
+  row[0].push("Team");
+  row[1].push("Team");
   
   // pushes the first row to the table
-  table.push(row[0]);
+
+  if (datatype == 'comments') {
+    table.push(row[0]);
+  }
+  else {
+    table.push(row[1]);
+  }
   console.log(data);
   const matches = Object.keys(data);
   
   for (let i = 1; i <= matches.length; i++) {
     const matchData = data[matches[i - 1]];
     const bots = Object.keys(matchData);
+    
     for (let j = 0; j < Object.keys(matchData).length; j++) {
       row = [];
       const botData = matchData[bots[j]][datatype];
       console.log(botData);
       const dataKeys = Object.keys(botData);
       console.log(dataKeys);
+      console.log(row);
       for (let k = 0; k < dataKeys.length; k++) {
         row.push(botData[dataKeys[k]]);
       }
+      row.push(bots[j].substring(bots[j].length - 4, bots[j].length));
       table.push(row);
     }
     
@@ -56,18 +68,46 @@ function convertCommentsToTableForm(data) {
   return convertToTableForm(data, 'comments');
 }
 function convertNumDataToTableForm(data) {
+  console.log(convertToTableForm(data, 'data'));
   return convertToTableForm(data, 'data');
 }
 function convertAllToTableForm(data) {
   let comments = convertCommentsToTableForm(data);
   let numData = convertNumDataToTableForm(data);
-  for (let i = 1; i < comments.length; i++) {
-    for (let j = 0; j < comments[i].length; j++) {
-      numData[i].push(comments[i][j]);
+  let table = [];
+  let row = []
+  table.push([comments[0], numData[0]].flat());
+  table[0].pop();
+  console.log(table);
+  for (let i = 0; i < comments.length - 1; i++) {
+    table.push([comments[i + 1], numData[i + 1]].flat());
+    table[i + 1].pop();
+  }
+  console.log(table);
+  return table;
+}
+
+function resortColumn(data, columnInitial, columnGoal) {
+  let table = [];
+  let row = [];
+  console.log(data);
+  for (let i = 0; i < data.length; i++) {
+    row = [...data[i]];
+    let temp = row[columnInitial];
+    row[columnInitial] = row[columnGoal];
+    row[columnGoal] = temp;
+    table.push(row);
+  }
+  console.log(table);
+  return table;
+}
+
+function resortColumnByPoint(data, point, columnGoal) {
+  for (let i = 0; i < data.length; i++) {
+    if (data[0][i] == point) {
+      return resortColumn(data, i, columnGoal);
     }
   }
-  return numData;
-  
 }
 
 
