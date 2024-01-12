@@ -6,15 +6,19 @@ const db = getDatabase();
 
 //Frank's Middle
 export async function getAllData() {
-  const dbRef = ref(db, "/Team");
-  const snapshot = await get(dbRef);
-  if (snapshot.exists()) {
-    const data = snapshot.val();
-    const jsonString = JSON.stringify(data);
-    console.log(jsonString);
-    return jsonString;
-  } else {
-    console.log("No data available");
-    return null;
+  try {
+    const dbRef = ref(db);
+    const snapshot = await get(dbRef);
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const jsonString = JSON.stringify(data);
+      console.log(jsonString)
+      return jsonString;
+    } else {
+      console.log("No data available");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching data: ", error);
   }
 }
