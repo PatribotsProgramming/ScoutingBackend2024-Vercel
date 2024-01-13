@@ -19,14 +19,14 @@ const sortMetrics = ["Match Number", "Team Number"]
 // };
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBajuvTmSR2iH0XEREq5oN3_3xgyDKAsb4",
-    authDomain: "scouting-17347.firebaseapp.com",
-    databaseURL: "https://scouting-17347-default-rtdb.firebaseio.com",
-    projectId: "scouting-17347",
-    storageBucket: "scouting-17347.appspot.com",
-    messagingSenderId: "796953968153",
-    appId: "1:796953968153:web:2d8790b1dd59839826f488",
-    measurementId: "G-3L83MMR427"
+  apiKey: "AIzaSyADPvITfvuVYqQA5NWhdZeyw_fcA62rii4",
+  authDomain: "scouting-website-ee380.firebaseapp.com",
+  databaseURL: "https://scouting-website-ee380-default-rtdb.firebaseio.com",
+  projectId: "scouting-website-ee380",
+  storageBucket: "scouting-website-ee380.appspot.com",
+  messagingSenderId: "415208050900",
+  appId: "1:415208050900:web:674769095c12e3eaab6b41",
+  measurementId: "G-NR2HGV6G2G"
   };
 
 const app = initializeApp(firebaseConfig)
