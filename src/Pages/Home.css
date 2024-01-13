@@ -54,6 +54,7 @@ p {
     border-radius: 10px;
     display: flex; /* turn the container into a flex container */
     justify-content: space-around; /* evenly distribute items along the line */
+    flex-wrap: wrap;
     align-items: center; /* center items along the cross-axis */
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
 }
