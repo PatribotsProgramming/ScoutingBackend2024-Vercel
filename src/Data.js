@@ -22,94 +22,39 @@ const getTeamCommentData = (team) => {
   return commentTeamMap.get(team);
 }
 
-
-const newData = getAllData();
-
-
-export const getRawData = async (data) => {
-    data.then((data) => {
-        return JSON.parse(data)['scouting'][eventCode];
-    });
-}
-
-export const getCommentData = async (data) => {
-    data.then((data) => {
-        return resortColumnByPoint(convertCommentsToTableForm(data), 'Team', 0);
-    });
-}
-
-export const getNumData = async (data) => {
-    data.then((data) => {
-        return resortColumnByPoint(convertNumDataToTableForm(data), 'Team', 0);
-    });
-}
-
-export const getCommentTeamMap = async (data) => {
-    data.then((data) => {
-        return convertToTeamMap(convertCommentsToTableForm(data));
-    });
-}
-
-export const getNumTeamMap = async (data) => {
-    data.then((data) => {
-        return convertToTeamMap(convertNumDataToTableForm(data));
-    });
-}
-
-export const getAllDataSync = async (rawData) => {
-    rawData.then((data) => {
-        return resortColumnByPoint(convertAllToTableForm(data), 'Team', 0);
-    });
-}
-
-export const getBigTeamMap = async (allData) => {
-    allData.then((data) => {
-        return convertToTeamMap(data);
-    });
-}
-
-
-
 let rawData;
 let commentData;
 let numData;
 let commentTeamMap;
 let numTeamMap;
 let bigTeamMap;
-let allData = {};
+let allData;
 
-// newData.then((data) => {
-//     const rawData = getRawData(data);
-//     const commentData = getCommentData(rawData);
-//     const numData = getNumData(rawData);
+// Use an async function to fetch and process your data
+export const fetchDataAndProcess = async () => {
+    const data = await getAllData();
+    rawData = JSON.parse(data)['scouting'][eventCode];
+    commentData = resortColumnByPoint(convertCommentsToTableForm(rawData), 'Team', 0);
+    numData = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
 
-//     const commentTeamMap = getCommentTeamMap(commentData);
-//     const numTeamMap = getNumTeamMap(numData);
+    commentTeamMap = convertToTeamMap(commentData);
+    numTeamMap = convertToTeamMap(numData);
 
-//     const allData = getAllDataSync(rawData);
-//     const bigTeamMap = getBigTeamMap(allData);
-// });
+    allData = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
+    bigTeamMap = convertToTeamMap(allData);
 
-newData.then((data) => {
-    allData = {};
-  rawData = JSON.parse(data)['scouting'][eventCode];
-  commentData = resortColumnByPoint(convertCommentsToTableForm(rawData), 'Team', 0);
-  numData = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
+    // make a map of all the data variables
 
-  
-  commentTeamMap = convertToTeamMap(commentData);
-  numTeamMap = convertToTeamMap(numData);
-  
-  allData = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
-
-  bigTeamMap = convertToTeamMap(allData);
-});
-
-
-for (let i = 0; i < 1000; i++) {
-    console.log(allData);
-}
-
+    return {
+        rawData: rawData,
+        commentData: commentData,
+        numData: numData,
+        commentTeamMap: commentTeamMap,
+        numTeamMap: numTeamMap,
+        bigTeamMap: bigTeamMap,
+        allData: allData
+    }
+};
 
 function convertToTableForm(data, datatype) {
   // overall data structure
@@ -254,3 +199,5 @@ function getTeamAverage(team) {
   console.log(dataMap);
   return dataMap;
 }
+
+export {getTeamData, getTeamNumData, getTeamCommentData, getTeamAverage, getIndividualDatapoints, convertToTableForm, convertCommentsToTableForm, convertNumDataToTableForm, convertAllToTableForm, resortColumn, resortColumnByPoint, convertToTeamMap, rawData, commentData, numData, commentTeamMap, numTeamMap, bigTeamMap, allData};

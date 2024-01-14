@@ -4,7 +4,6 @@ import 'firebase/database';
 import { data } from '../SampleData';
 import { db } from '../Config';
 
-
 //Frank's Middle
 export async function getAllData() {
   try {

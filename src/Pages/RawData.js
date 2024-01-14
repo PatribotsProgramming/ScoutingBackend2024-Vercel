@@ -2,8 +2,21 @@
 import { Chart } from "react-google-charts";
 import React from "react";
 import { options } from "../widgets/BarChart.js";
-import { getTeamData } from "../Data";
+import { useEffect, useState } from "react";
+const {fetchDataAndProcess} = require("../Data.js");
 function Contact() {
+    const [data, setData] = useState(new Promise(() => {}));
+
+    useEffect(() => {
+        setData(fetchDataAndProcess());
+    }
+    , []);
+
+    data.then((value) => {
+        console.log(value.rawData);
+    }
+    );
+    
 	return (
 		<Chart
       chartType="Table"
