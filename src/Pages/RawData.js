@@ -7,7 +7,7 @@ function Contact() {
 	return (
 		<Chart
       chartType="Table"
-      data={getTeamData("4567")}
+      // data={getTeamData("4567")}
       options={options}
       width={"100%"}
       height={"400px"}
