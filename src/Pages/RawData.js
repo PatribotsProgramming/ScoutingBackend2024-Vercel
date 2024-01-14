@@ -1,11 +1,8 @@
 // Filename - component/contact.js
 import { Chart } from "react-google-charts";
-import { allData } from "../Data";
 import React from "react";
 import { options } from "../widgets/BarChart.js";
 import { getTeamData } from "../Data";
-console.log(allData);
-console.log(allData)
 function Contact() {
 	return (
 		<Chart

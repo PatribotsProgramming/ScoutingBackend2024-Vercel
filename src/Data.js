@@ -3,7 +3,11 @@
 import {data} from './SampleData.js';
 import {Chart} from 'react-google-charts';
 import { getAllData } from './widgets/JsonData.js';
+import { fetchData } from './SampleData.js';
+import { async } from '@firebase/util';
 //const data = getAllData();
+
+
 
 
 const eventCode = '2024Testing';
@@ -18,24 +22,43 @@ export const getTeamCommentData = (team) => {
   return commentTeamMap.get(team);
 }
 
-export const rawData = JSON.parse(data)['scouting'][eventCode];
-console.log(rawData);
-console.log(convertNumDataToTableForm(rawData));
-export const allData = resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0);
-export const commentData = resortColumnByPoint(convertCommentsToTableForm(rawData), 'Team', 0);
-export const numData = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
-console.log(allData);
-// console.log(resortColumn(dataTest, 1, 2));
+const newData = getAllData();
 
-export const bigTeamMap = convertToTeamMap(allData);
-export const commentTeamMap = convertToTeamMap(commentData);
-export const numTeamMap = convertToTeamMap(numData);
-console.log(bigTeamMap);
-console.log(getTeamAverage("4567"));
+let rawData;
+let commentData;
+let numData;
+let commentTeamMap;
+let numTeamMap;
+let bigTeamMap;
+let allData;
 
+newData.then((data) => {
+  
+  rawData = JSON.parse(data)['scouting'][eventCode];
+  commentData = resortColumnByPoint(convertCommentsToTableForm(rawData), 'Team', 0);
+  numData = resortColumnByPoint(convertNumDataToTableForm(rawData), 'Team', 0);
 
+  
+  commentTeamMap = convertToTeamMap(commentData);
+  numTeamMap = convertToTeamMap(numData);
+  
+  allData = async () => {return resortColumnByPoint(convertAllToTableForm(rawData), 'Team', 0)};
 
-console.log(allData);
+  bigTeamMap = convertToTeamMap(allData);
+});
+
+// AHHHHHH ASYNC IS SO ANNOYING AHHHHHHHH!!!! FUCK YOU ASYNC!!!!
+// FML 
+// CONVERT EVERY FUNCTION TO USE DATA.THEN, I MEAN EVERYTHING...... INCLUDING THE EXPORTS OF ALL DATA
+
+// const getAllDataSync = async () => {
+//     await allData.then((data) => {
+//       console.log(data);
+//     });
+// }
+
+// getAllDataSync();
+
 function convertToTableForm(data, datatype) {
   // overall data structure
   let table = [];

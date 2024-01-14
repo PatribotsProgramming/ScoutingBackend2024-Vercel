@@ -13,11 +13,10 @@ export async function getAllData() {
     if (snapshot.exists()) {
       const data = snapshot.val();
       const jsonString = JSON.stringify(data);
-      console.log(jsonString)
+      // console.log(jsonString);
       return jsonString;
     } else {
       console.log("No data available");
-      return null;
     }
   } catch (error) {
     console.error("Error fetching data: ", error);
