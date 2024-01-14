@@ -1,7 +1,9 @@
 
 
 import {data} from './SampleData.js';
-
+import {Chart} from 'react-google-charts';
+import { getAllData } from './widgets/JsonData.js';
+//const data = getAllData();
 
 
 const eventCode = '2024Testing';
@@ -133,7 +135,7 @@ function getIndividualDatapoints(data) {
 
   // if there are no matches, return empty table
   if (matchKeys.length == 0) {
-    return table;
+    //return table;
   }
   // gets all the data points using the data from the first bot in the first match
   let commentPoints = Object.keys(data[matchKeys[0]][Object.keys(data[matchKeys[0]])[0]]['comments']);
@@ -177,4 +179,3 @@ function getTeamAverage(team) {
   console.log(dataMap);
   return dataMap;
 }
-

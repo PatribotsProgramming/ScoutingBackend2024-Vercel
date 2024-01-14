@@ -1,8 +1,9 @@
 import { ref, get, getDatabase } from 'firebase/database';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import { data } from '../SampleData';
+import { db } from '../Config';
 
-const db = getDatabase();
 
 //Frank's Middle
 export async function getAllData() {
@@ -41,3 +42,4 @@ export async function getData(path) {
     console.error("Error fetching data: ", error);
   }
 }
+
