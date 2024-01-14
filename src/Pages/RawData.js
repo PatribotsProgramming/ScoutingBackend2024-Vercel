@@ -5,27 +5,24 @@ import { options } from "../widgets/BarChart.js";
 import { useEffect, useState } from "react";
 const {fetchDataAndProcess} = require("../Data.js");
 function Contact() {
-    const [data, setData] = useState(new Promise(() => {}));
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        setData(fetchDataAndProcess());
+        fetchDataAndProcess().then((data) => {
+            setData(data);
+        });
     }
     , []);
 
-    data.then((value) => {
-        console.log(value.rawData);
-    }
-    );
-    
 	return (
+
 		<Chart
-      chartType="Table"
-      // data={getTeamData("4567")}
-      options={options}
-      width={"100%"}
-      height={"400px"}
-    />
-	
+            chartType="Table"
+            data={data.allData}
+            options={options}
+            width={"100%"}
+            height={"400px"}
+        />
 	);
 
 }
