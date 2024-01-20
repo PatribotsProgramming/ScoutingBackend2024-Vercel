@@ -2,7 +2,9 @@ import { getAllData } from "./widgets/JsonData"
 
 export const data = getAllData();
 
-// export const data = [`{
+
+// export const dat = [`
+// {
 // 	"scouting": {
 // 		"2024Testing": {
 // 			"match-1": {

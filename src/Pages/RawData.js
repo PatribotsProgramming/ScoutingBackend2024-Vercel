@@ -6,16 +6,17 @@ import { useEffect, useState } from "react";
 const {fetchDataAndProcess} = require("../Data.js");
 function Contact() {
     const [data, setData] = useState([]);
-
+    // if want specific team:
+    // data.length > 0 ? [] : data.numTeamMap.get("4738")
     useEffect(() => {
-        fetchDataAndProcess().then((data) => {
-            setData(data);
-        });
-    }
-    , []);
-
+        setTimeout(() => {
+            fetchDataAndProcess().then((data) => {
+                setData(data);
+            });
+        }, 1000);
+    }, []);
+    console.log(data.allData);
 	return (
-
 		<Chart
             chartType="Table"
             data={data.allData}

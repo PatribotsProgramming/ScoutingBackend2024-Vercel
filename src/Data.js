@@ -1,4 +1,4 @@
-import { data } from "./SampleData.js";
+ import { data } from "./SampleData.js";
 import { Chart } from "react-google-charts";
 import { getAllData } from "./widgets/JsonData.js";
 import { fetchData } from "./SampleData.js";
@@ -7,15 +7,6 @@ import { async } from "@firebase/util";
 
 const eventCode = "2024Testing";
 
-const getTeamData = (team) => {
-    return bigTeamMap.get(team);
-};
-const getTeamNumData = (team) => {
-    return numTeamMap.get(team);
-};
-const getTeamCommentData = (team) => {
-    return commentTeamMap.get(team);
-};
 
 let rawData;
 let commentData;
@@ -24,11 +15,14 @@ let commentTeamMap;
 let numTeamMap;
 let bigTeamMap;
 let allData;
+let teamAverageMap;
 
 // Use an async function to fetch and process your data
+// Working:
 export const fetchDataAndProcess = async () => {
     const data = await getAllData();
     rawData = JSON.parse(data)["scouting"][eventCode];
+    console.log(rawData);
     commentData = resortColumnByPoint(
         convertCommentsToTableForm(rawData),
         "Team",
@@ -39,15 +33,25 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
+    console.log(numData);
+    
 
     commentTeamMap = convertToTeamMap(commentData);
-    numTeamMap = convertToTeamMap(numData);
 
+    numTeamMap = convertToTeamMap(numData);
+    console.log(numTeamMap);
+    console.log(getTeamAverage("3128"));
+    console.log(getTeamAverage("4738"));
+    console.log(numTeamMap);
+    console.log(getTeamAverageMap());
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
 
-    // make a map of all the data variables
+    
 
+    // make a map of all the data variables
+    console.log(numTeamMap);
+    console.log(allData);
     return {
         rawData: rawData,
         commentData: commentData,
@@ -59,6 +63,22 @@ export const fetchDataAndProcess = async () => {
     };
 };
 
+
+const getTeamData = (team) => {
+    return bigTeamMap.get(team);
+};
+const getTeamNumData = (team) => {
+    console.log(numTeamMap);
+    if (numTeamMap.get(team) == undefined) {
+        return [[], []];
+    }
+    return numTeamMap.get(team);
+};
+const getTeamCommentData = (team) => {
+    return commentTeamMap.get(team);
+};
+
+// Working
 function convertToTableForm(data, datatype) {
     // overall data structure
     let table = [];
@@ -101,14 +121,18 @@ function convertToTableForm(data, datatype) {
 
     return table;
 }
-
+// Working: 
 function convertCommentsToTableForm(data) {
     return convertToTableForm(data, "comments");
 }
+// Working: 
 function convertNumDataToTableForm(data) {
     console.log(convertToTableForm(data, "data"));
     return convertToTableForm(data, "data");
 }
+
+
+// Working: 
 function convertAllToTableForm(data) {
     let comments = convertCommentsToTableForm(data);
     let numData = convertNumDataToTableForm(data);
@@ -124,6 +148,8 @@ function convertAllToTableForm(data) {
     return table;
 }
 
+
+// Working but need to make easier to use:
 function resortColumn(data, columnInitial, columnGoal) {
     let table = [];
     let row = [];
@@ -139,6 +165,8 @@ function resortColumn(data, columnInitial, columnGoal) {
     return table;
 }
 
+
+// Working but need to make easier to use:
 function resortColumnByPoint(data, point, columnGoal) {
     console.log(data);
     for (let i = 0; i < data[0].length; i++) {
@@ -148,35 +176,50 @@ function resortColumnByPoint(data, point, columnGoal) {
     }
 }
 
+
+// Working:
 function getIndividualDatapoints(data) {
+
     let datapoints = [[], []];
 
+
+    //gets all the matches
     let matchKeys = Object.keys(data);
+    console.log(matchKeys);
 
     // if there are no matches, return empty table
     if (matchKeys.length == 0) {
-        //return table;
+        return table;
     }
+    
     // gets all the data points using the data from the first bot in the first match
+    // matchKeys[0] is the first match
+    // Object.keys(data[matchKeys[0]])[0] is the first bot in the first match
+    
+    let botKeys = Object.keys(data[matchKeys[0]]);
+    
     let commentPoints = Object.keys(
-        data[matchKeys[0]][Object.keys(data[matchKeys[0]])[0]]["comments"]
+        data[matchKeys[0]][botKeys[0]]["comments"]
     );
 
-    let partialDataPoints = Object.keys(
-        data[matchKeys[0]][Object.keys(data[matchKeys[0]])[0]]["data"]
+    
+    let numDataPoints = Object.keys(
+        data[matchKeys[0]][botKeys[0]]["data"]
     );
 
     // pushes those data points to the first row of the table (the header)
     for (let i = 0; i < commentPoints.length; i++) {
         datapoints[0].push(commentPoints[i]);
     }
-    for (let i = 0; i < partialDataPoints.length; i++) {
-        datapoints[1].push(partialDataPoints[i]);
+    for (let i = 0; i < numDataPoints.length; i++) {
+        datapoints[1].push(numDataPoints[i]);
     }
     console.log(datapoints);
     return datapoints;
 }
 
+
+// Working: 
 function convertToTeamMap(data, datatype) {
     let teamMap = new Map();
     const points = getIndividualDatapoints(rawData);
@@ -191,13 +234,62 @@ function convertToTeamMap(data, datatype) {
     return teamMap;
 }
 
+
+
+
+
+// Working:
 function getTeamAverage(team) {
-    let dataMap = new Map();
+    let dataArrTest = [[], []];
     let teamData = getTeamNumData(team);
     console.log(teamData);
+    for (let i = 0; i < teamData[0].length; i++) {
+        dataArrTest[0].push(teamData[0][i]);
+    }
+    for (let i = 0; i < teamData[1].length; i++) {
+        dataArrTest[1].push(teamData[1][i]);
+    }
+    
+    for (let i = 0; i < dataArrTest[1].length; i++) {
+        if (dataArrTest[1][i] == false) {
+            dataArrTest[1][i] = 0;
+        }
+        else if (dataArrTest[1][i] == true) {
+            dataArrTest[1][i] = 1;
+        }
+    }
+    console.log(numTeamMap);
+    for (let i = 2; i < teamData.length; i++) {
+        for (let j = 0; j < teamData[0].length; j++) {
+            if (teamData[i][j] == false) {
+                teamData[i][j] = 0;
+            }
+            else if (teamData[i][j] == true) {
+                teamData[i][j] = 1;
+            }
+            dataArrTest[1][j] = parseFloat(teamData[i][j]) + parseFloat(dataArrTest[1][j]);
+        }
+    }
+    for (let i = 0; i < dataArrTest[1].length; i++) {
+        dataArrTest[1][i] /= teamData.length - 1;
+    }
+    console.log(dataArrTest);
+    return dataArrTest;
+}
 
-    console.log(dataMap);
-    return dataMap;
+function getTeamAverageMap() {
+    let averageMap = new Map();
+    let teams = [];
+    console.log(numTeamMap);
+    numTeamMap.forEach((value, key) => {
+        teams.push(key);
+    });
+    for (let i = 0; i < teams.length; i++) {
+        console.log(getTeamAverage(teams[i]));
+        averageMap.set(teams[i], getTeamAverage(teams[i]));
+    }
+    console.log(averageMap);
+    return averageMap;
 }
 
 export {
@@ -213,4 +305,4 @@ export {
     resortColumn,
     resortColumnByPoint,
     convertToTeamMap,
-};
+};  
