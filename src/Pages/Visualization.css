@@ -1,0 +1,66 @@
+:root {
+    --text-color: #E0E0E0;
+    /* softer color for text */
+    --background-color: #282828;
+    /* softer color for background */
+    --lighter-background-color: #383838;
+    /* slightly lighter color for hover effects */
+    --primary-color: #BB86FC;
+    /* primary color */
+    --secondary-color: #3700B3;
+    /* secondary color */
+    --accent-color: #03DAC6;
+    /* accent color */
+}
+
+/* Add some spacing and center the content */
+.container {
+    display: flex;
+    width: 1200px;
+    height: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 4%;
+}
+
+.charts {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 4%;
+    border-radius: 10px;
+    display: flex;
+    align-items: right;
+    /* evenly distribute items along the line */
+    flex-wrap: wrap;
+    /* center items along the cross-axis */
+    /* animate border and shadow changes */
+
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.tab {
+    background-color: var(--background-color);
+    filter: brightness(90%);    
+    border: none;
+    color: var(--text-color);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: var(--lighter-background-color);
+    color: var(--primary-color);
+}

@@ -7,44 +7,7 @@
     --accent-color: #03DAC6; /* accent color */
 }
 
-/* Reset default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Set a modern font */
-body {
-    font-family: Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-/* Add some spacing and center the content */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Style the heading */
-h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-/* Style the paragraph */
-p {
-    font-size: 16px;
-    color: var(--text-color);
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.charts {
     border: 1px solid var(--lighter-background-color);
     padding: 10px;
     margin-left: 20px;
@@ -59,6 +22,50 @@ p {
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
 }
 
-.charts:hover {
+.container:hover {
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    word-wrap: break-word;
+    max-width: 200px;
+    overflow: auto;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3d4a3c;
+    color: white;
+}
+
+.filter {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 7px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: grey;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.4s;
+}
+
+.filter:hover {
+    background-color: white;
+    color: black;
 }

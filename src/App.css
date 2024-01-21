@@ -29,16 +29,6 @@ body {
     margin-left: 0;
 }
 
-.app {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-color);
-    max-width: 50%;
-    margin: auto;
-}
-
 .outer-container {
     display: flex;
     flex-direction: column;
@@ -201,7 +191,7 @@ h3 {
 
 .App-header {
     display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-columns: 33.33% 33.33% 33.33% ;
     height: 50px;
     position: absolute;
     top: 0px;
