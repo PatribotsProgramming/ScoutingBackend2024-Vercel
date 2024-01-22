@@ -5,9 +5,10 @@ import { options } from "../widgets/BarChart.js";
 import { useEffect, useState } from "react";
 const {fetchDataAndProcess} = require("../Data.js");
 function Contact() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     // if want specific team:
-    // data.length > 0 ? [] : data.numTeamMap.get("4738")
+    // data = {data && data.teamAverageMap.get("3128")}
+    // works same way for any other get methods, not needed for non get methods
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
@@ -15,11 +16,11 @@ function Contact() {
             });
         }, 1000);
     }, []);
-    console.log(data.allData);
+    console.log(data);
 	return (
 		<Chart
             chartType="Table"
-            data={data.allData}
+            data = {data && data.teamAverageMap.get("4738")}
             options={options}
             width={"100%"}
             height={"400px"}

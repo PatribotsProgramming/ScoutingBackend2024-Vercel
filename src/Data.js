@@ -5,8 +5,7 @@ import { fetchData } from "./SampleData.js";
 import { async } from "@firebase/util";
 //const data = getAllData();
 
-const eventCode = "2024Testing";
-
+const eventCode = "2024Testing";    
 
 let rawData;
 let commentData;
@@ -40,10 +39,10 @@ export const fetchDataAndProcess = async () => {
 
     numTeamMap = convertToTeamMap(numData);
     console.log(numTeamMap);
-    console.log(getTeamAverage("3128"));
     console.log(getTeamAverage("4738"));
     console.log(numTeamMap);
     console.log(getTeamAverageMap());
+    teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
 
@@ -60,6 +59,7 @@ export const fetchDataAndProcess = async () => {
         numTeamMap: numTeamMap,
         bigTeamMap: bigTeamMap,
         allData: allData,
+        teamAverageMap: teamAverageMap
     };
 };
 
@@ -108,12 +108,17 @@ function convertToTableForm(data, datatype) {
             const botData = matchData[bots[j]][datatype];
             console.log(botData);
             const dataKeys = Object.keys(botData);
-            console.log(dataKeys);
-            console.log(row);
             for (let k = 0; k < dataKeys.length; k++) {
                 row.push(botData[dataKeys[k]]);
             }
-            row.push(bots[j].substring(bots[j].length - 4, bots[j].length));
+            console.log(bots[j]);
+            let teamNameStart = 0;
+            for (let i = 0; i < bots[j].length; i++) {
+                if (bots[j][i] == '-') {
+                    teamNameStart = i + 1;
+                }
+            }
+            row.push(bots[j].substring(teamNameStart, bots[j].length));
             table.push(row);
         }
     }
@@ -242,12 +247,19 @@ function convertToTeamMap(data, datatype) {
 function getTeamAverage(team) {
     let dataArrTest = [[], []];
     let teamData = getTeamNumData(team);
+    let matchNumberIndex = 0;
     console.log(teamData);
     for (let i = 0; i < teamData[0].length; i++) {
-        dataArrTest[0].push(teamData[0][i]);
+        // if (dataArrTest[0] != "Match Number") {
+            dataArrTest[0].push(teamData[0][i]);
+        // }
+        // else matchNumberIndex = i;
     }
     for (let i = 0; i < teamData[1].length; i++) {
-        dataArrTest[1].push(teamData[1][i]);
+        // if (i != matchNumberIndex) {
+            dataArrTest[1].push(teamData[1][i]);
+        // }
+        
     }
     
     for (let i = 0; i < dataArrTest[1].length; i++) {
