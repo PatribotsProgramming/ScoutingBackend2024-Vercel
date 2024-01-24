@@ -16,6 +16,7 @@ let bigTeamMap;
 let allData;
 let teamAverageMap;
 
+let rawDataMap;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -45,12 +46,15 @@ export const fetchDataAndProcess = async () => {
     teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
-
+    rawDataMap = convertTableToMap(allData);
+    let rawDataMap;
     
 
     // make a map of all the data variables
     console.log(numTeamMap);
     console.log(allData);
+    console.log(bigTeamMap);
+    console.log(convertTableToMap(allData));
     return {
         rawData: rawData,
         commentData: commentData,
@@ -59,7 +63,8 @@ export const fetchDataAndProcess = async () => {
         numTeamMap: numTeamMap,
         bigTeamMap: bigTeamMap,
         allData: allData,
-        teamAverageMap: teamAverageMap
+        teamAverageMap: teamAverageMap,
+        rawDataMap: rawDataMap
     };
 };
 
@@ -180,7 +185,21 @@ function resortColumnByPoint(data, point, columnGoal) {
         }
     }
 }
+function convertTableToMap(data) {
+    let mapArr = [];
+    
 
+    for (let i = 1; i < data.length; i++) {
+        let map = new Map();
+        for (let j = 0; j < data[i].length; j++) {
+            map.set(data[0][j], data[i][j]);
+        }
+        mapArr.push(map);
+    }
+    console.log(mapArr);
+    return mapArr;
+    
+}
 
 // Working:
 function getIndividualDatapoints(data) {
