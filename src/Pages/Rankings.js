@@ -5,6 +5,7 @@ import "./Rankings.css";
 function Rankings() {
     const [data, setData] = useState([]);
     const [sortCol, setSortCol] = useState("age");
+    const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,18 +22,23 @@ function Rankings() {
         };
 
         fetchData();
-    }, [sortCol]);
+    }, [sortCol, sortOrder]); // Add sortOrder to the dependency array
 
     function compareByAge(sortCol) {
         return function (a, b) {
-            if (a[sortCol] > b[sortCol]) return -1;
-            if (a[sortCol] < b[sortCol]) return 1;
+            if (a[sortCol] > b[sortCol]) return -1 * sortOrder;
+            if (a[sortCol] < b[sortCol]) return 1 * sortOrder;
             return 0;
         };
     }
 
     const handleChange = (e) => {
         setSortCol(e.target.value);
+    };
+
+    const handleSort = (header) => { // New function to handle sorting
+        setSortCol(header);
+        setSortOrder(sortOrder * -1); // Toggle the sort order
     };
 
     if (data.length === 0) {
@@ -56,7 +62,7 @@ function Rankings() {
                                 <button
                                     id={index}
                                     className="filter"
-                                    onClick={() => setSortCol(header)}
+                                    onClick={() => handleSort(header)} // Use handleSort function here
                                 >
                                     <i
                                         class="fa fa-filter"
