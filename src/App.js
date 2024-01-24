@@ -7,8 +7,8 @@ import {
 	Route,
 	Link,
 } from "react-router-dom";
-import Rankings from "./Pages/Rankings";
-import RawData from "./Pages/RawData";
+import RankingsUnstyled from "./Pages/RankingsUnstyled";
+import RawDataUnstyled from "./Pages/RawDataUnstyled";
 import Visualization from "./Pages/Visualization";
 import "./App.css";
 import Patribots from "./images/patribotsLogo.png";
