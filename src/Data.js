@@ -1,4 +1,4 @@
- import { data } from "./SampleData.js";
+import { data } from "./SampleData.js";
 import { Chart } from "react-google-charts";
 import { getAllData } from "./widgets/JsonData.js";
 import { fetchData } from "./SampleData.js";

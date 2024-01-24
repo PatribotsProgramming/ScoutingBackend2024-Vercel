@@ -7,9 +7,9 @@ import {
 	Route,
 	Link,
 } from "react-router-dom";
-import Home from "./Pages/home";
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
+import Visualization from "./Pages/Visualization";
 import "./App.css";
 import Patribots from "./images/patribotsLogo.png";
 
@@ -19,16 +19,16 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					<div className="App-header">
-						<Link className="navbar-but" to="/">
-							<div className="nav-text">
-								Home
-							</div>
-						</Link>
 						<Link className="navbar-but" to="/Rankings">
 							<div className="nav-text">
 								Rankings
 							</div>
 						</Link>
+                        <Link className="navbar-but" to="/Visualization">
+                            <div className="nav-text">
+                                Visualization
+                            </div>
+                        </Link>
 						<Link className="navbar-but" to="/RawData">
 							<div className="nav-text">
 								Raw Data
@@ -38,14 +38,15 @@ class App extends Component {
 					<Routes>
 						<Route
 							exact
-							path="/"
-							element={<Home />}
-						></Route>
-						<Route
-							exact
 							path="/Rankings"
 							element={<Rankings />}
 						></Route>
+                        <Route
+                            exact
+                            path="/Visualization"
+                            element={<Visualization />}
+                        ></Route>
+                        
 						<Route
 							exact
 							path="/RawData"
