@@ -39,7 +39,7 @@ class App extends Component {
 						<Route
 							exact
 							path="/Rankings"
-							element={<RankingsUnstyled />}
+							element={<Rankings />}
 						></Route>
                         <Route
                             exact
@@ -50,7 +50,7 @@ class App extends Component {
 						<Route
 							exact
 							path="/RawData"
-							element={<RawDataUnstyled />}
+							element={<RawData />}
 						></Route>
 					</Routes>
 				</div>

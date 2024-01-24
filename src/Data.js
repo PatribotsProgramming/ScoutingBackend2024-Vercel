@@ -194,7 +194,7 @@ function getIndividualDatapoints(data) {
 
     // if there are no matches, return empty table
     if (matchKeys.length == 0) {
-        return table;
+        return dataPoints;
     }
     
     // gets all the data points using the data from the first bot in the first match
