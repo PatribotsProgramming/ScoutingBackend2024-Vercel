@@ -1,6 +1,7 @@
 import { getTeamData } from "../Data";
 import React, { useEffect, useState } from "react";
-import "./Rankings.css";
+
+import "./Tables.css";
 
 function Rankings() {
     const [data, setData] = useState([]);

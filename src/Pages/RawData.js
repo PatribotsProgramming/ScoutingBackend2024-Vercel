@@ -1,6 +1,7 @@
 import { getTeamData } from "../Data";
 import React, { useEffect, useState } from "react";
-import "./RawData.css";
+
+import "./Tables.css";
 
 function Contact() {
     const [data, setData] = useState([]);
