@@ -1,5 +1,8 @@
 // import { Chart } from "react-google-charts";
-// // import { dataTest } from "../Data";
+
+// import { allData } from "../Data";
+// import { getTeamData } from "../Data";
+
 // export const options = {
 //   title: "My Daily Activities",
 // };
@@ -8,7 +11,9 @@
 //   return (
 //     <Chart
 //       chartType="Table"
-//       data={dataTest}
+
+//       //data={allData}
+
 //       // data = {dataTest}
 //       options={options}
 //       width={"100%"}

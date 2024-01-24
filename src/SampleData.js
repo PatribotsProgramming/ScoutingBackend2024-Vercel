@@ -1,167 +1,71 @@
-export const data = [`{
-  "scouting": {
-    "2024Testing": {
-      "match-1": {
-        "blue1-4567": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        },
-        "blue2-5677": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        },
-        "blue3-3894": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        },
-        "red1-6608": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        },
-        "red2-3245": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        },
-        "red3-5477": {
-          "comments": {
-            "Additional Comments": "",
-            "Auto Description": "",
-            "Name": "Oliver",
-            "What they did bad": "",
-            "What they did well": ""
-          },
-          "data": {
-            "Amp Auto": "0",
-            "Amp Teleop": "0",
-            "Amped Speaker": "0",
-            "Climb Failure": false,
-            "Critical Failure": false,
-            "Cycle Time": "50",
-            "End Onstage": false,
-            "End Park": false,
-            "Fumbles": "0",
-            "Human Player": "50",
-            "Leave in Auto": false,
-            "Speaker Auto": "0",
-            "Speaker Teleop": "0",
-            "Temp Failure": false,
-            "Trap": "0"
-          }
-        }
-      }
-    }
-  }
-}
+import { getAllData } from "./widgets/JsonData"
+
+export const data = getAllData();
 
 
-`]
+// export const dat = [`
+// {
+// 	"scouting": {
+// 		"2024Testing": {
+// 			"match-1": {
+// 				"red1-4738": {
+// 					"comments": {
+// 						"Additional Comments": "",
+// 						"Auto Description": "",
+// 						"Name": "Frank",
+// 						"What they did bad": "",
+// 						"What they did well": ""
+// 					},
+// 					"data": {
+// 						"Amp Auto": "1",
+// 						"Amp Teleop": "1",
+// 						"Amped Speaker": "1",
+// 						"Average Cycle Time": "0.41s",
+// 						"Climb Failure": false,
+// 						"Critical Failure": false,
+// 						"Driving": "50",
+// 						"End Onstage": false,
+// 						"End Park": true,
+// 						"Fumbles": "1",
+// 						"Human Player": "50",
+// 						"Leave in Auto": true,
+// 						"Speaker Auto": "1",
+// 						"Speaker Teleop": "1",
+// 						"Temp Failure": false,
+// 						"Trap": "1"
+// 					}
+// 				}
+// 			},
+// 			"match-2": {
+// 				"red2-1538": {
+// 					"comments": {
+// 						"Additional Comments": "",
+// 						"Auto Description": "",
+// 						"Name": "Frank",
+// 						"What they did bad": "",
+// 						"What they did well": ""
+// 					},
+// 					"data": {
+// 						"Amp Auto": "1",
+// 						"Amp Teleop": "1",
+// 						"Amped Speaker": "1",
+// 						"Average Cycle Time": "0.20s",
+// 						"Climb Failure": false,
+// 						"Critical Failure": false,
+// 						"Driving": "50",
+// 						"End Onstage": false,
+// 						"End Park": true,
+// 						"Fumbles": "1",
+// 						"Human Player": "50",
+// 						"Leave in Auto": true,
+// 						"Speaker Auto": "1",
+// 						"Speaker Teleop": "0",
+// 						"Temp Failure": false,
+// 						"Trap": "2"
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+// `]
