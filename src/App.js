@@ -44,12 +44,12 @@ class App extends Component {
 						<Route
 							exact
 							path="/Rankings"
-							element={<Rankings />}
+							element={<RankingsUnstyled />}
 						></Route>
 						<Route
 							exact
 							path="/RawData"
-							element={<RawData />}
+							element={<RawDataUnstyled />}
 						></Route>
 					</Routes>
 				</div>

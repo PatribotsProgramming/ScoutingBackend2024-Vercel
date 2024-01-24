@@ -249,17 +249,18 @@ function getTeamAverage(team) {
     let teamData = getTeamNumData(team);
     let matchNumberIndex = 0;
     console.log(teamData);
+    for (let j = 0; j < teamData.length; j++) {
+        for (let i = 0; i < teamData[0].length; i++) {
+            if (teamData[0][i] == "Match Number") {
+                teamData[j].splice(i, 1);
+             }
+        }
+    }
     for (let i = 0; i < teamData[0].length; i++) {
-        // if (dataArrTest[0] != "Match Number") {
             dataArrTest[0].push(teamData[0][i]);
-        // }
-        // else matchNumberIndex = i;
     }
     for (let i = 0; i < teamData[1].length; i++) {
-        // if (i != matchNumberIndex) {
             dataArrTest[1].push(teamData[1][i]);
-        // }
-        
     }
     
     for (let i = 0; i < dataArrTest[1].length; i++) {
