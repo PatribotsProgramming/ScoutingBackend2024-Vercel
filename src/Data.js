@@ -28,12 +28,14 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
-    numData = resortColumnByPoint(
-        convertNumDataToTableForm(rawData),
-        "Team",
-        0
-    );
+    numData = convertNumDataToTableForm(rawData);
     console.log(numData);
+    // numData = resortColumnByPoint(
+    //     convertNumDataToTableForm(rawData),
+    //     "Team",
+    //     0
+    // );
+    // console.log(numData);
     
 
     commentTeamMap = convertToTeamMap(commentData);
@@ -46,14 +48,14 @@ export const fetchDataAndProcess = async () => {
     teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
-    rawDataMap = convertTableToMap(allData);
-    
+    rawDataMap = convertTableToMap(numData);
 
     // make a map of all the data variables
     console.log(numTeamMap);
     console.log(allData);
     console.log(bigTeamMap);
-    console.log(convertTableToMap(allData))
+    console.log(numData);
+    console.log(convertTableToMap(allData));
     return {
         rawData: rawData,
         commentData: commentData,
@@ -180,6 +182,7 @@ function resortColumnByPoint(data, point, columnGoal) {
     console.log(data);
     for (let i = 0; i < data[0].length; i++) {
         if (data[0][i] == point) {
+            console.log(resortColumn(data, i, columnGoal));
             return resortColumn(data, i, columnGoal);
         }
     }
@@ -189,14 +192,16 @@ function convertTableToMap(data) {
     
 
     for (let i = 1; i < data.length; i++) {
-        let map = new Map();
+        let map = {};
+        console.log(data[i]);
         for (let j = 0; j < data[i].length; j++) {
-            map.set(data[0][j], data[i][j]);
+            console.log(j);
+            console.log(data[0][j]);
+            map[data[0][j]] = data[i][j];
         }
         mapArr.push(map);
     }
-    console.log(mapArr[0]);
-    console.log(mapArr[0].Team);
+    console.log(mapArr);
     return mapArr;
     
 }

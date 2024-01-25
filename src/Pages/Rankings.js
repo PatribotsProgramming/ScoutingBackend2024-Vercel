@@ -55,8 +55,8 @@ function Rankings() {
         return <div>Loading...</div>;
     }
     console.log(data);
-    let headers = data.bigTeamMap.keys();
-    console.log(headers);
+    let headers = Object.keys(data.rawDataMap[0]);
+    console.log(data.rawDataMap[0]);
     return (
         <div className="container">
             <link
@@ -84,7 +84,7 @@ function Rankings() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
+                    {data.rawDataMap.map((item, index) => (
                         <tr key={index}>
                             {headers.map((header, index) => (
                                 <td key={index}>{item[header]}</td>
