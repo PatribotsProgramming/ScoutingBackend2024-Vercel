@@ -3,25 +3,28 @@ import React, { useEffect, useState } from "react";
 import {fetchDataAndProcess} from '../Data.js'
 import "./Tables.css";
 
-function Contact() {
+function RawData() {
     const [data, setData] = useState([]);
     const [headers, setHeaders] = useState([]);
+    const [selectedDataMap, setSelectedDataMap] = useState('rawDataMap'); // New state variable for selected data map
 
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setData(data);
-                setHeaders(Object.keys(data.numDataMap[0]));
+                setHeaders(Object.keys(data[selectedDataMap][0]));
             });
         }, 1000);
-    }, []);
+    }, [selectedDataMap]); // Add selectedDataMap to the dependency array
 
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
 
     const handleChange = (e) => {
-        setHeaders(e.target.value);
+        const selectedOption = e.target.value;
+        setHeaders(selectedOption.split(','));
+        setSelectedDataMap(selectedOption === 'Num Data' ? 'rawDataMap' : 'commentDataMap'); // Update selectedDataMap based on selected option
     }
 
     return (
@@ -42,7 +45,7 @@ function Contact() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.rawDataMap.map((item, index) => (
+                        {data[selectedDataMap].map((item, index) => ( // Use selectedDataMap here
                             <tr key={index}>
                                 {headers.map((header, index) => (
                                     <td key={index}>{item[header]}</td>
@@ -52,12 +55,12 @@ function Contact() {
                     </tbody>
                 </table>
             </div>
-            <select onChange={() => handleChange}>
-                <option value={Object.keys(data.numDataMap[0])}>Num Data</option>
+            <select onChange={handleChange}>
+                <option value={Object.keys(data.rawDataMap[0])}>Num Data</option>
                 <option value={Object.keys(data.commentDataMap[0])}>Comment Data</option>
             </select>
         </div>
     );
 }
 
-export default Contact;
+export default RawData;
