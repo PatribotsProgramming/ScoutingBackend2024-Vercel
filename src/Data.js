@@ -41,14 +41,14 @@ export const fetchDataAndProcess = async () => {
     commentTeamMap = convertToTeamMap(commentData);
 
     numTeamMap = convertToTeamMap(numData);
-    console.log(numTeamMap);
+    // console.log(numTeamMap);
     console.log(getTeamAverage("4738"));
-    console.log(numTeamMap);
-    console.log(getTeamAverageMap());
-    teamAverageMap = getTeamAverageMap();
-    allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
-    bigTeamMap = convertToTeamMap(allData);
-    rawDataMap = convertTableToMap(allData);
+    // console.log(numTeamMap);
+    // console.log(getTeamAverageMap());
+    // teamAverageMap = getTeamAverageMap();
+    // allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
+    // bigTeamMap = convertToTeamMap(allData);
+    rawDataMap = convertTableToMap(numData);
 
     // make a map of all the data variables
     console.log(numTeamMap);
@@ -86,13 +86,14 @@ const getTeamCommentData = (team) => {
 
 // Working
 function convertToTableForm(data, datatype) {
-    // overall data structure
+    
     let table = [];
 
     // rows of the table
     let row = getIndividualDatapoints(data);
     row[0].push("Team");
     row[1].push("Team");
+
 
     // pushes the first row to the table
 
@@ -145,14 +146,14 @@ function convertNumDataToTableForm(data) {
 
 // Working: 
 function convertAllToTableForm(data) {
-    let comments = convertCommentsToTableForm(data);
-    let numData = convertNumDataToTableForm(data);
+    let tempComments = convertCommentsToTableForm(data);
+    let tempNumData = convertNumDataToTableForm(data);
     let table = [];
-    table.push([comments[0], numData[0]].flat());
+    table.push([tempComments[0], tempNumData[0]].flat());
     table[0].pop();
     console.log(table);
-    for (let i = 0; i < comments.length - 1; i++) {
-        table.push([comments[i + 1], numData[i + 1]].flat());
+    for (let i = 0; i < tempComments.length - 1; i++) {
+        table.push([tempComments[i + 1], tempNumData[i + 1]].flat());
         table[i + 1].pop();
     }
     console.log(table);
@@ -187,10 +188,12 @@ function resortColumnByPoint(data, point, columnGoal) {
         }
     }
 }
+
+// not working?
 function convertTableToMap(data) {
     let mapArr = [];
     
-
+    console.log(data);
     for (let i = 1; i < data.length; i++) {
         let map = {};
         console.log(data[i]);
