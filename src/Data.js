@@ -48,14 +48,14 @@ export const fetchDataAndProcess = async () => {
     teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
-    rawDataMap = convertTableToMap(numData);
+    rawDataMap = convertTableToMap(allData);
 
     // make a map of all the data variables
     console.log(numTeamMap);
     console.log(allData);
     console.log(bigTeamMap);
     console.log(numData);
-    console.log(convertTableToMap(allData));
+    console.log(convertTableToMap(numData));
     return {
         rawData: rawData,
         commentData: commentData,
