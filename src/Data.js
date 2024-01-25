@@ -38,17 +38,17 @@ export const fetchDataAndProcess = async () => {
     // console.log(numData);
     
 
-    commentTeamMap = convertToTeamMap(commentData);
-
+    commentTeamMap = convertTableToMap(commentData);
+    console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
-    // console.log(numTeamMap);
-    console.log(getTeamAverage("4738"));
     console.log(numTeamMap);
-    console.log(getTeamAverageMap());
-    teamAverageMap = getTeamAverageMap();
-    allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
-    bigTeamMap = convertToTeamMap(allData);
-    rawDataMap = convertTableToMap(allData);
+    console.log(getTeamAverage("4738"));
+    // console.log(numTeamMap);
+    // console.log(getTeamAverageMap());
+    // teamAverageMap = getTeamAverageMap();
+    // allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
+    // bigTeamMap = convertToTeamMap(allData);
+    rawDataMap = convertTableToMap(numData);
 
     // make a map of all the data variables
     console.log(numTeamMap);
@@ -191,7 +191,7 @@ function resortColumnByPoint(data, point, columnGoal) {
     }
 }
 
-// not working?
+// Working
 function convertTableToMap(data) {
     let mapArr = [];
     
@@ -254,14 +254,26 @@ function getIndividualDatapoints(data) {
 
 
 // Working: 
-function convertToTeamMap(data, datatype) {
+function convertToTeamMap(data) {
     let teamMap = new Map();
-    const points = getIndividualDatapoints(rawData);
+    // const points = getIndividualDatapoints(rawData);
+    let teamNameIndex = 0;
+    if (data.length == 0) {
+        return {};
+    }
+    const points = data[0];
+    for (let i = 0; i < data[0].length; i++) {
+        if (points[i] == "Team") {
+            teamNameIndex = i;
+            break;
+        }
+    }
+    console.log(teamNameIndex);
     for (let i = 1; i < data.length; i++) {
-        if (!teamMap.has(data[i][0])) {
-            teamMap.set(data[i][0], [data[0], data[i]]);
+        if (!teamMap.has(data[i][teamNameIndex])) {
+            teamMap.set(data[i][teamNameIndex], [data[0], data[i]]);
         } else {
-            teamMap.get(data[i][0]).push(data[i]);
+            teamMap.get(data[i][teamNameIndex]).push(data[i]);
         }
     }
     console.log(teamMap);
@@ -272,24 +284,26 @@ function convertToTeamMap(data, datatype) {
 
 
 
-// Working:
+// TODO: Make working
 function getTeamAverage(team) {
     let dataArrTest = [[], []];
     let teamData = getTeamNumData(team);
+    let newTeamData = [];
     let matchNumberIndex = 0;
     console.log(teamData);
     for (let j = 0; j < teamData.length; j++) {
-        for (let i = 0; i < teamData[0].length; i++) {
-            if (teamData[0][i] == "Match Number") {
-                teamData[j].splice(i, 1);
-             }
+        newTeamData.push([]);
+        for (let i = 0; i < teamData[j].length; i++) {
+            if (teamData[0][i] != "Match Number") {
+                newTeamData[j].push(teamData[j][i]);
+            }
         }
     }
-    for (let i = 0; i < teamData[0].length; i++) {
-            dataArrTest[0].push(teamData[0][i]);
+    for (let i = 0; i < newTeamData[0].length; i++) {
+            dataArrTest[0].push(newTeamData[0][i]);
     }
-    for (let i = 0; i < teamData[1].length; i++) {
-            dataArrTest[1].push(teamData[1][i]);
+    for (let i = 0; i < newTeamData[1].length; i++) {
+            dataArrTest[1].push(newTeamData[1][i]);
     }
     
     for (let i = 0; i < dataArrTest[1].length; i++) {
@@ -301,24 +315,25 @@ function getTeamAverage(team) {
         }
     }
     console.log(numTeamMap);
-    for (let i = 2; i < teamData.length; i++) {
-        for (let j = 0; j < teamData[0].length; j++) {
-            if (teamData[i][j] == false) {
-                teamData[i][j] = 0;
+    for (let i = 2; i < newTeamData.length; i++) {
+        for (let j = 0; j < newTeamData[0].length; j++) {
+            if (newTeamData[i][j] == false) {
+                newTeamData[i][j] = 0;
             }
-            else if (teamData[i][j] == true) {
-                teamData[i][j] = 1;
+            else if (newTeamData[i][j] == true) {
+                newTeamData[i][j] = 1;
             }
-            dataArrTest[1][j] = parseFloat(teamData[i][j]) + parseFloat(dataArrTest[1][j]);
+            dataArrTest[1][j] = parseFloat(newTeamData[i][j]) + parseFloat(dataArrTest[1][j]);
         }
     }
     for (let i = 0; i < dataArrTest[1].length; i++) {
-        dataArrTest[1][i] /= teamData.length - 1;
+        dataArrTest[1][i] /= newTeamData.length - 1;
     }
     console.log(dataArrTest);
     return dataArrTest;
 }
 
+// Working:
 function getTeamAverageMap() {
     let averageMap = new Map();
     let teams = [];
