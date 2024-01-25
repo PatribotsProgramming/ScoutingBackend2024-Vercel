@@ -9,17 +9,19 @@
 
 .container {
     border: 1px solid var(--lighter-background-color);
+    width: 100%;
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 4%;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
     display: flex; /* turn the container into a flex container */
     justify-content: space-around; /* evenly distribute items along the line */
     flex-wrap: wrap;
     align-items: center; /* center items along the cross-axis */
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
+    position: relative;
+    overflow-y: auto;
 }
 
 .container:hover {
@@ -30,7 +32,8 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    position: absolute;
+    top: 0px;
 }
 
 .table th,
@@ -40,19 +43,20 @@
     word-wrap: break-word;
     max-width: 200px;
     overflow: auto;
+    font-size: 12px;
 }
 
 .table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 5px;
+    padding-bottom: 20px;
     text-align: left;
     background-color: #3d4a3c;
     color: white;
+    position: relative;
 }
 
 .filter {
     display: inline-block;
-    margin-left: 10px;
     padding: 2px 7px;
     border: none;
     border-radius: 10px;
@@ -63,6 +67,9 @@
     text-decoration: none;
     font-size: 16px;
     transition-duration: 0.4s;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
 }
 
 .filter:hover {
