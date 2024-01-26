@@ -28,34 +28,52 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
-    numData = convertNumDataToTableForm(rawData);
+    // numData = convertNumDataToTableForm(rawData);
     // console.log(numData);
-    // numData = resortColumnByPoint(
-    //     convertNumDataToTableForm(rawData),
-    //     "Team",
-    //     0
-    // );
-    // console.log(numData);
+    numData = resortColumnsByArray(convertNumDataToTableForm(rawData), 
+        [
+            "Team",
+            "Match Number",
+            "Leave in Auto",
+            "Amp Auto",
+            "Speaker Auto",
+            "Amp Teleop",
+            "Speaker Teleop", 
+            "Amped Speaker",
+            "Fumbles",
+            "Coopertition",
+            "Average Cycle Time",
+            "Driving",
+            "Human Player",
+            "End Park",
+            "End Onstage",
+            "Climb Failure",
+            "Critical Failure",
+            "Temp Failure", 
+            "Trap"
+        ])
+    console.log(numData);
     
 
     commentTeamMap = convertTableToMap(commentData);
-    // console.log(commentTeamMap);
+    console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
     // console.log(numTeamMap);
-    console.log(getTeamAverage("4738"));
+    // // console.log(getTeamAverage("4738"));
     // console.log(numTeamMap);
     // console.log(getTeamAverageMap());
-    // teamAverageMap = getTeamAverageMap();
-    // allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
-    // bigTeamMap = convertToTeamMap(allData);
+    teamAverageMap = getTeamAverageMap();
+    allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
+    bigTeamMap = convertToTeamMap(allData);
     rawDataMap = convertTableToMap(numData);
 
+    console.log(numData);
     // make a map of all the data variables
     // console.log(numTeamMap);
     // console.log(allData);
     // console.log(bigTeamMap);
     // console.log(numData);
-    // console.log(convertTableToMap(numData));
+    console.log(convertTableToMap(numData));
     return {
         rawData: rawData,
         commentData: commentData,
@@ -179,6 +197,16 @@ function resortColumn(data, columnInitial, columnGoal) {
     return table;
 }
 
+// Working but EXTREMELY INEFFICIENT?
+function resortColumnsByArray(data, orderArr) {
+    let newData = [...data];
+    for (let i = 0; i < orderArr.length; i++) {
+        newData = resortColumnByPoint(newData, orderArr[i], i);
+        console.log(newData);
+    }  
+    return newData;
+}
+
 
 // Working but need to make easier to use:
 function resortColumnByPoint(data, point, columnGoal) {
@@ -284,7 +312,7 @@ function convertToTeamMap(data) {
 
 
 
-// TODO: Make working
+// Working
 function getTeamAverage(team) {
     let dataArrTest = [[], []];
     let teamData = getTeamNumData(team);

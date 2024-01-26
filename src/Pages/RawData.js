@@ -20,7 +20,7 @@ function RawData() {
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
-
+    console.log(data.rawDataMap);
     const handleChange = (e) => {
         const selectedOption = e.target.value;
         setHeaders(selectedOption.split(','));
