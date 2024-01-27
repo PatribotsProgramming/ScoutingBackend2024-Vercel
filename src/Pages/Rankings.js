@@ -5,7 +5,7 @@ import "./Tables.css";
 
 function Rankings() {
     const [data, setData] = useState([]);
-    const [sortCol, setSortCol] = useState("age"); // Oliver's preference
+    const [sortCol, setSortCol] = useState("Team");
     const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
 
 
@@ -13,38 +13,25 @@ function Rankings() {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setData(data);
+                sortByKey(data.rawDataMap, sortCol);
             });
         }, 1000);
     }, []);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         // Replace this with your actual data structure
-    //         const result = [
-    //             { name: "4738", ranking: 50, ampRanking: 20, amt: 2400, A: 120, B: 110 },
-    //             { name: "4739", ranking: 60, ampRanking: 30, amt: 2500, A: 130, B: 120 },
-    //             { name: "4740", ranking: 70, ampRanking: 40, amt: 2600, A: 140, B: 130 },
-    //             { name: "4741", ranking: 80, ampRanking: 50, amt: 2700, A: 150, B: 140 },
-    //             { name: "4742", ranking: 90, ampRanking: 60, amt: "HI", A: 160, B: 150 },
-    //         ];
-    //         result.sort(compare(sortCol));
-    //         setData(result);
-    //     };
+    useEffect(() => {
+        if (data.rawDataMap !== undefined && data.rawDataMap !== null) {
+            sortByKey(data.rawDataMap, sortCol);
+        }
+    }, [sortOrder, sortCol]);
 
-    //     fetchData();
-    // }, [sortCol, sortOrder]); // Add sortOrder to the dependency array
-
-    function compare(sortCol) {
-        return function (a, b) {
-            if (a[sortCol] > b[sortCol]) return -1 * sortOrder;
-            if (a[sortCol] < b[sortCol]) return 1 * sortOrder;
-            return 0;
-        };
+    // TODO: make working
+    function sortByKey(arr, key) {
+        return arr.sort((a, b) => {
+            if (Number(a[key]) > Number(b[key])) return -1 * sortOrder;
+            else if (Number(a[key]) < Number(b[key])) return 1 * sortOrder;
+            else return 0;
+        });
     }
-
-    const handleChange = (e) => {
-        setSortCol(e.target.value);
-    };
 
     const handleSort = (header) => { // New function to handle sorting
         setSortCol(header);
@@ -54,9 +41,9 @@ function Rankings() {
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
-    console.log(data);
+
     let headers = Object.keys(data.rawDataMap[0]);
-    console.log(data.rawDataMap[0]);
+
     return (
         <div className="container">
             <link
