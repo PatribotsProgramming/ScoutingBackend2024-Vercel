@@ -35,7 +35,7 @@ export const fetchDataAndProcess = async () => {
     // console.log(numData);
     numData = convertNumDataToTableForm(rawData);
     // console.log(numData);
-    numData = resortColumnsByArray(assignMatchScoreToEach(numData), 
+    numData = resortColumnsByArray(assignMatchScoreToEach(numData, "Score"), 
         [
             "Team",
             "Score",
@@ -206,7 +206,8 @@ function resortColumn(data, columnInitial, columnGoal) {
 }
 
 // Working but EXTREMELY INEFFICIENT?
-function resortColumnsByArray(data, orderArr) {
+function resortColumnsByArray(data, orderArr) { 
+
   let newData = [...data];
   for (let i = 0; i < orderArr.length; i++) {
     newData = resortColumnByPoint(newData, orderArr[i], i);
@@ -223,6 +224,7 @@ function resortColumnByPoint(data, point, columnGoal) {
       return resortColumn(data, i, columnGoal);
     }
   }
+  return data;
 }
 
 // Working

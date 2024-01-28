@@ -20,11 +20,11 @@ function RawData() {
     if (data.length === 0) {
         return <div>Loading...</div>;
     }
-    console.log(data.rawDataMap);
     const handleChange = (e) => {
         const selectedOption = e.target.value;
-        setHeaders(selectedOption.split(','));
+        console.log(selectedOption);
         setSelectedDataMap(selectedOption === 'Num Data' ? 'rawDataMap' : 'commentDataMap'); // Update selectedDataMap based on selected option
+        console.log(selectedDataMap);
     }
 
     return (
@@ -56,8 +56,8 @@ function RawData() {
                 </table>
             </div>
             <select onChange={handleChange}>
-                <option value={Object.keys(data.rawDataMap[0])}>Num Data</option>
-                <option value={Object.keys(data.commentDataMap[0])}>Comment Data</option>
+                <option value={'Num Data'}>Num Data</option>
+                <option value={'Comment Data'}>Comment Data</option>
             </select>
         </div>
     );

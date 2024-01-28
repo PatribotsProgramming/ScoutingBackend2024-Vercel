@@ -25,16 +25,27 @@ const endGameWeights =
     "Temp Failure" : 0,
     "Trap" : 2
 }
+
 const scoreWeights = {
     ...autoWeights,
     ...teleopWeights,
     ...endGameWeights,
   };
-
+const ampWeights = 
+  {
+      "Amp Auto" : scoreWeights["Amp Auto"],
+      "Amp Teleop" : scoreWeights["Amp Teleop"]
+  }
+const speakerWeights = 
+  {
+    "Speaker Auto" : scoreWeights["Speaker Auto"],
+    "Speaker Teleop" : scoreWeights["Speaker Teleop"],
+    "Amped Speaker" : scoreWeights["Amped Speaker"]
+  }
 // Working
 function assignMatchScoreIndividual(match, dataPoints) {
     let score = 0;
-    for (let i = 0; i < match.length; i++) {
+    for (let i = 0; i < match.length; i++) {    
         if (scoreWeights[dataPoints[i]] === undefined) continue;
         score += parseFloat(match[i]) * scoreWeights[dataPoints[i]];
     }
@@ -42,13 +53,32 @@ function assignMatchScoreIndividual(match, dataPoints) {
 } 
 
 
-// Working
-export function assignMatchScoreToEach(data) {
+
+export function assignMatchScoreToEach(data, dataType) {
+    let weightMap = scoreWeights;
     let newData = [...data];
-    for (let i = 1; i < newData.length; i++) {
-        newData[i].push(assignScore(newData[i], newData[0], scoreWeights));
+    switch (dataType) {
+        case "Auto" :
+            weightMap = autoWeights;
+            break;
+        case "Teleop" :
+            weightMap = teleopWeights;
+            break;
+        case "Endgame" :
+            weightMap = endGameWeights;
+            break;
+        case "Amp" :
+            weightMap = ampWeights;
+            break;
+        case "Speaker" :
+            weightMap = speakerWeights;
+            break;
     }
-    newData[0].push("Score");
+    for (let i = 1; i < newData.length; i++) {
+        newData[i].push(assignScore(newData[i], newData[0], weightMap));
+    }
+    newData[0].push(dataType);
+    console.log(newData);
     return newData;
 }
 

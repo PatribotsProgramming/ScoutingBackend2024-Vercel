@@ -5,7 +5,7 @@ import "./Tables.css";
 
 function Rankings() {
     const [data, setData] = useState([]);
-    const [sortCol, setSortCol] = useState("Team");
+    const [sortCol, setSortCol] = useState("Score");
     const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
 
 
