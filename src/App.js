@@ -10,6 +10,7 @@ import {
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import Visualization from "./Pages/Visualization";
+import Search from "./Pages/Search";
 import "./App.css";
 import Patribots from "./images/patribotsLogo.png";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -33,6 +34,11 @@ class App extends Component {
 									Visualization
 								</div>
 							</Link>
+							<Link className="navbar-but" to="/Search">
+								<div className="nav-text">
+									Search
+								</div>
+							</Link>
 							<Link className="navbar-but" to="/RawData">
 								<div className="nav-text">
 									Raw Data
@@ -50,11 +56,15 @@ class App extends Component {
 								path="/Visualization"
 								element={<Visualization />}
 							></Route>
-							
 							<Route
 								exact
 								path="/RawData"
 								element={<RawData />}
+							></Route>
+							<Route
+								exact
+								path="/Search"
+								element={<Search />}
 							></Route>
 						</Routes>
 					</div>

@@ -2,9 +2,9 @@
     --text-color: #E0E0E0; /* softer color for text */
     --background-color: #282828; /* softer color for background */
     --lighter-background-color: #383838; /* slightly lighter color for hover effects */
-    --primary-color: #BB86FC; /* primary color */
+    --primary-color: #27953b;; /* primary color */
     --secondary-color: #3700B3; /* secondary color */
-    --accent-color: #03DAC6; /* accent color */
+    --accent-color: #5ea13c; /* accent color */
 }
 
 .container {
@@ -14,7 +14,7 @@
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 4%;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
     display: flex; /* turn the container into a flex container */
     justify-content: space-around; /* evenly distribute items along the line */
     flex-wrap: wrap;
@@ -50,7 +50,7 @@
     padding-top: 5px;
     padding-bottom: 20px;
     text-align: left;
-    background-color: #3d4a3c;
+    background-color: #224a20;
     color: white;
     position: relative;
 }

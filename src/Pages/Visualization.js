@@ -51,7 +51,7 @@ function Visualization() {
                         data={data}
                         dataKeyLine="ampRanking"
                         dataKeyX="name"
-                        strokeColor="#D88484"
+                        strokeColor="red"
                         margin={{ top: 5, right: 20, bottom: 5, left: 100 }}
                     />
                 )}
@@ -63,21 +63,21 @@ function Visualization() {
                         radar1={{
                             name: "4738",
                             dataKey: "ranking",
-                            stroke: "#8884d8",
-                            fill: "#8884d8",
+                            stroke: "#ff0000",
+                            fill: "#ff0000",
                             fillOpacity: 0.6,
                         }}
                         radar2={{
                             name: "4739",
                             dataKey: "ranking",
-                            stroke: "#82ca9d",
-                            fill: "#82ca9d",
+                            stroke: "#06bd00",
+                            fill: "#06bd00",
                             fillOpacity: 0.6,
                         }}
                     />
                 )}
                 {currentTab === "TreeMap" && (
-                    <TreeMap data={data} dataKey="uv" fill="#8884d8" />
+                    <TreeMap data={data} dataKey="uv" fill="#5e9545" />
                 )}
                 {currentTab === "ScatterGraph" && (
                     <ScatterGraph

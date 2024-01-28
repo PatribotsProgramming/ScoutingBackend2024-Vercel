@@ -22,10 +22,10 @@ Type Scale - 1.333 Perfect Fourth
 }
 
 body {
-    font-family: 'Oswald', Oswald;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    margin-top: 50px;
+    margin-top: 60px;
     margin-left: 0;
 }
 
@@ -92,7 +92,7 @@ h3 {
 }
 
 .subtitle {
-    font: 'VazirMatn', sans-serif;
+    font: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1.333rem;
     font-weight: normal;
 }
@@ -138,7 +138,7 @@ h3 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     font-size: 1rem;
-    font: 'Oswald', sans-serif;
+    font: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .button {
@@ -166,8 +166,7 @@ h3 {
     margin: 0.5rem;
     font-size: 2rem;
     cursor: pointer;
-    font-family: 'Oswald', 'sans-serif';
-    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .button:hover {
@@ -191,7 +190,7 @@ h3 {
 
 .App-header {
     display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33% ;
+    grid-template-columns: 25% 25% 25% 25%;
     height: 50px;
     position: absolute;
     top: 0px;
@@ -216,4 +215,9 @@ h3 {
     margin: 0 auto;
     text-align: center;
     color: var(--text-color);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.data-point {
+    margin-bottom: 5px;
 }
