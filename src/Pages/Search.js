@@ -106,7 +106,7 @@ function Search() {
             <div className="team-stats">
                 <table className="table">
                     {/* Render headers */}
-                    <thead>
+                    <thead className="header">
                         <tr>
                             {headers.map((header, index) => (
                                 <th key={index}>{header}</th>
@@ -136,7 +136,7 @@ function Search() {
                 <div className="match-stats-container">
                     <table className="table">
                         {/* Render headers */}
-                        <thead>
+                        <thead className="header">
                             <tr>
                                 {matchContent(matchHeads).map((header, index) => (
                                     <th key={index}>{header}</th>
