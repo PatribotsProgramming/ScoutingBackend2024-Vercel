@@ -190,7 +190,7 @@ h3 {
 
 .App-header {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
     height: 50px;
     position: absolute;
     top: 0px;

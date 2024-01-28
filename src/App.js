@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
-import Visualization from "./Pages/Visualization";
 import Search from "./Pages/Search";
 import "./App.css";
 import Patribots from "./images/patribotsLogo.png";
@@ -29,11 +28,6 @@ class App extends Component {
 									Rankings
 								</div>
 							</Link>
-							<Link className="navbar-but" to="/Visualization">
-								<div className="nav-text">
-									Visualization
-								</div>
-							</Link>
 							<Link className="navbar-but" to="/Search">
 								<div className="nav-text">
 									Search
@@ -50,11 +44,6 @@ class App extends Component {
 								exact
 								path="/Rankings"
 								element={<Rankings />}
-							></Route>
-							<Route
-								exact
-								path="/Visualization"
-								element={<Visualization />}
 							></Route>
 							<Route
 								exact
