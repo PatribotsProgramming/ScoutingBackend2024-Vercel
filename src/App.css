@@ -217,3 +217,7 @@ h3 {
     text-align: center;
     color: var(--text-color);
 }
+
+.data-point {
+    margin-bottom: 5px;
+}

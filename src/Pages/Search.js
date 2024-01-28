@@ -6,13 +6,23 @@ import {getTeamAverage} from '../Data.js';
 import "./Search.css";
 
 function Search() {
-    // const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
     const [team, setTeam] = useState("");
     const [value, setValue] = useState("");
     const [teamData, setTeamData] = useState([]);
 
     useEffect(() => {
-       setTeamData(getTeamAverage(team))
+        setTimeout(() => {
+            fetchDataAndProcess().then((data) => {
+                setData(data.teamAverageMap);
+            });
+        }, 1000);
+    }, []);
+
+    useEffect(() => {
+        if (data.size !== 0 && data.size !== undefined) {
+            setTeamData(data.get(team));
+        }
     }, [team]);
 
     const handleChange = (e) => {
@@ -56,7 +66,7 @@ function Search() {
 
             <div className="team-stats">
                 {teamData[0].map((category, index) => (
-                    <div key={category}>
+                    <div key={category} className="data-point">
                         {teamData[0][index] + ": " + teamData[1][index]}
                     </div>
                 ))}
