@@ -78,6 +78,13 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    top: 115px;
+    top: 107px;
     width: 200px; 
+}
+
+.selector {
+    outline: none;
+    height: 30px;
+    width: 100px;
+    border-radius: 15px;
 }

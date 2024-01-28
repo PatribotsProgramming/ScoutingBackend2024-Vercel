@@ -124,7 +124,7 @@ function Search() {
                     </tbody>
                 </table>
                 <div className="match-content-selector">
-                    <select onChange={handleSelectChange}>
+                    <select className="selector" onChange={handleSelectChange}>
                         <option value="num">
                             Numbers
                         </option>
