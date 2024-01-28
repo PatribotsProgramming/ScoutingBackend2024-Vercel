@@ -22,83 +22,7 @@ let rawDataMap;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
-<<<<<<< HEAD
-  const data = await getAllData();
-  rawData = JSON.parse(data)["scouting"][eventCode];
-  // console.log(rawData);
-  commentData = resortColumnByPoint(
-    convertCommentsToTableForm(rawData),
-    "Team",
-    0
-  );
-  // numData = convertNumDataToTableForm(rawData);
-  // console.log(numData);
-  numData = convertNumDataToTableForm(rawData);
-  // console.log(numData);
-  numData = resortColumnsByArray(assignMatchScoreToEach(numData), [
-    "Team",
-    "Score",
-    "Match Number",
-    "Leave in Auto",
-    "Amp Auto",
-    "Speaker Auto",
-    "Amp Teleop",
-    "Speaker Teleop",
-    "Amped Speaker",
-    "Fumbles",
-    "Coopertition",
-    "Average Cycle Time",
-    "Driving",
-    "Human Player",
-    "End Park",
-    "End Onstage",
-    "Climb Failure",
-    "Critical Failure",
-    "Temp Failure",
-    "Trap",
-  ]);
-  // console.log(numData);
-  // console.log(numData[1]);
 
-  commentTeamMap = convertTableToMap(commentData);
-  // console.log(commentTeamMap);
-  numTeamMap = convertToTeamMap(numData);
-  // console.log(numTeamMap);
-  // // console.log(getTeamAverage("4738"));
-  // console.log(numTeamMap);
-  // console.log(getTeamAverageMap());
-  teamAverageMap = getTeamAverageMap();
-  allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
-  bigTeamMap = convertToTeamMap(allData);
-  // console.log(bigTeamMap);
-  rawDataMap = convertTableToMap(numData);
-  // console.log(teamAverageMap);
-  // console.log(numData);
-  // console.log(convertTableToMap(getTeamAverage("4738")));
-  // make a map of all the data variables
-  // console.log(numTeamMap);
-  // console.log(allData);
-  // console.log(bigTeamMap);
-  // console.log(numData);
-  // console.log(convertTableToMap(numData));
-  rankingTable = getRankingTable();
-  // console.log(rawDataMap);
-  // console.log(rankingTable);
-  return {
-    rawData: rawData,
-    commentData: commentData,
-    commentDataMap: convertTableToMap(commentData),
-    numData: numData,
-    numDataMap: convertTableToMap(numData),
-    commentTeamMap: commentTeamMap,
-    numTeamMap: numTeamMap,
-    bigTeamMap: bigTeamMap,
-    allData: allData,
-    teamAverageMap: teamAverageMap,
-    rawDataMap: rawDataMap,
-    rankingTable: rankingTable,
-  };
-=======
     const data = await getAllData();
     rawData = JSON.parse(data)["scouting"][eventCode];
     // console.log(rawData);
@@ -173,7 +97,6 @@ export const fetchDataAndProcess = async () => {
         rawDataMap: rawDataMap,
         rankingTable: rankingTable
     };
->>>>>>> 165fbc9c4df14782aa6633e293b94735e779a4bf
 };
 
 const getTeamData = (team) => {
@@ -386,11 +309,8 @@ function convertToTeamMap(data) {
     } else {
       teamMap.get(data[i][teamNameIndex]).push(data[i]);
     }
-<<<<<<< HEAD
   }
-  // console.log(teamMap);
-  return teamMap;
-=======
+
     // console.log(teamNameIndex);
     for (let i = 1; i < data.length; i++) {
         if (!teamMap.has(data[i][teamNameIndex])) {
@@ -401,7 +321,6 @@ function convertToTeamMap(data) {
     }
     // console.log(teamMap);
     return teamMap;
->>>>>>> 165fbc9c4df14782aa6633e293b94735e779a4bf
 }
 
 // Working
@@ -421,39 +340,24 @@ function getTeamAverage(team) {
   dataArrTest[0].push(...newTeamData[0]);
   dataArrTest[1].push(...newTeamData[1]);
 
-<<<<<<< HEAD
+
   // console.log(numTeamMap);
   for (let i = 2; i < newTeamData.length; i++) {
     for (let j = 0; j < newTeamData[0].length; j++) {
       dataArrTest[1][j] =
         parseFloat(newTeamData[i][j]) + parseFloat(dataArrTest[1][j]);
       // console.log(dataArrTest[1]);
-=======
-    // console.log(numTeamMap);
-    for (let i = 2; i < newTeamData.length; i++) {
-        for (let j = 0; j < newTeamData[0].length; j++) {
-            dataArrTest[1][j] = parseFloat(newTeamData[i][j]) + parseFloat(dataArrTest[1][j]);
-            // console.log(dataArrTest[1]);
-        }
->>>>>>> 165fbc9c4df14782aa6633e293b94735e779a4bf
+
     }
   }
 
-<<<<<<< HEAD
+
   // not a bug
   for (let i = 0; i < dataArrTest[1].length; i++) {
     dataArrTest[1][i] /= newTeamData.length - 1;
   }
   // console.log(dataArrTest);
   return dataArrTest;
-=======
-    // not a bug
-    for (let i = 0; i < dataArrTest[1].length; i++) {
-        dataArrTest[1][i] /= newTeamData.length - 1;
-    }
-    // console.log(dataArrTest);
-    return dataArrTest;
->>>>>>> 165fbc9c4df14782aa6633e293b94735e779a4bf
 }
 
 // Working:
