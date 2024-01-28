@@ -190,7 +190,7 @@ h3 {
 
 .App-header {
     display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33% ;
+    grid-template-columns: 25% 25% 25% 25%;
     height: 50px;
     position: absolute;
     top: 0px;
@@ -216,4 +216,8 @@ h3 {
     text-align: center;
     color: var(--text-color);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.data-point {
+    margin-bottom: 5px;
 }
