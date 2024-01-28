@@ -28,6 +28,7 @@
     margin-right: auto;
     overflow-y: auto;
     padding: 0px;
+    background-color: white;
 }
 
 .container:hover {
@@ -39,6 +40,7 @@
     width: 100%;
     border-collapse: separate;
     top: 0px;
+    background-color: white;
 }
 
 .table th,
@@ -50,6 +52,7 @@
     max-width: 200px;
     overflow: auto;
     font-size: 12px;
+    background-color: #282828;
 }
 
 .table th {
