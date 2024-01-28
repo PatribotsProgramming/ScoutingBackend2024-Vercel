@@ -33,7 +33,7 @@ export const fetchDataAndProcess = async () => {
     // numData = convertNumDataToTableForm(rawData);
     // console.log(numData);
     numData = convertNumDataToTableForm(rawData);
-    console.log(numData);
+    // console.log(numData);
     numData = resortColumnsByArray(assignMatchScoreToEach(numData), 
         [
             "Team",
@@ -57,11 +57,11 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ])
-    console.log(numData);
-    console.log(numData[1]);
+    // console.log(numData);
+    // console.log(numData[1]);
 
     commentTeamMap = convertTableToMap(commentData);
-    console.log(commentTeamMap);
+    // console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
     // console.log(numTeamMap);
     // // console.log(getTeamAverage("4738"));
@@ -70,17 +70,17 @@ export const fetchDataAndProcess = async () => {
     teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
-    console.log(bigTeamMap);
+    // console.log(bigTeamMap);
     rawDataMap = convertTableToMap(numData);
-    console.log(teamAverageMap);
-    console.log(numData);
-    console.log(convertTableToMap(getTeamAverage("4738")));
+    // console.log(teamAverageMap);
+    // console.log(numData);
+    // console.log(convertTableToMap(getTeamAverage("4738")));
     // make a map of all the data variables
     // console.log(numTeamMap);
     // console.log(allData);
     // console.log(bigTeamMap);
     // console.log(numData);
-    console.log(convertTableToMap(numData));
+    // console.log(convertTableToMap(numData));
     rankingTable = getRankingTable();
     return {
         rawData: rawData,
@@ -323,7 +323,7 @@ function convertToTeamMap(data) {
             teamMap.get(data[i][teamNameIndex]).push(data[i]);
         }
     }
-    console.log(teamMap);
+    // console.log(teamMap);
     return teamMap;
 }
 
@@ -352,7 +352,7 @@ function getTeamAverage(team) {
     for (let i = 2; i < newTeamData.length; i++) {
         for (let j = 0; j < newTeamData[0].length; j++) {
             dataArrTest[1][j] = parseFloat(newTeamData[i][j]) + parseFloat(dataArrTest[1][j]);
-            console.log(dataArrTest[1]);
+            // console.log(dataArrTest[1]);
         }
     }
 
@@ -360,7 +360,7 @@ function getTeamAverage(team) {
     for (let i = 0; i < dataArrTest[1].length; i++) {
         dataArrTest[1][i] /= newTeamData.length - 1;
     }
-    console.log(dataArrTest);
+    // console.log(dataArrTest);
     return dataArrTest;
 }
 
