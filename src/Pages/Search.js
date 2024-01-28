@@ -1,8 +1,6 @@
 
 import React, { useEffect, useState } from "react";
 import {fetchDataAndProcess} from '../Data.js'
-import {getTeamData} from '../Data.js';
-import {getTeamAverage} from '../Data.js';
 import "./Search.css";
 
 function Search() {
@@ -23,6 +21,7 @@ function Search() {
         if (data.size !== 0 && data.size !== undefined) {
             setTeamData(data.get(team));
         }
+        // eslint-disable-next-line
     }, [team]);
 
     const handleChange = (e) => {
@@ -75,7 +74,7 @@ function Search() {
             <div className="team-stats">
                 {teamData[0].map((category, index) => (
                     <div key={category} className="data-point">
-                        {teamData[0][index] + ": " + teamData[1][index]}
+                        {teamData[0][index] + ": " + (Math.round(teamData[1][index] * 100) / 100)}
                     </div>
                 ))}
             </div>
