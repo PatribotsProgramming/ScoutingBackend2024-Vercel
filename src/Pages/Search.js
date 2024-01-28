@@ -33,6 +33,12 @@ function Search() {
         setTeam(value);
     }
 
+    const onKeyDownHandler = e => {
+        if (e.keyCode === 13) {
+            handleSearch();
+        }
+    };
+
     if (teamData === undefined || teamData === null || teamData[0] === undefined || teamData[0].length === 0) {
         return (
             <div className="search">
@@ -42,6 +48,7 @@ function Search() {
                         placeholder="Team Number" 
                         className="search-input"
                         onChange={handleChange}
+                        onKeyDown={onKeyDownHandler}
                     />
                     <button className="search-button" onClick={handleSearch}>Search</button>
                 </div>
@@ -60,6 +67,7 @@ function Search() {
                     placeholder="Team Number" 
                     className="search-input"
                     onChange={handleChange}
+                    onKeyDown={onKeyDownHandler}
                 />
                 <button className="search-button" onClick={handleSearch}>Search</button>
             </div>  
