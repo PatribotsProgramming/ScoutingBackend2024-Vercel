@@ -1,11 +1,12 @@
 // Working
-const weights = 
+const autoWeights = 
 {
-    "Team" : 0,
-    "Match Number" : 0,
     "Leave in Auto" : 1,
     "Amp Auto" : 3,
     "Speaker Auto" : 3,
+}
+const teleopWeights = 
+{
     "Speaker Teleop" : .5,
     "Amp Teleop" : 1,
     "Amped Speaker" : 1,
@@ -14,6 +15,9 @@ const weights =
     "Average Cycle Time" : 0,
     "Driving" : 0,
     "Human Player" : 0,
+}
+const endGameWeights = 
+{
     "End Park" : .5,
     "End Onstage" : 2,
     "Climb Failure" : (-2),
@@ -21,12 +25,18 @@ const weights =
     "Temp Failure" : 0,
     "Trap" : 2
 }
+const scoreWeights = {
+    ...autoWeights,
+    ...teleopWeights,
+    ...endGameWeights,
+  };
+
 // Working
 function assignMatchScoreIndividual(match, dataPoints) {
     let score = 0;
     for (let i = 0; i < match.length; i++) {
-        
-        score += parseFloat(match[i]) * weights[dataPoints[i]];
+        if (scoreWeights[dataPoints[i]] === undefined) continue;
+        score += parseFloat(match[i]) * scoreWeights[dataPoints[i]];
     }
     return score;
 } 
@@ -36,8 +46,18 @@ function assignMatchScoreIndividual(match, dataPoints) {
 export function assignMatchScoreToEach(data) {
     let newData = [...data];
     for (let i = 1; i < newData.length; i++) {
-        newData[i].push(assignMatchScoreIndividual(newData[i], newData[0]));
+        newData[i].push(assignScore(newData[i], newData[0], scoreWeights));
     }
     newData[0].push("Score");
     return newData;
 }
+
+function assignScore(match, dataPoints, weightMap) {
+    let score = 0;
+    for (let i = 0; i < match.length; i++) {
+        if (weightMap[dataPoints[i]] === undefined) continue;
+        score += parseFloat(match[i]) * weightMap[dataPoints[i]];
+    }
+    return score;
+}
+
