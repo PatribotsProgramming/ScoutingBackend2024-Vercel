@@ -35,7 +35,7 @@ function RawData() {
                     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
                 ></link>
                 <table className="table">
-                    <thead>
+                    <thead className="header">
                         <tr>
                             {headers.map((header, index) => (
                                 <th key={index}>
