@@ -13,14 +13,14 @@ function Rankings() {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setData(data);
-                sortByKey(data.rawDataMap, sortCol);
+                sortByKey(data.rankingTable, sortCol);
             });
         }, 1000);
     }, []);
 
     useEffect(() => {
-        if (data.rawDataMap !== undefined && data.rawDataMap !== null) {
-            sortByKey(data.rawDataMap, sortCol);
+        if (data.rankingTable !== undefined && data.rankingTable !== null) {
+            sortByKey(data.rankingTable, sortCol);
         }
     }, [sortOrder, sortCol]);
 
@@ -42,7 +42,7 @@ function Rankings() {
         return <div>Loading...</div>;
     }
 
-    let headers = Object.keys(data.rawDataMap[0]);
+    let headers = Object.keys(data.rankingTable[0]);
 
     return (
         <div className="container">
@@ -71,7 +71,7 @@ function Rankings() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.rawDataMap.map((item, index) => (
+                    {data.rankingTable.map((item, index) => (
                         <tr key={index}>
                             {headers.map((header, index) => (
                                 <td key={index}>{item[header]}</td>

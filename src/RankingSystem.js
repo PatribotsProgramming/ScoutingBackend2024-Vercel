@@ -1,3 +1,4 @@
+// Working
 const weights = 
 {
     "Team" : 0,
@@ -20,8 +21,8 @@ const weights =
     "Temp Failure" : 0,
     "Trap" : 2
 }
-
-export function assignMatchScoreIndividual(match, dataPoints) {
+// Working
+function assignMatchScoreIndividual(match, dataPoints) {
     let score = 0;
     for (let i = 0; i < match.length; i++) {
         
@@ -30,6 +31,8 @@ export function assignMatchScoreIndividual(match, dataPoints) {
     return score;
 } 
 
+
+// Working
 export function assignMatchScoreToEach(data) {
     let newData = [...data];
     for (let i = 1; i < newData.length; i++) {
