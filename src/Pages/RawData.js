@@ -14,7 +14,7 @@ function RawData() {
                 setData(data);
                 setHeaders(Object.keys(data[selectedDataMap][0]));
             });
-        }, 1000);
+        }, 100);
     }, [selectedDataMap]); // Add selectedDataMap to the dependency array
 
     if (data.length === 0) {
