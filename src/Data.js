@@ -17,6 +17,7 @@ let bigTeamMap;
 let allData;
 let teamAverageMap;
 let rankingTable;
+let rankingsNumData;
 
 let rawDataMap;
 // Use an async function to fetch and process your data
@@ -227,6 +228,10 @@ function resortColumnByPoint(data, point, columnGoal) {
   return data;
 }
 
+
+function removeDatapoint(data, dataPoint) {
+
+}
 // Working
 function convertTableToMap(data) {
   let mapArr = [];
@@ -245,16 +250,17 @@ function convertTableToMap(data) {
   // console.log(mapArr);
   return mapArr;
 }
-
+// Working
 function getRankingTable() {
   let dataArr = [];
   let teams = Array.from(bigTeamMap.keys());
   for (let i = 0; i < teams.length; i++) {
     dataArr.push(convertTableToMap(getTeamAverage(teams[i]))[0]);
   }
-  // console.log(dataArr);
   return dataArr;
 }
+
+
 // Working:
 function getIndividualDatapoints(data) {
   let dataPoints = [[], []];
@@ -349,7 +355,6 @@ function getTeamAverage(team) {
       dataArrTest[1][j] =
         parseFloat(newTeamData[i][j]) + parseFloat(dataArrTest[1][j]);
       // console.log(dataArrTest[1]);
-
     }
   }
 
@@ -378,17 +383,4 @@ function getTeamAverageMap() {
   return averageMap;
 }
 
-export {
-  getTeamData,
-  getTeamNumData,
-  getTeamCommentData,
-  getTeamAverage,
-  getIndividualDatapoints,
-  convertToTableForm,
-  convertCommentsToTableForm,
-  convertNumDataToTableForm,
-  convertAllToTableForm,
-  resortColumn,
-  resortColumnByPoint,
-  convertToTeamMap,
-};
+
