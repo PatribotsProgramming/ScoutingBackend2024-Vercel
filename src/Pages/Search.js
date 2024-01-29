@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-import {fetchDataAndProcess} from '../Data.js'
+import {fetchDataAndProcess} from '../Data.js';
+import RadarGraph from "../widgets/RadarGraph.js";
 import "./Search.css";
 import "./Tables.css";
 
@@ -50,6 +51,15 @@ function Search() {
         return data === undefined || data[0] === undefined || data[0].length === 0
     }
 
+    const convertRadar = () => {
+        let arr = [];
+        for (let i = 1; i < teamData[0].length; i++) {
+            arr.push({key: teamData[0][i], value: teamData[1][i]})
+        }
+        console.log(arr);
+        return arr;
+    }
+
     // console.log(teamMatchData);
 
     if (emptyData(teamData) || emptyData(teamMatchData)) {
@@ -90,6 +100,8 @@ function Search() {
 
     let matchStats = teamMatchData.slice(1);
 
+    // console.log(convertRadar());
+
     return (
         <div className="search">
             <div className="search-bar">
@@ -123,6 +135,20 @@ function Search() {
                         </tr>
                     </tbody>
                 </table>
+                <div className="radar">
+                    <RadarGraph
+                        data={convertRadar()}
+                        angleKey="key"
+                        radiusDomain={[0, 1]}
+                        radar1={{
+                            name: {team},
+                            dataKey: "value",
+                            stroke: "#8884d8",
+                            fill: "#8884d8",
+                            fillOpacity: 0.6,
+                        }}
+                    />
+                </div>
                 <div className="match-content-selector">
                     <select className="selector" onChange={handleSelectChange}>
                         <option value="num">

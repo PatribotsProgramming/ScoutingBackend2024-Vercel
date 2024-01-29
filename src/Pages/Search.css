@@ -87,3 +87,8 @@
     width: 100px;
     margin: 0;
 }
+
+.radar {
+    position: absolute;
+    top: 600px;
+}
