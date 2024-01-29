@@ -38,15 +38,16 @@
 }
 
 .team-stats {
+    width: 1200px;
     position: absolute;
-    width: 80%;
-    height: 500px;
+    top: 120px;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    top: 120px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .match-stats-container {
@@ -54,41 +55,34 @@
     width: 100%;
     margin-left: 20px;
     margin-right: 20px;
-    height: 400px;
-    margin-top: 4%;
+    max-height: 300px;
+    margin-top: 5px;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
     display: flex; /* turn the container into a flex container */
     justify-content: space-around; /* evenly distribute items along the line */
     flex-wrap: wrap;
     align-items: center; /* center items along the cross-axis */
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    top: 100px;
     overflow-y: auto;
+    margin-bottom: 15px;
 }
 
 .match-content-selector {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    top: 105px;
-    width: 200px; 
+    width: 200px;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
 }
 
 .selector {
     outline: none;
     height: 30px;
     width: 100px;
-    margin: 0;
+    margin: 0 auto;
+    border-radius: 15px;
+    text-align: center;
 }
 
 .radar {
-    position: absolute;
-    top: 600px;
+    font-size: 12px;
 }

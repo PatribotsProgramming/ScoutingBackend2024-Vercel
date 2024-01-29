@@ -116,35 +116,39 @@ function Search() {
             </div>  
 
             <div className="team-stats">
-                <table className="table">
-                    {/* Render headers */}
-                    <thead className="header">
-                        <tr>
-                            {headers.map((header, index) => (
-                                <th key={index}>{header}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    
-                    {/* Render content */}
-                    <tbody>
-                        <tr>
-                            {stats.map((cellData, index) => (
-                                <td key={index}>{cellData}</td>
-                            ))}
-                        </tr>
-                    </tbody>
-                </table>
+                <div className="average-stats">
+                    <table className="table">
+                        {/* Render headers */}
+                        <thead className="header">
+                            <tr>
+                                {headers.map((header, index) => (
+                                    <th key={index}>{header}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        
+                        {/* Render content */}
+                        <tbody>
+                            <tr>
+                                {stats.map((cellData, index) => (
+                                    <td key={index}>
+                                        {(isNaN(cellData)) ? cellData : Math.round(cellData * 100) / 100}
+                                    </td>
+                                ))}
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
                 <div className="radar">
                     <RadarGraph
                         data={convertRadar()}
                         angleKey="key"
-                        radiusDomain={[0, 1]}
+                        radiusDomain={[0, 100]}
                         radar1={{
                             name: {team},
                             dataKey: "value",
-                            stroke: "#8884d8",
-                            fill: "#8884d8",
+                            stroke: "#d4af37",
+                            fill: "#d4af37",
                             fillOpacity: 0.6,
                         }}
                     />
