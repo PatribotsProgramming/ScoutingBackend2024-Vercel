@@ -39,12 +39,12 @@
     width: 100%;
     border-collapse: separate;
     top: 0px;
-    background-color: white;
+    background-color: gray;
 }
 
 .table th,
 .table td {
-    border: 1px solid #ddd;
+    border: 1px solid gray;
     padding: 8px;
     margin: 0;
     word-wrap: break-word;
@@ -60,7 +60,6 @@
 
 .table th {
     border-width: 1px;
-    border-color: white;
     padding-top: 5px;
     padding-bottom: 20px;
     text-align: left;

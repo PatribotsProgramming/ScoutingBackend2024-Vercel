@@ -11,7 +11,6 @@ import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import Search from "./Pages/Search";
 import "./App.css";
-import Patribots from "./images/patribotsLogo.png";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

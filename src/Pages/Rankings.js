@@ -74,7 +74,9 @@ function Rankings() {
                     {data.rankingTable.map((item, index) => (
                         <tr key={index}>
                             {headers.map((header, index) => (
-                                <td key={index}>{item[header]}</td>
+                                <td key={index}>
+                                    {(isNaN(item[header])) ? item[header] : Math.round(item[header] * 100) / 100}
+                                </td>
                             ))}
                         </tr>
                     ))}

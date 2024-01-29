@@ -84,6 +84,7 @@ export const fetchDataAndProcess = async () => {
     // console.log(numData);
     // console.log(convertTableToMap(numData));
     rankingTable = getRankingTable();
+    
     return {
         rawData: rawData,
         commentData: commentData,
@@ -382,5 +383,3 @@ function getTeamAverageMap() {
   // console.log(averageMap);
   return averageMap;
 }
-
-
