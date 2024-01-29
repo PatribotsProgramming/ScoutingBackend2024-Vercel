@@ -21,14 +21,6 @@ const RadarGraph = (props) => {
                     fill={props.radar1.fill}
                     fillOpacity={props.radar1.fillOpacity}
                 />
-                <Radar
-                    name={props.radar2.name}
-                    dataKey={props.radar2.dataKey}
-                    stroke={props.radar2.stroke}
-                    fill={props.radar2.fill}
-                    fillOpacity={props.radar2.fillOpacity}
-                />
-                <Legend />
             </RadarChart>
         </div>
     );
