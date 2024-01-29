@@ -1,4 +1,5 @@
 // Working
+let scores = new Map();
 const autoWeights = 
 {
     "Leave in Auto" : 1,
@@ -78,7 +79,6 @@ export function assignMatchScoreToEach(data, dataType) {
         newData[i].push(assignScore(newData[i], newData[0], weightMap));
     }
     newData[0].push(dataType);
-    console.log(newData);
     return newData;
 }
 
