@@ -1,7 +1,6 @@
 import {
     RadarChart,
     PolarGrid,
-    Legend,
     PolarAngleAxis,
     PolarRadiusAxis,
     Radar,

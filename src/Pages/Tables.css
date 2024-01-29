@@ -12,7 +12,7 @@
     width: 100%;
     margin-left: 20px;
     margin-right: 20px;
-    height: 400px;
+    max-height: 400px;
     margin-top: 4%;
     padding: 0;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
@@ -52,6 +52,10 @@
     overflow: auto;
     font-size: 12px;
     background-color: #282828;
+}
+
+.table td:hover {
+    background-color: #d4af37;
 }
 
 .table th {
