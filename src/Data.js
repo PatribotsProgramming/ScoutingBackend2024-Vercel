@@ -58,10 +58,10 @@ export const fetchDataAndProcess = async () => {
             "Critical Failure",
             "Temp Failure", 
             "Trap"
-        ])
+        ]);
     // console.log(numData);
     // console.log(numData[1]);
-
+    console.log(getMaxMin(numData));
     commentTeamMap = convertTableToMap(commentData);
     // console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
@@ -190,6 +190,28 @@ function convertAllToTableForm(data) {
   // console.log(table);
   return table;
 }
+function getMaxMin(data) {
+    let sol = new Map();
+    if (data.length == 0) {
+        return sol;
+    }
+    for (let i = 0 ; i < data[0].length; i++) {
+        sol.set(data[0][i], [data[1][i], data[1][i]]);
+    }
+    for (let i = 2; i < data.length; i++) {
+        for (let j = 0; j < data[i].length; j++) {
+            if (parseFloat(data[i][j]) < parseFloat(sol.get(data[0][j])[0])) {
+                sol.set(data[0][j], [data[i][j], sol.get(data[0][j])[1]]);
+            }
+            if (parseFloat(data[i][j]) > parseFloat(sol.get(data[0][j])[1])) {
+                sol.set(data[0][j], [sol.get(data[0][j])[0], data[i][j]])
+            }
+        }
+    }
+    console.log(sol);
+    return sol;
+}
+
 
 // Working but need to make easier to use:
 function resortColumn(data, columnInitial, columnGoal) {
@@ -209,7 +231,7 @@ function resortColumn(data, columnInitial, columnGoal) {
 
 // Working but EXTREMELY INEFFICIENT?
 function resortColumnsByArray(data, orderArr) { 
-
+  console.log(data);
   let newData = [...data];
   for (let i = 0; i < orderArr.length; i++) {
     newData = resortColumnByPoint(newData, orderArr[i], i);
@@ -230,8 +252,17 @@ function resortColumnByPoint(data, point, columnGoal) {
 }
 
 
-function removeDatapoint(data, dataPoint) {
-
+function removeDataPoint(data, dataPoint) {
+    let newTeamData = [];
+    for (let j = 0; j < data.length; j++) {
+      newTeamData.push([]);
+      for (let i = 0; i < data[j].length; i++) {
+        if (data[0][i] != dataPoint) {
+          newTeamData[j].push(data[j][i]);
+        }
+      }
+    }
+    return newTeamData;
 }
 // Working
 function convertTableToMap(data) {
