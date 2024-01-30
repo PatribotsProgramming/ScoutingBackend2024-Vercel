@@ -4,6 +4,7 @@ import { getAllData } from "./widgets/JsonData.js";
 import { fetchData } from "./SampleData.js";
 import { async } from "@firebase/util";
 import { assignMatchScoreToEach } from "./RankingSystem.js";
+import { assignAllScores } from "./RankingSystem.js";
 //const data = getAllData();
 
 const eventCode = "2024Testing";
@@ -33,14 +34,10 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
-    // numData = convertNumDataToTableForm(rawData);
-    // console.log(numData);
     numData = convertNumDataToTableForm(rawData);
-    // console.log(numData);
-    numData = resortColumnsByArray(assignMatchScoreToEach(numData, "Score"), 
+    numData = resortColumnsByArray(numData, 
         [
             "Team",
-            "Score",
             "Match Number",
             "Leave in Auto",
             "Amp Auto",
@@ -63,29 +60,14 @@ export const fetchDataAndProcess = async () => {
     // console.log(numData);
     // console.log(numData[1]);
     maxMin = getMaxMin(numData);
+    console.log(assignAllScores(numData));
     commentTeamMap = convertTableToMap(commentData);
-    // console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
-    // console.log(numTeamMap);
-    // // console.log(getTeamAverage("4738"));
-    // console.log(numTeamMap);
-    // console.log(getTeamAverageMap());
     teamAverageMap = getTeamAverageMap();
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
-    // console.log(bigTeamMap);
     rawDataMap = convertTableToMap(numData);
-    // console.log(teamAverageMap);
-    // console.log(numData);
-    // console.log(convertTableToMap(getTeamAverage("4738")));
-    // make a map of all the data variables
-    // console.log(numTeamMap);
-    // console.log(allData);
-    // console.log(bigTeamMap);
-    // console.log(numData);
-    // console.log(convertTableToMap(numData));
     rankingTable = getRankingTable();
-    
     return {
         rawData: rawData,
         commentData: commentData,
@@ -129,6 +111,7 @@ function convertToTableForm(data, datatype) {
   // push either commentData or numData datapoints
   // to first index of table (table[0])
   if (datatype == "comments") {
+    row[0].push("Match Number");
     table.push(row[0]);
   } else {
     table.push(row[1]);
@@ -160,6 +143,9 @@ function convertToTableForm(data, datatype) {
         }
       }
       row.push(bots[j].substring(teamNameStart, bots[j].length));
+      if (datatype == "comments") {
+        row.push(matchData[bots[j]]["data"]["Match Number"]);
+      }
       table.push(row);
     }
   }
@@ -182,10 +168,13 @@ function convertAllToTableForm(data) {
   let tempComments = convertCommentsToTableForm(data);
   let tempNumData = convertNumDataToTableForm(data);
   let table = [];
+  tempComments[0].pop();
   table.push([tempComments[0], tempNumData[0]].flat());
+  console.log(table);
   table[0].pop();
   // console.log(table);
   for (let i = 0; i < tempComments.length - 1; i++) {
+    tempComments[i + 1].pop();
     table.push([tempComments[i + 1], tempNumData[i + 1]].flat());
     table[i + 1].pop();
   }
@@ -213,6 +202,8 @@ function getMaxMin(data) {
     console.log(sol);
     return sol;
 }
+
+
 
 
 // Working but need to make easier to use:
@@ -253,6 +244,10 @@ function resortColumnByPoint(data, point, columnGoal) {
   return data;
 }
 
+function getRankingDisplayData() {
+
+}
+
 
 function removeDataPoint(data, dataPoint) {
     let newTeamData = [];
@@ -265,6 +260,13 @@ function removeDataPoint(data, dataPoint) {
       }
     }
     return newTeamData;
+}
+
+function removeDataPoints(data, dataPointArr) {
+    let newData = [...data];
+    for (let i = 0; i < dataPointArr; i++) {
+        newData = removeDataPoint(newData, dataPointArr[i]);
+    }
 }
 // Working
 function convertTableToMap(data) {
