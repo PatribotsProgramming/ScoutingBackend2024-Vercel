@@ -9,7 +9,7 @@ import {
 const RadarGraph = (props) => {
     return (
         <div>
-            <RadarChart outerRadius={90} width={730} height={250} data={props.data}>
+            <RadarChart outerRadius={90} width={350} height={250} data={props.data}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey={props.angleKey} />
                 <PolarRadiusAxis angle={30} domain={props.radiusDomain} />

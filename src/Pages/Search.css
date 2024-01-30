@@ -85,4 +85,9 @@
 
 .radar {
     font-size: 12px;
+    transition: transform 0.25s;
+}
+
+.radar:hover {
+    transform: scale(1.1);
 }

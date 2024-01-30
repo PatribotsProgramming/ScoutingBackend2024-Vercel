@@ -53,15 +53,15 @@
     overflow: auto;
     font-size: 12px;
     background-color: #282828;
-    transition: transform 0.25s;
+    transition: transform 0.15s;
 }
 
 .table td:hover {
+    z-index: 1000;
     background-color: #d4af37;
     transform: scale(1.25);
     border-color: #d4af37;
     color: black;
-    z-index: 1000;
 }
 
 .table th {
@@ -76,7 +76,7 @@
     opacity: 100;
 }
 
-.filter {
+.filter { 
     display: inline-block;
     padding: 2px 7px;
     border: none;

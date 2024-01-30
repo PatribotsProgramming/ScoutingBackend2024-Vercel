@@ -63,7 +63,7 @@ export const fetchDataAndProcess = async () => {
     console.log(assignAllScores(numData));
     commentTeamMap = convertTableToMap(commentData);
     numTeamMap = convertToTeamMap(numData);
-    teamAverageMap = getTeamAverageMap();
+    teamAverageMap = getTeamAverageMap();   
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
     rawDataMap = convertTableToMap(numData);
