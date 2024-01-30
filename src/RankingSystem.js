@@ -43,16 +43,6 @@ const speakerWeights =
     "Speaker Teleop" : scoreWeights["Speaker Teleop"],
     "Amped Speaker" : scoreWeights["Amped Speaker"]
   }
-// Working
-function assignMatchScoreIndividual(match, dataPoints) {
-    let score = 0;
-    for (let i = 0; i < match.length; i++) {    
-        if (scoreWeights[dataPoints[i]] === undefined) continue;
-        score += parseFloat(match[i]) * scoreWeights[dataPoints[i]];
-    }
-    return score;
-} 
-
 
 
 export function assignMatchScoreToEach(data, dataType) {
@@ -82,6 +72,19 @@ export function assignMatchScoreToEach(data, dataType) {
     return newData;
 }
 
+
+export function assignScores(data, dataTypeArr) {
+    let newData = [...data];
+    for (let i = 0; i < dataTypeArr.length; i++) {
+        // console.log(newData);
+        newData = assignMatchScoreToEach(newData, dataTypeArr[i]);
+    }
+    return newData;
+}
+
+export function assignAllScores(data) {
+    return assignScores(data, ["Auto", "Teleop", "Endgame", "Amp", "Speaker"]);
+}
 function assignScore(match, dataPoints, weightMap) {
     let score = 0;
     for (let i = 0; i < match.length; i++) {
