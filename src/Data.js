@@ -18,6 +18,7 @@ let allData;
 let teamAverageMap;
 let rankingTable;
 let rankingsNumData;
+let maxMin;
 
 let rawDataMap;
 // Use an async function to fetch and process your data
@@ -61,7 +62,7 @@ export const fetchDataAndProcess = async () => {
         ]);
     // console.log(numData);
     // console.log(numData[1]);
-    console.log(getMaxMin(numData));
+    maxMin = getMaxMin(numData);
     commentTeamMap = convertTableToMap(commentData);
     // console.log(commentTeamMap);
     numTeamMap = convertToTeamMap(numData);
@@ -97,7 +98,8 @@ export const fetchDataAndProcess = async () => {
         allData: allData,
         teamAverageMap: teamAverageMap,
         rawDataMap: rawDataMap,
-        rankingTable: rankingTable
+        rankingTable: rankingTable,
+        maxMin: maxMin
     };
 };
 

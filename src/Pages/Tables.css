@@ -40,6 +40,7 @@
     border-collapse: separate;
     top: 0px;
     background-color: gray;
+    overflow: hidden;
 }
 
 .table th,
@@ -52,10 +53,15 @@
     overflow: auto;
     font-size: 12px;
     background-color: #282828;
+    transition: transform 0.25s;
 }
 
 .table td:hover {
     background-color: #d4af37;
+    transform: scale(1.25);
+    border-color: #d4af37;
+    color: black;
+    z-index: 1000;
 }
 
 .table th {

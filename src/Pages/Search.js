@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import {fetchDataAndProcess} from '../Data.js';
+import { getMaxMin } from '../Data.js';
 import RadarGraph from "../widgets/RadarGraph.js";
 import "./Search.css";
 import "./Tables.css";
@@ -13,12 +14,14 @@ function Search() {
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
     const [matchDataType, setMatchDataType] = useState("num");
+    const [maxMin, setMaxMin] = useState({});
 
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMap);
+                setMaxMin(data.maxMin);
             });
         }, 1000);
     }, []);
@@ -51,15 +54,6 @@ function Search() {
         return data === undefined || data[0] === undefined || data[0].length === 0
     }
 
-    const convertRadar = () => {
-        let arr = [];
-        for (let i = 1; i < teamData[0].length; i++) {
-            arr.push({key: teamData[0][i], value: teamData[1][i]})
-        }
-        console.log(arr);
-        return arr;
-    }
-
     // console.log(teamMatchData);
 
     if (emptyData(teamData) || emptyData(teamMatchData)) {
@@ -80,6 +74,28 @@ function Search() {
                 </div>
             </div>
         );
+    }
+
+    const isRadarPoint = (dataPoint) => {
+        let dataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Driving", "Human Player"];
+        for (let i = 0; i < dataPoints.length; i++) {
+            if (dataPoint === dataPoints[i]) return true;
+        }
+        return false;
+    }
+
+    const convertRadar = () => {
+        let arr = [];
+        for (let i = 1; i < teamData[0].length; i++) {
+            if (isRadarPoint(teamData[0][i])) {
+                let min = maxMin.get(teamData[0][i])[0];
+                let max = maxMin.get(teamData[0][i])[1];
+                let val = ((teamData[1][i] - min) / (max - min)) * 100;
+                arr.push({key: teamData[0][i], value: val})
+            }
+        }
+        console.log(arr);
+        return arr;
     }
 
     const matchContent = (matches) => {
