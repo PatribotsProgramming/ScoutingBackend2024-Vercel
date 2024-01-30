@@ -16,6 +16,9 @@ function Search() {
     const [matchDataType, setMatchDataType] = useState("num");
     const [maxMin, setMaxMin] = useState({});
 
+    const radarDataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Driving", "Human Player"];
+    const commentLength = 7;
+
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
@@ -44,6 +47,7 @@ function Search() {
         setTeam(value);
     }
 
+    // searches on press of enter key
     const onKeyDownHandler = (e) => {
         if (e.keyCode === 13) {
             handleSearch();
@@ -76,14 +80,17 @@ function Search() {
         );
     }
 
+    // checks data point string against the data point array to
+    // see if the data point should be on the radar chart
     const isRadarPoint = (dataPoint) => {
-        let dataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Driving", "Human Player"];
-        for (let i = 0; i < dataPoints.length; i++) {
-            if (dataPoint === dataPoints[i]) return true;
+        for (let i = 0; i < radarDataPoints.length; i++) {
+            if (dataPoint === radarDataPoints[i]) return true;
         }
         return false;
     }
 
+    // selects data points from teamData and formats them for 
+    // the radar chart
     const convertRadar = () => {
         let arr = [];
         for (let i = 1; i < teamData[0].length; i++) {
@@ -94,26 +101,28 @@ function Search() {
                 arr.push({key: teamData[0][i], value: val})
             }
         }
-        console.log(arr);
+        // console.log(arr);
         return arr;
     }
 
+    // returns the section of the match data to display based on if the current data
+    // type is either numbers or comments
     const matchContent = (matches) => {
         if (matchDataType === "num") {
-            return matches.slice(0, 1).concat(matches.slice(7));
+            return matches.slice(commentLength);
         }
-        return matches.slice(0, 7);
+        return matches.slice(1, commentLength);
     }
 
+    // changes match data type to either num or comment
     const handleSelectChange = (e) => {
         setMatchDataType(e.target.value);
     }
 
-    let headers = teamData[0];
-    let stats = teamData[1];
+    let headers = teamData[0].slice(1);
+    let stats = teamData[1].slice(1);
 
     let matchHeads = teamMatchData[0];
-
     let matchStats = teamMatchData.slice(1);
 
     // console.log(convertRadar());
