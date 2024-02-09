@@ -83,7 +83,7 @@ export function assignScores(data, dataTypeArr) {
 }
 
 export function assignAllScores(data) {
-    return assignScores(data, ["Auto", "Teleop", "Endgame", "Amp", "Speaker"]);
+    return assignScores(data, ["Score", "Auto", "Teleop", "Endgame", "Amp", "Speaker"]);
 }
 function assignScore(match, dataPoints, weightMap) {
     let score = 0;

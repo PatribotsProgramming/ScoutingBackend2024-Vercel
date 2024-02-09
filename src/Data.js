@@ -35,13 +35,20 @@ export const fetchDataAndProcess = async () => {
         0
     );
     numData = convertNumDataToTableForm(rawData);
+    numData = assignAllScores(numData);
+    
     numData = resortColumnsByArray(numData, 
         [
             "Team",
+            "Score",
             "Match Number",
+            "Speaker",
+            "Amp",
+            "Auto",
             "Leave in Auto",
             "Amp Auto",
             "Speaker Auto",
+            "Teleop",
             "Amp Teleop",
             "Speaker Teleop", 
             "Amped Speaker",
@@ -50,6 +57,7 @@ export const fetchDataAndProcess = async () => {
             "Average Cycle Time",
             "Driving",
             "Human Player",
+            "Endgame",
             "End Park",
             "End Onstage",
             "Climb Failure",
@@ -60,7 +68,6 @@ export const fetchDataAndProcess = async () => {
     // console.log(numData);
     // console.log(numData[1]);
     maxMin = getMaxMin(numData);
-    console.log(assignAllScores(numData));
     commentTeamMap = convertTableToMap(commentData);
     numTeamMap = convertToTeamMap(numData);
     teamAverageMap = getTeamAverageMap();   
@@ -248,6 +255,15 @@ function getRankingDisplayData() {
 
 }
 
+
+function renameHeader(data, headerInitial, headerFinal) {
+    for (let i = 0; i < data[0].length; i++) {
+        if (data[0][i] == headerInitial) {
+            data[0][i] = headerFinal;
+            break;
+        }
+    }
+}
 
 function removeDataPoint(data, dataPoint) {
     let newTeamData = [];
