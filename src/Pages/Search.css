@@ -55,7 +55,7 @@
     width: 100%;
     margin-left: 20px;
     margin-right: 20px;
-    max-height: 300px;
+    max-height: 250px;
     margin-top: 5px;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
     display: flex; /* turn the container into a flex container */
@@ -90,4 +90,16 @@
 
 .radar:hover {
     transform: scale(1.1);
+}
+
+.team-stat-header {
+    font-size: 40px;
+}
+
+.team-average-header {
+    font-size: 25px;
+}
+
+.team-match-header {
+    font-size: 25px;
 }
