@@ -8,7 +8,7 @@ import "./Tables.css";
 
 function Search() {
     const [averageData, setAverageData] = useState([]);
-    const [matchData, setMatchData] = useState([]);
+    const [matchData, setMatchData] = useState([]); 
     const [team, setTeam] = useState("");
     const [value, setValue] = useState("");
     const [teamData, setTeamData] = useState([]);
@@ -141,6 +141,8 @@ function Search() {
             </div>  
 
             <div className="team-stats">
+                <div className="team-stat-header">{team} Stats</div>
+                <div className="team-average-header">Averages</div>
                 <div className="average-stats">
                     <table className="table">
                         {/* Render headers */}
@@ -178,6 +180,7 @@ function Search() {
                         }}
                     />
                 </div>
+                <div className="team-match-header">Matches</div>
                 <div className="match-content-selector">
                     <select className="selector" onChange={handleSelectChange}>
                         <option value="num">
