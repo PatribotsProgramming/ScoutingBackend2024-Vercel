@@ -141,7 +141,6 @@ function Search() {
             </div>  
 
             <div className="team-stats">
-                <div className="team-stat-header">{team} Stats</div>
                 <div className="team-average-header">Averages</div>
                 <div className="average-stats">
                     <table className="table">

@@ -7,6 +7,8 @@ function RawData() {
     const [data, setData] = useState([]);
     const [headers, setHeaders] = useState([]);
     const [selectedDataMap, setSelectedDataMap] = useState('rawDataMap'); // New state variable for selected data map
+    const [sortOrder, setSortOrder] = useState(1);
+    const [sortCol, setSortCol] = useState("Match Number");
 
     useEffect(() => {
         setTimeout(() => {
@@ -16,6 +18,26 @@ function RawData() {
             });
         }, 100);
     }, [selectedDataMap]); // Add selectedDataMap to the dependency array
+
+    useEffect(() => {
+        console.log(data[selectedDataMap]);
+        if (data[selectedDataMap] !== undefined) {
+            sortByKey(data[selectedDataMap], sortCol);
+        }
+    }, [sortOrder, sortCol]);
+
+    function sortByKey(arr, key) {
+        return arr.sort((a, b) => {
+            if (Number(a[key]) > Number(b[key])) return -1 * sortOrder;
+            else if (Number(a[key]) < Number(b[key])) return 1 * sortOrder;
+            else return 0;
+        });
+    }
+
+    const handleSort = (header) => { // New function to handle sorting
+        setSortCol(header);
+        setSortOrder(sortOrder * -1); // Toggle the sort order
+    };
 
     if (data.length === 0) {
         return <div>Loading...</div>;
@@ -36,7 +58,7 @@ function RawData() {
                 ></link>
                 <table className="table">
                     <thead className="header">
-                        <tr>
+                        <tr onClick={handleSort}>
                             {headers.map((header, index) => (
                                 <th key={index}>
                                     {header}
