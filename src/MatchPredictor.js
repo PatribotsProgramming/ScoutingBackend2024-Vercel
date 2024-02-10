@@ -1,4 +1,5 @@
 
+
 const realScores =  
 {
     "Leave in Auto" : 2,
@@ -11,11 +12,22 @@ const realScores =
 }
 
 
-
-// arg should be an arr of 3 
-
 function predictTeamScore(teamArr) { 
+    let score = 0;
     for (let i = 0; i < teamArr.length; i++) {
-
+        score += getTeamScore(teamArr[i]);
     }
 }  
+
+function getTeamScore(data) {
+    let score = 0;
+    for (let i = 0; i < data[0].length; i++) {
+        if (realScores.get(data[0][i]) != undefined) {
+            score += realScores.get(data[0][i]) * data[1][i];
+        }
+    }
+}
+
+
+
+
