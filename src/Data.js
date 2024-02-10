@@ -5,6 +5,8 @@ import { fetchData } from "./SampleData.js";
 import { async } from "@firebase/util";
 import { assignMatchScoreToEach } from "./RankingSystem.js";
 import { assignAllScores } from "./RankingSystem.js";
+import { predictTeamScore } from "./MatchPredictor.js";
+import { predictTeamScore2 } from "./MatchPredictor2.js"
 //const data = getAllData();
 
 const eventCode = "2024Testing";
@@ -75,6 +77,22 @@ export const fetchDataAndProcess = async () => {
     bigTeamMap = convertToTeamMap(allData);
     rawDataMap = convertTableToMap(numData);
     rankingTable = getRankingTable();
+    console.log(teamAverageMap.get("1323"));
+    console.log(predictTeamScore(
+    [
+        teamAverageMap.get("1234"),
+        teamAverageMap.get("2234"),
+        teamAverageMap.get("4234")
+    ]
+    ))
+    console.log(predictTeamScore2(
+    [
+        teamAverageMap.get("4234"),
+        teamAverageMap.get("1234"),
+        teamAverageMap.get("2234")
+    ]
+        ))
+
     return {
         rawData: rawData,
         commentData: commentData,
