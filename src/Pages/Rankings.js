@@ -54,18 +54,8 @@ function Rankings() {
                 <thead className="header">
                     <tr>
                         {headers.map((header, index) => (
-                            <th key={index}>
+                            <th key={index} onClick={() => handleSort(header)}>
                                 {header}
-                                <button
-                                    id={index}
-                                    className="filter"
-                                    onClick={() => handleSort(header)} // Use handleSort function here
-                                >
-                                    <i
-                                        class="fa fa-filter"
-                                        style={{ fontSize: "12px" }}
-                                    ></i>
-                                </button>
                             </th>
                         ))}
                     </tr>
