@@ -1,0 +1,9 @@
+text {
+    fill: #d4af37;
+    font-weight:normal;
+    
+}
+
+.recharts-rectangle:hover {
+    fill: green;
+}

@@ -28,6 +28,7 @@
     margin-right: auto;
     overflow-y: auto;
     padding: 0px;
+    overflow-x: hidden;
 }
 
 .container:hover {
@@ -53,7 +54,7 @@
     font-size: 12px;
     background-color: #282828;
     transition: transform 0.15s;
-    user-select: none
+    user-select: none;
 }
 
 .table td:hover {
