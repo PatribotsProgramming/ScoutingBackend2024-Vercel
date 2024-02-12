@@ -60,7 +60,7 @@ class App extends Component {
 								path="/Search"
 								element={<Search />}
 							></Route>
-                            <Route
+							<Route
 								exact
 								path="/Compare"
 								element={<Compare />}
