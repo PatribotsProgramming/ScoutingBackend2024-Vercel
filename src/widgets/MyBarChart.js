@@ -11,7 +11,7 @@ import {
     YAxis,
 } from 'recharts';
 
-function MyBarChart({ width, height, data, margin, bar1Config, bar2Config, bar3Config, teamList }) {
+function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
     const CustomizedAxisTick = (props) => {
         const { x, y, payload } = props;
         let label = payload.value;
@@ -42,23 +42,17 @@ function MyBarChart({ width, height, data, margin, bar1Config, bar2Config, bar3C
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
                 <YAxis />
-                <Tooltip />
-                <Legend verticalAlign="top" height={25}/>
-                <Bar
-                    dataKey={teamList[0]}
-                    fill={bar1Config.fill}
-                    activeBar={bar1Config.activeBar}
-                />
-                <Bar
-                    dataKey={teamList[1]}
-                    fill={bar2Config.fill}
-                    activeBar={bar2Config.activeBar}
-                />
-                <Bar
-                    dataKey={teamList[2]}
-                    fill={bar3Config.fill}
-                    activeBar={bar3Config.activeBar}
-                />
+                <Tooltip cursor={false}/>
+                {teamList.map((team, index) => {
+                    return (
+                        <Bar
+                            key={index}
+                            dataKey={team}
+                            fill={barConfigs[index].fill}
+                            activeBar={barConfigs[index].activeBar}
+                        />
+                    );
+                })}
             </BarChart>
     );
 }

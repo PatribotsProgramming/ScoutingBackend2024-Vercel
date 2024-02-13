@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchDataAndProcess } from '../Data.js';
 import { getMaxMin } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraph.js';
-import './Search.css';
+import './CompareTeams.css';
 import './Tables.css';
 import {
     Bar,
@@ -15,12 +15,13 @@ import {
     YAxis,
 } from 'recharts';
 import MyBarChart from '../widgets/MyBarChart.js';
+import Select from 'react-select';
+import { render } from '@testing-library/react';
 
 function Compare() {
     const [averageData, setAverageData] = useState([]);
     const [matchData, setMatchData] = useState([]);
-    const [team, setTeam] = useState('');
-    const [value, setValue] = useState('');
+    const [allTeams, setAllTeams] = useState([]);
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
     const [maxMin, setMaxMin] = useState({});
@@ -35,9 +36,18 @@ function Compare() {
         'Endgame',
     ];
 
+    const getAllTeams = (data) => {
+        let teams = new Set();
+        data.teamAverageMap.forEach((value, key) => {
+            teams.add(key);
+        });
+        return teams;
+    };
+
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
+                setAllTeams(getAllTeams(data));
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMap);
                 setMaxMin(data.maxMin);
@@ -70,34 +80,18 @@ function Compare() {
 
         setTeamData(allTeamData);
         setTeamMatchData(allTeamMatchData);
-    }, [team]);
+    }, [teamList]);
 
-    
-    const handleChange = (event) => {
-        const inputValue = event.target.value;
-        const numericValue = inputValue.replace(/\D/g, ''); // Remove non-numeric characters
-
-        setValue(numericValue);
-    };
-
-    const handleSearch = () => {
-        setTeam(value);
+    const handleSearch = (e) => {
         // if the team exists, remove it from the list of teams, otherwise add it
-        if (teamList.includes(value)) {
-            setTeamList(teamList.filter((team) => team !== value));
-            console.log(teamList.filter((team) => team !== value));
+        if (teamList.includes(e)) {
+            setTeamList(teamList.filter((team) => team !== e));
+            console.log(teamList.filter((team) => team !== e));
         } else {
-            setTeamList([...teamList, value]);
-            console.log([...teamList, value]);
+            setTeamList([...teamList, e]);
+            console.log([...teamList, e]);
         }
-        setValue('');
-    };
-
-    // searches on press of enter key
-    const onKeyDownHandler = (e) => {
-        if (e.keyCode === 13) {
-            handleSearch();
-        }
+        
     };
 
     const emptyData = (data) => {
@@ -108,20 +102,92 @@ function Compare() {
 
     // console.log(teamMatchData);
 
+    const updateAfterSelect = (selectedOption) => {
+        console.log(selectedOption);
+        setTeamList(selectedOption.map((option) => option.value));
+        console.log(selectedOption.map((option) => option.value));
+        selectedOption.map((option) => handleSearch(option.value));
+    };
+
+    const selecterConfig = {
+            control: (base) => ({
+                ...base,
+                width: 300,
+                height: "auto",
+                fontSize: 20,
+                margin: 20,
+            }),
+
+            multiValue: (base) => ({
+                ...base,
+                backgroundColor: 'black',
+                color: 'white',
+            }),
+
+            multiValueLabel: (base) => ({
+                ...base,
+                color: 'white',
+            }),
+
+            multiValueRemove: (base) => ({
+                ...base,
+                color: 'white',
+                ':hover': {
+                    backgroundColor: 'black',
+                    color: 'white',
+                },
+            }),
+
+            option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+                return {
+                    ...styles,
+                    backgroundColor: isDisabled
+                        ? null
+                        : isSelected
+                        ? 'black'
+                        : isFocused
+                        ? 'black'
+                        : null,
+                    // color based on whether the option is selected and is focused
+                    color: isDisabled
+                        ? '#ccc'
+                        : isSelected
+                        ? 'white'
+                        : isFocused
+                        ? 'white'
+                        : 'black',
+                        
+                    cursor: isDisabled ? 'not-allowed' : 'default',
+                    ':active': {
+                        ...styles[':active'],
+                        backgroundColor: !isDisabled && (isSelected ? data.color : 'black'),
+                    },
+                };
+            },
+    };
+
+
+    const renderSelect = () => {
+        return (
+            <Select
+                options={Array.from(allTeams).map((team) => ({ value: team, label: team }))}
+                isMulti
+                onChange={(selectedOption) => {
+                    selectedOption.length <= 6 ? updateAfterSelect(selectedOption) : null;
+                }}
+                closeMenuOnSelect={false}
+                styles={selecterConfig}
+
+                value={teamList.map((team) => ({ value: team, label: team }))}
+            />
+        );
+    };
+
     if (emptyData(teamData) || emptyData(teamMatchData)) {
         return (
             <div className="search">
                 <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Team Number"
-                        className="search-input"
-                        onChange={handleChange}
-                        onKeyDown={onKeyDownHandler}
-                    />
-                    <button className="search-button" onClick={handleSearch}>
-                        Search
-                    </button>
+                    {renderSelect()}
                 </div>
                 <div className="team-stats">No Data</div>
             </div>
@@ -168,36 +234,31 @@ function Compare() {
         return str;
     };
 
-    const colorConfig = {
-        team1: {
-            fill: '#d4af37',
-            activeBar: <Rectangle fill="#d4af37" width={10} height={10} />,
-        },
-        team2: {
-            fill: '#3AD437',
-            activeBar: <Rectangle fill="#3AD437" width={10} height={10} />,
-        },
-        team3: {
-            fill: '#D43737',
-            activeBar: <Rectangle fill="#D43737" width={10} height={10} />,
-        }
-    };
+    const colors = [
+        '#d4af37',
+        '#3AD437',
+        '#D43737',
+        '#3776D4',
+        '#D43776',
+        '#76D437',
+        '#D47637',
+        '#3737D4',
+        '#D4D437',
+        '#37D4D4',
+    ]; // Add more colors if needed
+
+    const colorConfig = colors.reduce((config, color, index) => {
+        config[`team${index + 1}`] = {
+            fill: color,
+            activeBar: <Rectangle fill={color} width={10} height={10} />,
+        };
+        return config;
+    }, {});
 
     return (
         <div className="search">
-
             <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Team Number"
-                    className="search-input"
-                    value={value}
-                    onChange={handleChange}
-                    onKeyDown={onKeyDownHandler}
-                />
-                <button className="search-button" onClick={handleSearch}>
-                    Search
-                </button>
+                {renderSelect()}
             </div>
 
             <div className="team-stats">
@@ -211,39 +272,25 @@ function Compare() {
                         height={250}
                         data={convertForReCharts()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
-                        bar1Config={colorConfig.team1}
-                        bar2Config={colorConfig.team2}
-                        bar3Config={colorConfig.team3}
+                        barConfigs={
+                            teamList.map((team, index) => colorConfig[`team${index + 1}`])
+                        }
                         teamList={teamList}
                     />
                 </div>
                 <div className="radar">
-                <RadarGraph
-                    data={convertForReCharts()}
-                    angleKey="key"
-                    radiusDomain={[0, 100]}
-                    radar1={{
-                        name: teamList[0],
-                        dataKey: teamList[0], // Use team number as key
-                        stroke: colorConfig.team1.fill,
-                        fill: colorConfig.team1.fill,
-                        fillOpacity: 0.6,
-                    }}
-                    radar2={{
-                        name: teamList[1],
-                        dataKey: teamList[1], // Use team number as key
-                        stroke: colorConfig.team2.fill,
-                        fill: colorConfig.team2.fill,
-                        fillOpacity: 0.6,
-                    }}
-                    radar3={{
-                        name: teamList[2],
-                        dataKey: teamList[2], // Use team number as key
-                        stroke: colorConfig.team3.fill,
-                        fill: colorConfig.team3.fill,
-                        fillOpacity: 0.6,
-                    }}
-                />
+                    <RadarGraph
+                        data={convertForReCharts()}
+                        angleKey="key"
+                        radiusDomain={[0, 100]}
+                        radars={teamList.slice(0, 10).map((team, index) => ({
+                            name: team,
+                            dataKey: team,
+                            stroke: colorConfig[`team${index + 1}`].fill,
+                            fill: colorConfig[`team${index + 1}`].fill,
+                            fillOpacity: 0.6,
+                        }))}
+                    />
                 </div>
             </div>
         </div>
