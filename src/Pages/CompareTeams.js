@@ -72,8 +72,12 @@ function Compare() {
         setTeamMatchData(allTeamMatchData);
     }, [team]);
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
+    
+    const handleChange = (event) => {
+        const inputValue = event.target.value;
+        const numericValue = inputValue.replace(/\D/g, ''); // Remove non-numeric characters
+
+        setValue(numericValue);
     };
 
     const handleSearch = () => {
@@ -135,7 +139,7 @@ function Compare() {
 
     // selects data points from teamData and formats them for
     // the radar chart
-    const convertRadar = () => {
+    const convertForReCharts = () => {
         let arr = [];
         for (let i = 1; i < teamData[0][0].length; i++) {
             if (isRadarPoint(teamData[0][0][i])) {
@@ -144,7 +148,7 @@ function Compare() {
                     let min = maxMin.get(teamData[j][0][i])[0];
                     let max = maxMin.get(teamData[j][0][i])[1];
                     let val = ((teamData[j][1][i] - min) / (max - min)) * 100;
-                    categoryObj[`value${j + 1}`] = val;
+                    categoryObj[teamList[j]] = val; // Use team number as key
                 }
                 arr.push(categoryObj);
             }
@@ -181,6 +185,7 @@ function Compare() {
 
     return (
         <div className="search">
+
             <div className="search-bar">
                 <input
                     type="text"
@@ -204,40 +209,41 @@ function Compare() {
                     <MyBarChart
                         width={1000}
                         height={250}
-                        data={convertRadar()}
+                        data={convertForReCharts()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
                         bar1Config={colorConfig.team1}
                         bar2Config={colorConfig.team2}
                         bar3Config={colorConfig.team3}
+                        teamList={teamList}
                     />
                 </div>
                 <div className="radar">
-                    <RadarGraph
-                        data={convertRadar()}
-                        angleKey="key"
-                        radiusDomain={[0, 100]}
-                        radar1={{
-                            name: teamList[0],
-                            dataKey: 'value1',
-                            stroke: colorConfig.team1.fill,
-                            fill: colorConfig.team1.fill,
-                            fillOpacity: 0.6,
-                        }}
-                        radar2={{
-                            name: teamList[1],
-                            dataKey: 'value2',
-                            stroke: colorConfig.team2.fill,
-                            fill: colorConfig.team2.fill,
-                            fillOpacity: 0.6,
-                        }}
-                        radar3={{
-                            name: teamList[2],
-                            dataKey: 'value3',
-                            stroke: colorConfig.team3.fill,
-                            fill: colorConfig.team3.fill,
-                            fillOpacity: 0.6,
-                        }}
-                    />
+                <RadarGraph
+                    data={convertForReCharts()}
+                    angleKey="key"
+                    radiusDomain={[0, 100]}
+                    radar1={{
+                        name: teamList[0],
+                        dataKey: teamList[0], // Use team number as key
+                        stroke: colorConfig.team1.fill,
+                        fill: colorConfig.team1.fill,
+                        fillOpacity: 0.6,
+                    }}
+                    radar2={{
+                        name: teamList[1],
+                        dataKey: teamList[1], // Use team number as key
+                        stroke: colorConfig.team2.fill,
+                        fill: colorConfig.team2.fill,
+                        fillOpacity: 0.6,
+                    }}
+                    radar3={{
+                        name: teamList[2],
+                        dataKey: teamList[2], // Use team number as key
+                        stroke: colorConfig.team3.fill,
+                        fill: colorConfig.team3.fill,
+                        fillOpacity: 0.6,
+                    }}
+                />
                 </div>
             </div>
         </div>

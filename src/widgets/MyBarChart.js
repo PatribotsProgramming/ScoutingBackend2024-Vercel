@@ -3,6 +3,7 @@ import {
     Bar,
     BarChart,
     CartesianGrid,
+    Legend,
     Rectangle,
     ResponsiveContainer,
     Tooltip,
@@ -10,7 +11,7 @@ import {
     YAxis,
 } from 'recharts';
 
-function MyBarChart({ width, height, data, margin, bar1Config, bar2Config, bar3Config }) {
+function MyBarChart({ width, height, data, margin, bar1Config, bar2Config, bar3Config, teamList }) {
     const CustomizedAxisTick = (props) => {
         const { x, y, payload } = props;
         let label = payload.value;
@@ -42,18 +43,19 @@ function MyBarChart({ width, height, data, margin, bar1Config, bar2Config, bar3C
                 <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
                 <YAxis />
                 <Tooltip />
+                <Legend verticalAlign="top" height={25}/>
                 <Bar
-                    dataKey="value1"
+                    dataKey={teamList[0]}
                     fill={bar1Config.fill}
                     activeBar={bar1Config.activeBar}
                 />
                 <Bar
-                    dataKey="value2"
+                    dataKey={teamList[1]}
                     fill={bar2Config.fill}
                     activeBar={bar2Config.activeBar}
                 />
                 <Bar
-                    dataKey="value3"
+                    dataKey={teamList[2]}
                     fill={bar3Config.fill}
                     activeBar={bar3Config.activeBar}
                 />
