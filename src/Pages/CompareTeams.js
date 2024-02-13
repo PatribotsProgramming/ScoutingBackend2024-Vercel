@@ -18,7 +18,7 @@ function Compare() {
     const [maxMin, setMaxMin] = useState({});
     const [teamList, setTeamList] = useState([]);
 
-    const radarDataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Driving", "Human Player"];
+    const radarDataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Amped Speaker", "Endgame"];
     const commentLength = 7;
 
     useEffect(() => {
@@ -32,12 +32,30 @@ function Compare() {
     }, []);
 
     useEffect(() => {
-        if (averageData.size !== 0 && averageData.size !== undefined) {
-            setTeamData(averageData.get(team));
-        }
-        if (matchData.size !== 0 && matchData.size !== undefined) {
-            setTeamMatchData(matchData.get(team));
-        }
+        let allTeamData = [];
+        let allTeamMatchData = [];
+        teamList.forEach((team) => {
+            console.log(team);
+            let thisTeamData;
+            let thisTeamMatchData;
+
+            if (averageData.size !== 0 && averageData.size !== undefined) {
+                thisTeamData = averageData.get(team);
+                // setTeamData(averageData.get(team));
+            }
+            if (matchData.size !== 0 && matchData.size !== undefined) {
+                thisTeamMatchData = matchData.get(team);
+                // setTeamMatchData(matchData.get(team));
+            }
+            allTeamData.push(thisTeamData);
+            allTeamMatchData.push(thisTeamMatchData);
+
+            console.log(allTeamData);
+            console.log(allTeamMatchData);
+        });
+        
+        setTeamData(allTeamData);
+        setTeamMatchData(allTeamMatchData);
         // eslint-disable-next-line
     }, [team]);
 
@@ -104,14 +122,20 @@ function Compare() {
     // the radar chart
     const convertRadar = () => {
         let arr = [];
-        for (let i = 1; i < teamData[0].length; i++) {
-            if (isRadarPoint(teamData[0][i])) {
-                let min = maxMin.get(teamData[0][i])[0];
-                let max = maxMin.get(teamData[0][i])[1];
-                let val = ((teamData[1][i] - min) / (max - min)) * 100;
-                arr.push({key: teamData[0][i], value: val})
+
+        for (let j = 0; j < teamData.length; j++) {
+            let team = teamData[j];
+
+            for (let i = 1; i < team.length; i++) {
+                if (isRadarPoint(team[0][i])) {
+                    let min = maxMin.get(team[0][i])[0];
+                    let max = maxMin.get(team[0][i])[1];
+                    let val = ((team[1][i] - min) / (max - min)) * 100;
+                    arr.push({ key: team[0][i], value: val });
+                }
             }
         }
+
         // console.log(arr);
         return arr;
     }
@@ -133,6 +157,7 @@ function Compare() {
     const CustomizedAxisTick = props => {
         const { x, y, payload } = props;
         let label = payload.value;
+        console.log(label);
         if (label.length > 7) { // Change this value to adjust the maximum length
             label = label.slice(0, 10) + '...'; // Truncate and add ellipsis
         }
@@ -184,35 +209,36 @@ function Compare() {
                 <div className="team-stat-header">{team} Stats</div>
                 <div className="team-average-header">Averages</div>
                 <div className="bar-chart">
-                    {console.log(createDataObject(headers, stats))}
+                    {console.log(convertRadar())}
                     <BarChart
                         width={1400}
                         height={400}
-                        data={createDataObject(headers, stats)}
+                        data={convertRadar()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" tick={<CustomizedAxisTick />} />
+                        <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
                         <YAxis />
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="value" fill="#8884d8" />
+                        <Bar dataKey="value" fill="#82ca9d" />
                     </BarChart>
-
-{/*                     
-                    <RadarGraph
-                        data={convertRadar()}
-                        angleKey="key"
-                        radiusDomain={[0, 100]}
-                        radar1={{
-                            name: {team},
-                            dataKey: "value",
-                            stroke: "#d4af37",
-                            fill: "#d4af37",
-                            fillOpacity: 0.6,
-                        }}
-                    /> */}
                 </div>
+                <div className="radar">
+                        <RadarGraph
+                            data={convertRadar()}
+                            angleKey="key"
+                            radiusDomain={[0, 100]}
+                            radar1={{
+                                name: {team},
+                                dataKey: "value",
+                                stroke: "#d4af37",
+                                fill: "#d4af37",
+                                fillOpacity: 0.6,
+                            }}
+                        />
+                    </div>
             </div>
         </div>
     );
