@@ -60,7 +60,6 @@
     justify-content: space-around; /* evenly distribute items along the line */
     flex-wrap: wrap;
     align-items: center; /* center items along the cross-axis */
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
     overflow-y: auto;
     margin-bottom: 15px;
 }
@@ -81,13 +80,19 @@
     text-align: center;
 }
 
-.radar {
+.radar-ct {
     font-size: 12px;
-    transition: transform 0.25s;
 }
 
-.radar:hover {
-    transform: scale(1.1);
+.radar-many {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+
 }
 
 .team-stat-header {

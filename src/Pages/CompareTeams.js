@@ -26,6 +26,7 @@ function Compare() {
     const [teamMatchData, setTeamMatchData] = useState([]);
     const [maxMin, setMaxMin] = useState({});
     const [teamList, setTeamList] = useState([]);
+    const [singleChartMode, setSingleChartMode] = useState(true);
 
     const radarDataPoints = [
         'Amp Auto',
@@ -91,7 +92,6 @@ function Compare() {
             setTeamList([...teamList, e]);
             console.log([...teamList, e]);
         }
-        
     };
 
     const emptyData = (data) => {
@@ -110,74 +110,78 @@ function Compare() {
     };
 
     const selecterConfig = {
-            control: (base) => ({
-                ...base,
-                width: 300,
-                height: "auto",
-                fontSize: 20,
-                margin: 20,
-            }),
+        control: (base) => ({
+            ...base,
+            width: 300,
+            height: 'auto',
+            fontSize: 20,
+            margin: 20,
+        }),
 
-            multiValue: (base) => ({
-                ...base,
+        multiValue: (base) => ({
+            ...base,
+            backgroundColor: 'black',
+            color: 'white',
+        }),
+
+        multiValueLabel: (base) => ({
+            ...base,
+            color: 'white',
+        }),
+
+        multiValueRemove: (base) => ({
+            ...base,
+            color: 'white',
+            ':hover': {
                 backgroundColor: 'black',
                 color: 'white',
-            }),
-
-            multiValueLabel: (base) => ({
-                ...base,
-                color: 'white',
-            }),
-
-            multiValueRemove: (base) => ({
-                ...base,
-                color: 'white',
-                ':hover': {
-                    backgroundColor: 'black',
-                    color: 'white',
-                },
-            }),
-
-            option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-                return {
-                    ...styles,
-                    backgroundColor: isDisabled
-                        ? null
-                        : isSelected
-                        ? 'black'
-                        : isFocused
-                        ? 'black'
-                        : null,
-                    // color based on whether the option is selected and is focused
-                    color: isDisabled
-                        ? '#ccc'
-                        : isSelected
-                        ? 'white'
-                        : isFocused
-                        ? 'white'
-                        : 'black',
-                        
-                    cursor: isDisabled ? 'not-allowed' : 'default',
-                    ':active': {
-                        ...styles[':active'],
-                        backgroundColor: !isDisabled && (isSelected ? data.color : 'black'),
-                    },
-                };
             },
-    };
+        }),
 
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            return {
+                ...styles,
+                backgroundColor: isDisabled
+                    ? null
+                    : isSelected
+                    ? 'black'
+                    : isFocused
+                    ? 'black'
+                    : null,
+                // color based on whether the option is selected and is focused
+                color: isDisabled
+                    ? '#ccc'
+                    : isSelected
+                    ? 'white'
+                    : isFocused
+                    ? 'white'
+                    : 'black',
+
+                cursor: isDisabled ? 'not-allowed' : 'default',
+                ':active': {
+                    ...styles[':active'],
+                    backgroundColor:
+                        !isDisabled && (isSelected ? data.color : 'black'),
+                },
+            };
+        },
+    };
 
     const renderSelect = () => {
         return (
             <Select
-                options={Array.from(allTeams).map((team) => ({ value: team, label: team }))}
+                options={Array.from(allTeams).map((team) => ({
+                    value: team,
+                    label: team,
+                }))}
                 isMulti
                 onChange={(selectedOption) => {
-                    selectedOption.length <= 6 ? updateAfterSelect(selectedOption) : null;
+                    selectedOption.length <= 6
+                        ? updateAfterSelect(selectedOption)
+                        : null;
                 }}
                 closeMenuOnSelect={false}
                 styles={selecterConfig}
-
                 value={teamList.map((team) => ({ value: team, label: team }))}
             />
         );
@@ -186,9 +190,7 @@ function Compare() {
     if (emptyData(teamData) || emptyData(teamMatchData)) {
         return (
             <div className="search">
-                <div className="search-bar">
-                    {renderSelect()}
-                </div>
+                <div className="search-bar">{renderSelect()}</div>
                 <div className="team-stats">No Data</div>
             </div>
         );
@@ -257,9 +259,7 @@ function Compare() {
 
     return (
         <div className="search">
-            <div className="search-bar">
-                {renderSelect()}
-            </div>
+            <div className="search-bar">{renderSelect()}</div>
 
             <div className="team-stats">
                 <div className="team-stat-header">
@@ -272,13 +272,17 @@ function Compare() {
                         height={250}
                         data={convertForReCharts()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
-                        barConfigs={
-                            teamList.map((team, index) => colorConfig[`team${index + 1}`])
-                        }
+                        barConfigs={teamList.map(
+                            (team, index) => colorConfig[`team${index + 1}`]
+                        )}
                         teamList={teamList}
                     />
                 </div>
-                <div className="radar">
+                <button onClick={() => setSingleChartMode(!singleChartMode)}>
+                    {singleChartMode ? 'Single Chart' : 'Multiple Charts'}
+                </button>
+                {singleChartMode ? (
+                    <div className="radar-ct">
                     <RadarGraph
                         data={convertForReCharts()}
                         angleKey="key"
@@ -291,7 +295,48 @@ function Compare() {
                             fillOpacity: 0.6,
                         }))}
                     />
-                </div>
+                    </div>
+                ) : (
+                    <div className="radar-many">
+                        {teamList.map((team, index) => (
+                            <RadarGraph
+                                key={index}
+                                data={convertForReCharts().filter(
+                                    (data) => data[team]
+                                )}
+                                angleKey="key"
+                                radiusDomain={[0, 100]}
+                                radars={[
+                                    {
+                                        name: team,
+                                        dataKey: team,
+                                        stroke: colorConfig[`team${index + 1}`]
+                                            .fill,
+                                        fill: colorConfig[`team${index + 1}`]
+                                            .fill,
+                                        fillOpacity: 0.6,
+                                    },
+                                ]}
+                            />
+                        ))}
+
+                        <RadarGraph
+                            data={convertForReCharts()}
+                            angleKey="key"
+                            radiusDomain={[0, 100]}
+                            radars={teamList
+                                .slice(0, 10)
+                                .map((team, index) => ({
+                                    name: team,
+                                    dataKey: team,
+                                    stroke: colorConfig[`team${index + 1}`]
+                                        .fill,
+                                    fill: colorConfig[`team${index + 1}`].fill,
+                                    fillOpacity: 0.6,
+                                }))}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );
