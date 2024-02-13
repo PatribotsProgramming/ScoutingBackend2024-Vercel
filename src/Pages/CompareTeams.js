@@ -1,25 +1,39 @@
-
-import React, { useEffect, useState } from "react";
-import {fetchDataAndProcess} from '../Data.js';
+import React, { useEffect, useState } from 'react';
+import { fetchDataAndProcess } from '../Data.js';
 import { getMaxMin } from '../Data.js';
-import RadarGraph from "../widgets/RadarGraph.js";
-import "./Search.css";
-import "./Tables.css";
-import { Bar, BarChart, CartesianGrid, Legend, Rectangle, Tooltip, XAxis, YAxis } from "recharts";
+import RadarGraph from '../widgets/RadarGraph.js';
+import './Search.css';
+import './Tables.css';
+import {
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Legend,
+    Rectangle,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts';
+import MyBarChart from '../widgets/MyBarChart.js';
 
 function Compare() {
     const [averageData, setAverageData] = useState([]);
-    const [matchData, setMatchData] = useState([]); 
-    const [team, setTeam] = useState("");
-    const [value, setValue] = useState("");
+    const [matchData, setMatchData] = useState([]);
+    const [team, setTeam] = useState('');
+    const [value, setValue] = useState('');
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
-    const [matchDataType, setMatchDataType] = useState("num");
     const [maxMin, setMaxMin] = useState({});
     const [teamList, setTeamList] = useState([]);
 
-    const radarDataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Amped Speaker", "Endgame"];
-    const commentLength = 7;
+    const radarDataPoints = [
+        'Amp Auto',
+        'Speaker Auto',
+        'Amp Teleop',
+        'Speaker Teleop',
+        'Amped Speaker',
+        'Endgame',
+    ];
 
     useEffect(() => {
         setTimeout(() => {
@@ -53,28 +67,27 @@ function Compare() {
             console.log(allTeamData);
             console.log(allTeamMatchData);
         });
-        
+
         setTeamData(allTeamData);
         setTeamMatchData(allTeamMatchData);
-        // eslint-disable-next-line
     }, [team]);
 
     const handleChange = (e) => {
         setValue(e.target.value);
-    }
+    };
 
     const handleSearch = () => {
         setTeam(value);
         // if the team exists, remove it from the list of teams, otherwise add it
         if (teamList.includes(value)) {
             setTeamList(teamList.filter((team) => team !== value));
-            console.log(teamList.filter((team) => team !== value))
+            console.log(teamList.filter((team) => team !== value));
         } else {
             setTeamList([...teamList, value]);
-            console.log([...teamList, value])
+            console.log([...teamList, value]);
         }
-        setValue("");
-    }
+        setValue('');
+    };
 
     // searches on press of enter key
     const onKeyDownHandler = (e) => {
@@ -84,8 +97,10 @@ function Compare() {
     };
 
     const emptyData = (data) => {
-        return data === undefined || data[0] === undefined || data[0].length === 0
-    }
+        return (
+            data === undefined || data[0] === undefined || data[0].length === 0
+        );
+    };
 
     // console.log(teamMatchData);
 
@@ -93,18 +108,18 @@ function Compare() {
         return (
             <div className="search">
                 <div className="search-bar">
-                    <input 
-                        type="text" 
-                        placeholder="Team Number" 
+                    <input
+                        type="text"
+                        placeholder="Team Number"
                         className="search-input"
                         onChange={handleChange}
                         onKeyDown={onKeyDownHandler}
                     />
-                    <button className="search-button" onClick={handleSearch}>Search</button>
+                    <button className="search-button" onClick={handleSearch}>
+                        Search
+                    </button>
                 </div>
-                <div className="team-stats">
-                    No Data
-                </div>
+                <div className="team-stats">No Data</div>
             </div>
         );
     }
@@ -116,129 +131,114 @@ function Compare() {
             if (dataPoint === radarDataPoints[i]) return true;
         }
         return false;
-    }
+    };
 
-    // selects data points from teamData and formats them for 
+    // selects data points from teamData and formats them for
     // the radar chart
     const convertRadar = () => {
         let arr = [];
-
-        for (let j = 0; j < teamData.length; j++) {
-            let team = teamData[j];
-
-            for (let i = 1; i < team.length; i++) {
-                if (isRadarPoint(team[0][i])) {
-                    let min = maxMin.get(team[0][i])[0];
-                    let max = maxMin.get(team[0][i])[1];
-                    let val = ((team[1][i] - min) / (max - min)) * 100;
-                    arr.push({ key: team[0][i], value: val });
+        for (let i = 1; i < teamData[0][0].length; i++) {
+            if (isRadarPoint(teamData[0][0][i])) {
+                let categoryObj = { key: teamData[0][0][i] };
+                for (let j = 0; j < teamData.length; j++) {
+                    let min = maxMin.get(teamData[j][0][i])[0];
+                    let max = maxMin.get(teamData[j][0][i])[1];
+                    let val = ((teamData[j][1][i] - min) / (max - min)) * 100;
+                    categoryObj[`value${j + 1}`] = val;
                 }
+                arr.push(categoryObj);
             }
         }
-
-        // console.log(arr);
+        console.log(arr);
         return arr;
-    }
-
-    // returns the section of the match data to display based on if the current data
-    // type is either numbers or comments
-    const matchContent = (matches) => {
-        if (matchDataType === "num") {
-            return matches.slice(commentLength);
-        }
-        return matches.slice(1, commentLength);
-    }
-
-    // changes match data type to either num or comment
-    const handleSelectChange = (e) => {
-        setMatchDataType(e.target.value);
-    }
-
-    const CustomizedAxisTick = props => {
-        const { x, y, payload } = props;
-        let label = payload.value;
-        console.log(label);
-        if (label.length > 7) { // Change this value to adjust the maximum length
-            label = label.slice(0, 10) + '...'; // Truncate and add ellipsis
-        }
-
-        return (
-            <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-                    {label}
-                </text>
-            </g>
-        );
     };
 
-    function createDataObject(headers, stats) {
-        let dataArray = [];
-        for(let i = 0; i < stats.length; i++) {
-            let dataObject = {name: headers[i], value: stats[i]};
-            for(let j = 0; j < stats[i].length; j++) {
-                dataObject[headers[j+1]] = isNaN(stats[i][j]) ? stats[i][j] : Math.round(stats[i][j] * 100) / 100;
+    const returnTeamString = () => {
+        let str = '';
+        for (let i = 0; i < teamList.length; i++) {
+            str += teamList[i];
+            if (i !== teamList.length - 1) {
+                str += ' vs. ';
             }
-            dataArray.push(dataObject);
         }
-        return dataArray;
-    }
+        return str;
+    };
 
-    let headers = teamData[0].slice(1);
-    let stats = teamData[1].slice(1);
-
-    let matchHeads = teamMatchData[0];
-    let matchStats = teamMatchData.slice(1);
-
-    // console.log(convertRadar());
+    const colorConfig = {
+        team1: {
+            fill: '#d4af37',
+            activeBar: <Rectangle fill="#d4af37" width={10} height={10} />,
+        },
+        team2: {
+            fill: '#3AD437',
+            activeBar: <Rectangle fill="#3AD437" width={10} height={10} />,
+        },
+        team3: {
+            fill: '#D43737',
+            activeBar: <Rectangle fill="#D43737" width={10} height={10} />,
+        }
+    };
 
     return (
         <div className="search">
             <div className="search-bar">
-                <input 
-                    type="text" 
-                    placeholder="Team Number" 
+                <input
+                    type="text"
+                    placeholder="Team Number"
                     className="search-input"
                     value={value}
                     onChange={handleChange}
                     onKeyDown={onKeyDownHandler}
                 />
-                <button className="search-button" onClick={handleSearch}>Search</button>
-            </div>  
+                <button className="search-button" onClick={handleSearch}>
+                    Search
+                </button>
+            </div>
 
             <div className="team-stats">
-                <div className="team-stat-header">{team} Stats</div>
+                <div className="team-stat-header">
+                    {returnTeamString()} Stats
+                </div>
                 <div className="team-average-header">Averages</div>
                 <div className="bar-chart">
-                    {console.log(convertRadar())}
-                    <BarChart
-                        width={1400}
-                        height={400}
+                    <MyBarChart
+                        width={1000}
+                        height={250}
                         data={convertRadar()}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="value" fill="#8884d8" />
-                        <Bar dataKey="value" fill="#82ca9d" />
-                    </BarChart>
+                        margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
+                        bar1Config={colorConfig.team1}
+                        bar2Config={colorConfig.team2}
+                        bar3Config={colorConfig.team3}
+                    />
                 </div>
                 <div className="radar">
-                        <RadarGraph
-                            data={convertRadar()}
-                            angleKey="key"
-                            radiusDomain={[0, 100]}
-                            radar1={{
-                                name: {team},
-                                dataKey: "value",
-                                stroke: "#d4af37",
-                                fill: "#d4af37",
-                                fillOpacity: 0.6,
-                            }}
-                        />
-                    </div>
+                    <RadarGraph
+                        data={convertRadar()}
+                        angleKey="key"
+                        radiusDomain={[0, 100]}
+                        radar1={{
+                            name: teamList[0],
+                            dataKey: 'value1',
+                            stroke: colorConfig.team1.fill,
+                            fill: colorConfig.team1.fill,
+                            fillOpacity: 0.6,
+                        }}
+                        radar2={{
+                            name: teamList[1],
+                            dataKey: 'value2',
+                            stroke: colorConfig.team2.fill,
+                            fill: colorConfig.team2.fill,
+                            fillOpacity: 0.6,
+                        }}
+                        radar3={{
+                            name: teamList[2],
+                            dataKey: 'value3',
+                            stroke: colorConfig.team3.fill,
+                            fill: colorConfig.team3.fill,
+                            fillOpacity: 0.6,
+                        }}
+                    />
+                </div>
             </div>
         </div>
     );
