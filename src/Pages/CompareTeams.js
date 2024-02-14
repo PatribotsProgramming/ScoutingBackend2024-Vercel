@@ -1,18 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { fetchDataAndProcess } from '../Data.js';
-import { getMaxMin } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraph.js';
 import './CompareTeams.css';
 import './Tables.css';
 import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Legend,
-    Rectangle,
-    Tooltip,
-    XAxis,
-    YAxis,
+    Rectangle
 } from 'recharts';
 import MyBarChart from '../widgets/MyBarChart.js';
 import Select from 'react-select';
