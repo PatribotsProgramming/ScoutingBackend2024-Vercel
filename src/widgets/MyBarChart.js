@@ -38,22 +38,23 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
     };
 
     return (
-            <BarChart width={width} height={height} data={data} margin={margin}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
-                <YAxis />
-                <Tooltip cursor={false}/>
-                {teamList.map((team, index) => {
-                    return (
-                        <Bar
-                            key={index}
-                            dataKey={team}
-                            fill={barConfigs[index].fill}
-                            activeBar={barConfigs[index].activeBar}
-                        />
-                    );
-                })}
-            </BarChart>
+        <BarChart width={width} height={height} data={data} margin={margin}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
+            <YAxis />
+            <Tooltip cursor={false} />
+            <Legend verticalAlign='top' height={36} />
+            {teamList.map((team, index) => {
+                return (
+                    <Bar
+                        key={index}
+                        dataKey={team}
+                        fill={barConfigs[index].fill}
+                        activeBar={barConfigs[index].activeBar}
+                    />
+                );
+            })}
+        </BarChart>
     );
 }
 

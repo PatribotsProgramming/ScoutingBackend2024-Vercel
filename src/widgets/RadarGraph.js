@@ -16,15 +16,15 @@ const RadarGraph = (props) => {
                 <PolarAngleAxis dataKey={props.angleKey} />
                 <PolarRadiusAxis angle={30} domain={props.radiusDomain} />
                 {radars.map((radar, index) => (
-                    <Radar
-                        key={index}
-                        name={radar.name}
-                        dataKey={radar.dataKey}
-                        stroke={radar.stroke}
-                        fill={radar.fill}
-                        fillOpacity={radar.fillOpacity}
-                    />
-                ))}
+                        <Radar
+                            key={index}
+                            name={radar.name}
+                            dataKey={radar.dataKey}
+                            stroke={radar.stroke}
+                            fill={radar.fill}
+                            fillOpacity={radar.fillOpacity}
+                        />
+                    ))}
             </RadarChart>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { fetchDataAndProcess } from '../Data.js';
 import { getMaxMin } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraph.js';
@@ -16,7 +16,6 @@ import {
 } from 'recharts';
 import MyBarChart from '../widgets/MyBarChart.js';
 import Select from 'react-select';
-import { render } from '@testing-library/react';
 
 function Compare() {
     const [averageData, setAverageData] = useState([]);
@@ -25,6 +24,7 @@ function Compare() {
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
     const [maxMin, setMaxMin] = useState({});
+    const [teamColors, setTeamColors] = useState([]);
     const [teamList, setTeamList] = useState([]);
     const [singleChartMode, setSingleChartMode] = useState(true);
 
@@ -44,6 +44,24 @@ function Compare() {
         });
         return teams;
     };
+
+    // make a get request to https://api.frc-colors.com/v1/team?team=581&team=254&team=1678
+    // to get the team colors
+    useEffect(() => {
+        // check if the team list is empty
+        if (teamList.length === 0) return;
+        const teamQueryString = teamList
+            .map((team) => `team=${team}`)
+            .join('&');
+        const url = `https://api.frc-colors.com/v1/team?${teamQueryString}`;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.teams);
+                setTeamColors(data.teams);
+            })
+            .catch((error) => console.error(error));
+    }, [teamList]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -109,18 +127,36 @@ function Compare() {
         selectedOption.map((option) => handleSearch(option.value));
     };
 
+    const getTeamColor = useMemo(() => {
+        return (team) => {
+            if (teamColors.length === 0) return 'black';
+            console.log(teamColors);
+            console.log(team);
+            try {
+                if (!(teamColors[team] && teamColors[team].colors))
+                    return 'grey';
+                const teamColor = teamColors[team]['colors']['primaryHex'];
+                console.log(teamColor);
+                return teamColor;
+            } catch (error) {
+                console.error(error);
+                return 'black';
+            }
+        };
+    }, [teamColors]);
+
     const selecterConfig = {
         control: (base) => ({
             ...base,
             width: 300,
             height: 'auto',
             fontSize: 20,
-            margin: 20,
+            margin: "23% 0 0 0",
         }),
 
-        multiValue: (base) => ({
+        multiValue: (base, { data }) => ({
             ...base,
-            backgroundColor: 'black',
+            backgroundColor: getTeamColor(data.value),
             color: 'white',
         }),
 
@@ -225,17 +261,6 @@ function Compare() {
         return arr;
     };
 
-    const returnTeamString = () => {
-        let str = '';
-        for (let i = 0; i < teamList.length; i++) {
-            str += teamList[i];
-            if (i !== teamList.length - 1) {
-                str += ' vs. ';
-            }
-        }
-        return str;
-    };
-
     const colors = [
         '#d4af37',
         '#3AD437',
@@ -260,12 +285,7 @@ function Compare() {
     return (
         <div className="search">
             <div className="search-bar">{renderSelect()}</div>
-
             <div className="team-stats">
-                <div className="team-stat-header">
-                    {returnTeamString()} Stats
-                </div>
-                <div className="team-average-header">Averages</div>
                 <div className="bar-chart">
                     <MyBarChart
                         width={1000}
@@ -276,6 +296,7 @@ function Compare() {
                             (team, index) => colorConfig[`team${index + 1}`]
                         )}
                         teamList={teamList}
+                        teamColors={teamColors}
                     />
                 </div>
                 <button onClick={() => setSingleChartMode(!singleChartMode)}>
@@ -283,18 +304,21 @@ function Compare() {
                 </button>
                 {singleChartMode ? (
                     <div className="radar-ct">
-                    <RadarGraph
-                        data={convertForReCharts()}
-                        angleKey="key"
-                        radiusDomain={[0, 100]}
-                        radars={teamList.slice(0, 10).map((team, index) => ({
-                            name: team,
-                            dataKey: team,
-                            stroke: colorConfig[`team${index + 1}`].fill,
-                            fill: colorConfig[`team${index + 1}`].fill,
-                            fillOpacity: 0.6,
-                        }))}
-                    />
+                        <RadarGraph
+                            data={convertForReCharts()}
+                            angleKey="key"
+                            radiusDomain={[0, 100]}
+                            radars={teamList
+                                .slice(0, 10)
+                                .map((team, index) => ({
+                                    name: team,
+                                    dataKey: team,
+                                    stroke: colorConfig[`team${index + 1}`]
+                                        .fill,
+                                    fill: colorConfig[`team${index + 1}`].fill,
+                                    fillOpacity: 0.6,
+                                }))}
+                        />
                     </div>
                 ) : (
                     <div className="radar-many">
