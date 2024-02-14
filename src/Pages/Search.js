@@ -16,7 +16,14 @@ function Search() {
     const [matchDataType, setMatchDataType] = useState("num");
     const [maxMin, setMaxMin] = useState({});
 
-    const radarDataPoints = ["Amp Auto", "Speaker Auto", "Amp Teleop", "Speaker Teleop", "Driving", "Human Player"];
+    const radarDataPoints = [
+        'Auto',
+        'Teleop',
+        'Amp',
+        'Speaker',
+        'Endgame',
+        'Human Player',
+    ];
     const commentLength = 7;
 
     useEffect(() => {

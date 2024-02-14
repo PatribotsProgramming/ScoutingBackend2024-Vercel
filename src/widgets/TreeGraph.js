@@ -10,6 +10,7 @@ const TreeGraph = (props) => {
                 height={320}
                 data={props.data}
                 dataKey={props.dataKey}
+                isAnimationActive={false}
                 aspectRatio={4 / 3}
                 stroke="#d4af37"
                 fill="#282828"
