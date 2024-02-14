@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {fetchDataAndProcess} from '../Data.js';
 import { getMaxMin } from '../Data.js';
-import RadarGraph from "../widgets/RadarGraph.js";
+import RadarGraph from "../widgets/RadarGraphSearch.js";
 import "./Search.css";
 import "./Tables.css";
 
