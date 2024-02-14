@@ -21,12 +21,12 @@ function Compare() {
     const [singleChartMode, setSingleChartMode] = useState(true);
 
     const radarDataPoints = [
-        'Amp Auto',
-        'Speaker Auto',
-        'Amp Teleop',
-        'Speaker Teleop',
-        'Amped Speaker',
+        'Auto',
+        'Teleop',
+        'Amp',
+        'Speaker',
         'Endgame',
+        'Human Player',
     ];
 
     const getAllTeams = (data) => {
@@ -218,9 +218,9 @@ function Compare() {
 
     if (emptyData(teamData) || emptyData(teamMatchData)) {
         return (
-            <div className="search">
-                <div className="search-bar">{renderSelect()}</div>
-                <div className="team-stats">No Data</div>
+            <div className="search-compare">
+                <div className="search-bar-compare">{renderSelect()}</div>
+                <div className="team-stats-compare">No Data</div>
             </div>
         );
     }
@@ -276,9 +276,9 @@ function Compare() {
     }, {});
 
     return (
-        <div className="search">
-            <div className="search-bar">{renderSelect()}</div>
-            <div className="team-stats">
+        <div className="search-compare">
+            <div className="search-bar-compare">{renderSelect()}</div>
+            <div className="team-stats-compare">
                 <div className="bar-chart">
                     <MyBarChart
                         width={1000}

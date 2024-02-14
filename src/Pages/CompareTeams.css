@@ -1,4 +1,4 @@
-.search-bar {
+.search-bar-compare {
     position: absolute;
     left: 0;
     right: 0;
@@ -9,7 +9,7 @@
     display: inline-flex;
 }
 
-.search-bar input {
+.search-bar-compare input {
     width: 200px;
     height: 30px;
     padding: 5px;
@@ -18,7 +18,7 @@
     font-size: 14px;
 }
 
-.search-bar button {
+.search-bar-compare button {
     height: 30px;
     padding: 5px 10px;
     margin-left: 10px;
@@ -30,11 +30,11 @@
     cursor: pointer;
 }
 
-.search-bar button:hover {
+.search-bar-compare button:hover {
     background-color: #0056b3;
 }
 
-.team-stats {
+.team-stats-compare {
     width: 1200px;
     position: absolute;
     top: 120px;

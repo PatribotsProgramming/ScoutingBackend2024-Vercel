@@ -218,4 +218,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default Search
