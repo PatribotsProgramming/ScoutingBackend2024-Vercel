@@ -152,11 +152,12 @@ function Compare() {
             height: 'auto',
             fontSize: 20,
             margin: "23% 0 0 0",
+            backgroundColor: '--background-color',
         }),
 
         multiValue: (base, { data }) => ({
             ...base,
-            backgroundColor: getTeamColor(data.value),
+            backgroundColor: `${getTeamColor(data.value)}70`, // Add alpha value (80) for transparency
             color: 'white',
         }),
 
