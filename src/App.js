@@ -33,14 +33,14 @@ class App extends Component {
 									Search
 								</div>
 							</Link>
+							<Link className="navbar-but" to="/Compare">
+								<div className="nav-text">
+									Compare Teams
+								</div>
+							</Link>
 							<Link className="navbar-but" to="/RawData">
 								<div className="nav-text">
 									Raw Data
-								</div>
-							</Link>
-                            <Link className="navbar-but" to="/Compare">
-								<div className="nav-text">
-									Compare Teams
 								</div>
 							</Link>
 						</div>

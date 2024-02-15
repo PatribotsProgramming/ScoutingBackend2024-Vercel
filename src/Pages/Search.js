@@ -17,11 +17,11 @@ function Search() {
     const [maxMin, setMaxMin] = useState({});
 
     const radarDataPoints = [
-        'Auto',
-        'Teleop',
         'Amp',
         'Speaker',
         'Endgame',
+        'Teleop',
+        'Auto',
         'Human Player',
     ];
     const commentLength = 7;
