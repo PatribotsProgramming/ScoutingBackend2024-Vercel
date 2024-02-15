@@ -47,6 +47,11 @@ class App extends Component {
 						<Routes>
 							<Route
 								exact
+								path="/"
+								element={<Rankings />}
+							></Route>
+							<Route
+								exact
 								path="/Rankings"
 								element={<Rankings />}
 							></Route>
