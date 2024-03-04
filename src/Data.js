@@ -9,7 +9,7 @@ import { assignAllScores } from "./RankingSystem.js";
 // import { predictTeamScore2 } from "./MatchPredictor2.js"
 //const data = getAllData();
 
-const eventCode = "2024Testing";
+const eventCode = "2024cave";
 
 let rawData;
 let commentData;
@@ -30,7 +30,7 @@ export const fetchDataAndProcess = async () => {
 
     const data = await getAllData();
     rawData = JSON.parse(data)["scouting"][eventCode];
-    // console.log(rawData);
+    console.log(rawData);
     commentData = resortColumnByPoint(
         convertCommentsToTableForm(rawData),
         "Team",
@@ -54,7 +54,8 @@ export const fetchDataAndProcess = async () => {
             "Amp Teleop",
             "Speaker Teleop", 
             "Amped Speaker",
-            "Fumbles",
+            "Fumbles Speaker",
+            "Fumbles Amp",
             "Coopertition",
             "Average Cycle Time",
             "Driving",
@@ -190,6 +191,7 @@ function convertNumDataToTableForm(data) {
 
 // Working:
 function convertAllToTableForm(data) {
+  console.log(data);
   let tempComments = convertCommentsToTableForm(data);
   let tempNumData = convertNumDataToTableForm(data);
   let table = [];
@@ -380,15 +382,6 @@ function convertToTeamMap(data) {
       break;
     }
   }
-  // console.log(teamNameIndex);
-  for (let i = 1; i < data.length; i++) {
-    if (!teamMap.has(data[i][teamNameIndex])) {
-      teamMap.set(data[i][teamNameIndex], [data[0], data[i]]);
-    } else {
-      teamMap.get(data[i][teamNameIndex]).push(data[i]);
-    }
-  }
-
     // console.log(teamNameIndex);
     for (let i = 1; i < data.length; i++) {
         if (!teamMap.has(data[i][teamNameIndex])) {
@@ -398,6 +391,7 @@ function convertToTeamMap(data) {
         }
     }
     // console.log(teamMap);
+    console.log(teamMap);
     return teamMap;
 }
 

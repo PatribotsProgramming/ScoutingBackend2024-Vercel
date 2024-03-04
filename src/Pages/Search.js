@@ -32,6 +32,7 @@ function Search() {
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMap);
                 setMaxMin(data.maxMin);
+                // console.log(data.bigTeamMap);
             });
         }, 1000);
     }, []);
