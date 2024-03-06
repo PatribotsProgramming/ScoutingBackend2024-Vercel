@@ -1,5 +1,4 @@
 import { getDatabase } from "firebase/database";
-import firebase from 'firebase/compat/app';
 import { initializeApp } from 'firebase/app';
 const sortMetrics = ["Match Number", "Team Number"]
 
