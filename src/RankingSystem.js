@@ -3,14 +3,14 @@ let scores = new Map();
 const autoWeights = 
 {
     "Leave in Auto" : 1,
-    "Amp Auto" : 3,
-    "Speaker Auto" : 3,
+    "Amp Auto" : 1,
+    "Speaker Auto" : 5,
 }
 const teleopWeights = 
 {
-    "Speaker Teleop" : .5,
-    "Amp Teleop" : 1,
-    "Amped Speaker" : 1,
+    "Speaker Teleop" : 3.4,
+    "Amp Teleop" : 3.4,
+    "Amped Speaker" : 3.4,
     "Fumbles Amp" : 0,
     "Fumbles Speaker" : 0,
     "Coopertition" : 0,
@@ -20,12 +20,12 @@ const teleopWeights =
 }
 const endGameWeights = 
 {
-    "End Park" : .5,
-    "End Onstage" : 2,
+    "End Park" :1,
+    "End Onstage" : 3,
     "Climb Failure" : (-2),
     "Critical Failure"  : 0,
     "Temp Failure" : 0,
-    "Trap" : 2
+    "Trap" : 3.4
 }
 
 const scoreWeights = {
