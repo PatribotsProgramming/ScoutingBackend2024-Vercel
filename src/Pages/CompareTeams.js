@@ -5,9 +5,7 @@ import { fetchDataAndProcess } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraph.js';
 import './CompareTeams.css';
 import './Tables.css';
-import {
-    Rectangle
-} from 'recharts';
+import { Rectangle } from 'recharts';
 import MyBarChart from '../widgets/MyBarChart.js';
 import Select from 'react-select';
 
@@ -20,7 +18,6 @@ function Compare() {
     const [maxMin, setMaxMin] = useState({});
     const [teamColors, setTeamColors] = useState([]);
     const [teamList, setTeamList] = useState([]);
-    const [singleChartMode, setSingleChartMode] = useState(true);
 
     const radarDataPoints = [
         'Auto',
@@ -123,7 +120,8 @@ function Compare() {
 
     const getTeamColor = useMemo(() => {
         return (team) => {
-            if (teamColors === undefined || teamColors.length === 0) return 'black';
+            if (teamColors === undefined || teamColors.length === 0)
+                return 'black';
             console.log(teamColors);
             console.log(team);
             try {
@@ -145,7 +143,7 @@ function Compare() {
             width: 300,
             height: 'auto',
             fontSize: 20,
-            margin: "23% 0 0 0",
+            margin: '23% 0 0 0',
             backgroundColor: '--background-color',
         }),
 
@@ -175,18 +173,18 @@ function Compare() {
                 backgroundColor: isDisabled
                     ? null
                     : isSelected
-                    ? 'black'
-                    : isFocused
-                    ? 'black'
-                    : null,
+                      ? 'black'
+                      : isFocused
+                        ? 'black'
+                        : null,
                 // color based on whether the option is selected and is focused
                 color: isDisabled
                     ? '#ccc'
                     : isSelected
-                    ? 'white'
-                    : isFocused
-                    ? 'white'
-                    : 'black',
+                      ? 'white'
+                      : isFocused
+                        ? 'white'
+                        : 'black',
 
                 cursor: isDisabled ? 'not-allowed' : 'default',
                 ':active': {
@@ -238,7 +236,7 @@ function Compare() {
 
     // selects data points from teamData and formats them for
     // the radar chart
-    const convertForReCharts = () => {
+    const convertForReCharts = (isBar) => {
         let arr = [];
         for (let i = 1; i < teamData[0][0].length; i++) {
             if (isRadarPoint(teamData[0][0][i])) {
@@ -247,7 +245,11 @@ function Compare() {
                     let min = maxMin.get(teamData[j][0][i])[0];
                     let max = maxMin.get(teamData[j][0][i])[1];
                     let val = ((teamData[j][1][i] - min) / (max - min)) * 100;
-                    categoryObj[teamList[j]] = val; // Use team number as key
+                    if (isBar) {
+                        categoryObj[teamList[j]] = teamData[j][1][i];
+                    } else {
+                        categoryObj[teamList[j]] = val;
+                    }
                 }
                 arr.push(categoryObj);
             }
@@ -285,7 +287,7 @@ function Compare() {
                     <MyBarChart
                         width={1000}
                         height={250}
-                        data={convertForReCharts()}
+                        data={convertForReCharts(true)}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
                         barConfigs={teamList.map(
                             (team, index) => colorConfig[`team${index + 1}`]
@@ -294,68 +296,21 @@ function Compare() {
                         teamColors={teamColors}
                     />
                 </div>
-                <button onClick={() => setSingleChartMode(!singleChartMode)}>
-                    {singleChartMode ? 'Single Chart' : 'Multiple Charts'}
-                </button>
-                {singleChartMode ? (
-                    <div className="radar-ct">
-                        <RadarGraph
-                            data={convertForReCharts()}
-                            angleKey="key"
-                            radiusDomain={[0, 100]}
-                            radars={teamList
-                                .slice(0, 10)
-                                .map((team, index) => ({
-                                    name: team,
-                                    dataKey: team,
-                                    stroke: colorConfig[`team${index + 1}`]
-                                        .fill,
-                                    fill: colorConfig[`team${index + 1}`].fill,
-                                    fillOpacity: 0.6,
-                                }))}
-                        />
-                    </div>
-                ) : (
-                    <div className="radar-many">
-                        {teamList.map((team, index) => (
-                            <RadarGraph
-                                key={index}
-                                data={convertForReCharts().filter(
-                                    (data) => data[team]
-                                )}
-                                angleKey="key"
-                                radiusDomain={[0, 100]}
-                                radars={[
-                                    {
-                                        name: team,
-                                        dataKey: team,
-                                        stroke: colorConfig[`team${index + 1}`]
-                                            .fill,
-                                        fill: colorConfig[`team${index + 1}`]
-                                            .fill,
-                                        fillOpacity: 0.6,
-                                    },
-                                ]}
-                            />
-                        ))}
 
-                        <RadarGraph
-                            data={convertForReCharts()}
-                            angleKey="key"
-                            radiusDomain={[0, 100]}
-                            radars={teamList
-                                .slice(0, 10)
-                                .map((team, index) => ({
-                                    name: team,
-                                    dataKey: team,
-                                    stroke: colorConfig[`team${index + 1}`]
-                                        .fill,
-                                    fill: colorConfig[`team${index + 1}`].fill,
-                                    fillOpacity: 0.6,
-                                }))}
-                        />
-                    </div>
-                )}
+                <div className="radar-ct">
+                    <RadarGraph
+                        data={convertForReCharts(false)}
+                        angleKey="key"
+                        radiusDomain={[0, 100]}
+                        radars={teamList.slice(0, 10).map((team, index) => ({
+                            name: team,
+                            dataKey: team,
+                            stroke: colorConfig[`team${index + 1}`].fill,
+                            fill: colorConfig[`team${index + 1}`].fill,
+                            fillOpacity: 0.6,
+                        }))}
+                    />
+                </div>
             </div>
         </div>
     );
