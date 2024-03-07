@@ -123,7 +123,7 @@ function Compare() {
 
     const getTeamColor = useMemo(() => {
         return (team) => {
-            if (teamColors.length === 0) return 'black';
+            if (teamColors === undefined || teamColors.length === 0) return 'black';
             console.log(teamColors);
             console.log(team);
             try {
