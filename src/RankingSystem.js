@@ -35,14 +35,14 @@ const scoreWeights = {
   };
 const ampWeights = 
   {
-      "Amp Auto" : scoreWeights["Amp Auto"],
-      "Amp Teleop" : scoreWeights["Amp Teleop"]
+      "Amp Auto" : 1,
+      "Amp Teleop" : 1
   }
 const speakerWeights = 
   {
-    "Speaker Auto" : scoreWeights["Speaker Auto"],
-    "Speaker Teleop" : scoreWeights["Speaker Teleop"],
-    "Amped Speaker" : scoreWeights["Amped Speaker"]
+    "Speaker Auto" : 1,
+    "Speaker Teleop" : 1,
+    "Amped Speaker" : 1
   }
 
 
