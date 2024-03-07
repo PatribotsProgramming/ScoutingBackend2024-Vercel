@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 import React, { useEffect, useState, useMemo } from 'react';
 import { fetchDataAndProcess } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraph.js';
