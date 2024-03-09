@@ -150,7 +150,7 @@ function Search() {
 
             <div className="team-stats">
                 <div className="team-average-header">Averages</div>
-                <div className="average-stats">
+                <div className="container">
                     <table className="table">
                         {/* Render headers */}
                         <thead className="header">
@@ -172,7 +172,7 @@ function Search() {
                             </tr>
                         </tbody>
                     </table>
-                    </div>
+                </div>
                 <div className="radar">
                     <RadarGraph
                         data={convertRadar()}

@@ -16,19 +16,15 @@
     margin-top: 4%;
     padding: 0;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
-    display: flex; /* turn the container into a flex container */
     justify-content: space-around; /* evenly distribute items along the line */
     flex-wrap: wrap;
-    align-items: center; /* center items along the cross-axis */
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* animate border and shadow changes */
-    position: relative;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     overflow: auto;
     padding: 0px;
-    overflow-x: hidden;
 }
 
 .container:hover {
@@ -37,7 +33,6 @@
 
 
 .table {
-    width: 100%;
     border-collapse: separate;
     top: 0px;
     background-color: gray;
