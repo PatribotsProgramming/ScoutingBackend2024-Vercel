@@ -13,7 +13,7 @@ const teleopWeights =
     "Amped Speaker" : 3.4,
     "Fumbles Amp" : 0,
     "Fumbles Speaker" : 0,
-    "Coopertition" : 0,
+    "Co-Op" : 0,
     "Average Cycle Time" : 0,
     "Driving" : 0,
     "Human Player" : 0,
