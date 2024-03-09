@@ -5,11 +5,11 @@ import { fetchData } from "./SampleData.js";
 import { async } from "@firebase/util";
 import { assignMatchScoreToEach } from "./RankingSystem.js";
 import { assignAllScores } from "./RankingSystem.js";
+import { eventCode } from "./App.js";
 // import { predictTeamScore } from "./MatchPredictor.js";
 // import { predictTeamScore2 } from "./MatchPredictor2.js"
 //const data = getAllData();
 
-const eventCode = "2024cave";
 
 let rawData;
 let commentData;

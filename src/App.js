@@ -16,6 +16,8 @@ import Compare from "./Pages/CompareTeams";
 
 const queryClient = new QueryClient();
 
+export const eventCode = prompt("Event Code:");
+
 class App extends Component {
 	render() {
 		return (
