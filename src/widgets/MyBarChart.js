@@ -48,7 +48,7 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
                         key={index}
                         dataKey={team}
                         fill={barConfigs[index].fill}
-                        activeBar={barConfigs[index].activeBar}
+                        // activeBar={barConfigs[index].activeBar}
                     />
                 );
             })}
