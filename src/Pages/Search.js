@@ -101,6 +101,7 @@ function Search() {
     // the radar chart
     const convertRadar = () => {
         let arr = [];
+        console.log(teamData);
         for (let i = 1; i < teamData[0].length; i++) {
             if (isRadarPoint(teamData[0][i])) {
                 let min = maxMin.get(teamData[0][i])[0];
