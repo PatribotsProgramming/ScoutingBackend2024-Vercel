@@ -150,7 +150,7 @@ function Search() {
 
             <div className="team-stats">
                 <div className="team-average-header">Averages</div>
-                <div className="container">
+                <div className="average-stats-container">
                     <table className="table">
                         {/* Render headers */}
                         <thead className="header">
