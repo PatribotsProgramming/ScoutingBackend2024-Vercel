@@ -1,20 +1,22 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from 'react';
 import {fetchDataAndProcess} from '../Data.js';
-import { getMaxMin } from '../Data.js';
 import RadarGraph from "../widgets/RadarGraphSearch.js";
 import "./Search.css";
 import "./Tables.css";
+import Select from 'react-select';
+import { get } from 'firebase/database';
 
 function Search() {
     const [averageData, setAverageData] = useState([]);
     const [matchData, setMatchData] = useState([]); 
     const [team, setTeam] = useState("");
-    const [value, setValue] = useState("");
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
     const [matchDataType, setMatchDataType] = useState("num");
     const [maxMin, setMaxMin] = useState({});
+    const [allTeams, setAllTeams] = useState([]);
+    const [teamColors, setTeamColors] = useState([]);
 
     const radarDataPoints = [
         'Amp',
@@ -32,6 +34,7 @@ function Search() {
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMap);
                 setMaxMin(data.maxMin);
+                setAllTeams(getAllTeams(data));
                 // console.log(data.bigTeamMap);
             });
         }, 1000);
@@ -47,24 +50,126 @@ function Search() {
         // eslint-disable-next-line
     }, [team]);
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    }
+    useEffect(() => {
+        // check if the team list is empty or undefined
+        if (!allTeams || allTeams.length === 0) return;
+        console.log(allTeams);
+        let teamQueryString = "";
+        allTeams.forEach((team) => {
+            teamQueryString += `team=${team}&`;
+        });
 
-    const handleSearch = () => {
-        setTeam(value);
-    }
+        console.log(teamQueryString);
+        const url = `https://api.frc-colors.com/v1/team?${teamQueryString}`;
+        console.log(url);
 
-    // searches on press of enter key
-    const onKeyDownHandler = (e) => {
-        if (e.keyCode === 13) {
-            handleSearch();
-        }   
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.teams);
+                setTeamColors(data.teams);
+            })
+            .catch((error) => console.error(error));
+    }, [team, allTeams]);
+
+    const getAllTeams = (data) => {
+        let teams = new Set();
+        data.teamAverageMap.forEach((value, key) => {
+            teams.add(key);
+        });
+        console.log(teams);
+        return teams;
     };
 
     const emptyData = (data) => {
         return data === undefined || data[0] === undefined || data[0].length === 0
     }
+    
+    const getTeamColor = useMemo(() => {
+        return (team) => {
+            if (teamColors === undefined || teamColors.length === 0)
+                return 'black';
+            console.log(teamColors);
+            console.log(team);
+            try {
+                if (!(teamColors[team] && teamColors[team].colors))
+                    return 'grey';
+                const teamColor = teamColors[team]['colors']['primaryHex'];
+                console.log(teamColor);
+                return teamColor;
+            } catch (error) {
+                console.error(error);
+                return 'black';
+            }
+        };
+    }, [teamColors]);
+
+    const selecterConfig = {
+
+        control: (base) => ({
+            ...base,
+            color: 'black',
+            width: 300,
+            height: 'auto',
+            fontSize: 20,
+            margin: '23% 0 0 0',
+            backgroundColor: '--background-color',
+        }),
+
+        singleValue: (styles, { data }) => {
+            return { ...styles, color: "white", backgroundColor: getTeamColor(data.value), borderRadius: 5, padding: 2, width: "30%" };
+        },
+
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            return {
+                ...styles,
+                backgroundColor: isDisabled
+                    ? null
+                    : isSelected
+                      ? getTeamColor(data.value)
+                      : isFocused
+                        ? getTeamColor(data.value)
+                        : null,
+                // color based on whether the option is selected and is focused
+                color: isDisabled
+                    ? '#ccc'
+                    : isSelected
+                      ? 'white'
+                      : isFocused
+                        ? 'white'
+                        : 'black',
+
+                cursor: isDisabled ? 'not-allowed' : 'default'
+            };
+        },
+    };
+
+    const renderSelect = () => {
+        return (
+            <Select
+                options={Array.from(allTeams).map((team) => {
+                    let teamColor;
+                    if (Array.isArray(teamColors)) {
+                        teamColors.map((color) => {
+                            if (color.team === team) {
+                                teamColor = color;
+                            }
+                            return color;
+                        });
+                    }
+                    return {
+                        value: team,
+                        label: team,
+                        color: teamColor ? teamColor.colors.primaryHex : '#000'
+                    };
+                })}
+                onChange={(selected) => {setTeam(selected.value)}}
+                styles={selecterConfig}
+                isMulti={false} // Set isMulti to false for single selection
+                defaultValue={team} // Pass the selectedTeam value here
+            />
+        );
+    };
 
     // console.log(teamMatchData);
 
@@ -72,14 +177,7 @@ function Search() {
         return (
             <div className="search">
                 <div className="search-bar">
-                    <input 
-                        type="text" 
-                        placeholder="Team Number" 
-                        className="search-input"
-                        onChange={handleChange}
-                        onKeyDown={onKeyDownHandler}
-                    />
-                    <button className="search-button" onClick={handleSearch}>Search</button>
+                    <div className="search-input">{renderSelect()}</div>
                 </div>
                 <div className="team-stats">
                     No Data
@@ -139,14 +237,7 @@ function Search() {
     return (
         <div className="search">
             <div className="search-bar">
-                <input 
-                    type="text" 
-                    placeholder="Team Number" 
-                    className="search-input"
-                    onChange={handleChange}
-                    onKeyDown={onKeyDownHandler}
-                />
-                <button className="search-button" onClick={handleSearch}>Search</button>
+                <div className="search-input">{renderSelect()}</div>
             </div>  
 
             <div className="team-stats">
