@@ -10,6 +10,8 @@ import {
 } from 'recharts';
 
 function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
+    let max;
+    
     const CustomizedAxisTick = (props) => {
         const { x, y, payload } = props;
         let label = payload.value;
@@ -18,6 +20,12 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
             // Change this value to adjust the maximum length
             label = label.slice(0, 10) + '...'; // Truncate and add ellipsis
         }
+
+        console.log(data);
+
+        max = JSON.parse(JSON.stringify(data.map((d) => Object.values(d)[0])))
+        max = Math.max(...max)
+        console.log(max);
 
         return (
             <g transform={`translate(${x},${y})`}>
@@ -39,7 +47,7 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
         <BarChart width={width} height={height} data={data} margin={margin}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
-            <YAxis />
+            <YAxis domain={[0, 'dataMax']} tickFormatter={(value) => `${Math.min(100, ((value/max)*100)).toFixed(1)}%`}/>
             <Tooltip cursor={false} />
             <Legend verticalAlign='top' height={36} />
             {teamList.map((team, index) => {

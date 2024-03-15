@@ -22,7 +22,7 @@ let teamAverageMap;
 let rankingTable;
 let rankingsNumData;
 let maxMin;
-
+let maxMinOfAverages;
 let rawDataMap;
 // Use an async function to fetch and process your data
 // Working:
@@ -73,11 +73,13 @@ export const fetchDataAndProcess = async () => {
     maxMin = getMaxMin(numData);
     commentTeamMap = convertTableToMap(commentData);
     numTeamMap = convertToTeamMap(numData);
-    teamAverageMap = getTeamAverageMap();   
+    teamAverageMap = getTeamAverageMap();  
+    console.log(getTeamAverage("4738"));
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
     rawDataMap = convertTableToMap(numData);
     rankingTable = getRankingTable();
+    maxMinOfAverages = getMaxMinOfAverages();
     // console.log(teamAverageMap.get("1323"));
     // console.log(predictTeamScore(
     // [
@@ -107,7 +109,8 @@ export const fetchDataAndProcess = async () => {
         teamAverageMap: teamAverageMap,
         rawDataMap: rawDataMap,
         rankingTable: rankingTable,
-        maxMin: maxMin
+        maxMin: maxMin,
+        maxMinOfAverages: maxMinOfAverages
     };
 };
 
@@ -230,6 +233,18 @@ function getMaxMin(data) {
     return sol;
 }
 
+function getMaxMinOfAverages() {
+    let arr = [];
+    console.log(teamAverageMap);
+    let keys = Array.from(teamAverageMap.keys());
+    console.log(keys);
+    arr.push(teamAverageMap.get(keys[0])[0]);
+    for (let i = 0; i < keys.length; i++) {
+        arr.push(getTeamAverage(keys[i])[1]);
+    } 
+    console.log(arr);
+    return getMaxMin(arr);
+}
 
 
 
