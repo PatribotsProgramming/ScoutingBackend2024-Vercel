@@ -105,47 +105,60 @@ function Search() {
         };
     }, [teamColors]);
 
+    const isColorCloseToWhite = (color) => {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness > 155;
+    }
+
     const selecterConfig = {
         control: (base) => ({
             ...base,
-            color: 'black',
+            color: 'white',
             width: 300,
             height: 'auto',
             fontSize: 20,
             margin: '23% 0 0 0',
-            backgroundColor: '--background-color',
+            backgroundColor: '#383838',
         }),
 
         singleValue: (styles, { data }) => {
+            const teamColor = getTeamColor(data.value);
+            const isTeamColorCloseToWhite = isColorCloseToWhite(teamColor);
             return {
                 ...styles,
-                color: 'white',
+                color: isTeamColorCloseToWhite ? 'black' : 'white',
                 backgroundColor: getTeamColor(data.value),
                 borderRadius: 5,
-                padding: 2,
-                width: '30%',
+                justifyContent: 'center',
+                display: 'inline-flex',
+                width: 65
             };
         },
 
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            const teamColor = getTeamColor(data.value);
+            let isTeamColorCloseToWhite = false;
+            if (isFocused) {
+                isTeamColorCloseToWhite = isColorCloseToWhite(teamColor);
+            }
             return {
                 ...styles,
                 backgroundColor: isDisabled
-                    ? null
+                    ? "#383838"
                     : isSelected
-                    ? getTeamColor(data.value)
+                    ? teamColor
                     : isFocused
-                    ? getTeamColor(data.value)
-                    : null,
-                // color based on whether the option is selected and is focused
+                    ? teamColor
+                    : "#383838",
                 color: isDisabled
                     ? '#ccc'
-                    : isSelected
-                    ? 'white'
-                    : isFocused
-                    ? 'white'
-                    : 'black',
-
+                    : isTeamColorCloseToWhite
+                    ? 'black'
+                    : 'white',
                 cursor: isDisabled ? 'not-allowed' : 'default',
             };
         },
