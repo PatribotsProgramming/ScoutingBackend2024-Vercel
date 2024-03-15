@@ -117,7 +117,14 @@ function Search() {
         }),
 
         singleValue: (styles, { data }) => {
-            return { ...styles, color: "white", backgroundColor: getTeamColor(data.value), borderRadius: 5, padding: 2, width: "30%" };
+            return {
+                ...styles,
+                color: 'white',
+                backgroundColor: getTeamColor(data.value),
+                borderRadius: 5,
+                padding: 2,
+                width: '30%',
+            };
         },
 
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
