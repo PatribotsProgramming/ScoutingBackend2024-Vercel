@@ -1,19 +1,18 @@
-
 import React, { useEffect, useState, useMemo } from 'react';
-import {fetchDataAndProcess} from '../Data.js';
-import RadarGraph from "../widgets/RadarGraphSearch.js";
-import "./Search.css";
-import "./Tables.css";
+import { fetchDataAndProcess } from '../Data.js';
+import RadarGraph from '../widgets/RadarGraphSearch.js';
+import './Search.css';
+import './Tables.css';
 import Select from 'react-select';
 import { get } from 'firebase/database';
 
 function Search() {
     const [averageData, setAverageData] = useState([]);
-    const [matchData, setMatchData] = useState([]); 
-    const [team, setTeam] = useState("");
+    const [matchData, setMatchData] = useState([]);
+    const [team, setTeam] = useState('');
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
-    const [matchDataType, setMatchDataType] = useState("num");
+    const [matchDataType, setMatchDataType] = useState('num');
     const [maxMin, setMaxMin] = useState({});
     const [allTeams, setAllTeams] = useState([]);
     const [teamColors, setTeamColors] = useState([]);
@@ -54,7 +53,7 @@ function Search() {
         // check if the team list is empty or undefined
         if (!allTeams || allTeams.length === 0) return;
         console.log(allTeams);
-        let teamQueryString = "";
+        let teamQueryString = '';
         allTeams.forEach((team) => {
             teamQueryString += `team=${team}&`;
         });
@@ -82,9 +81,11 @@ function Search() {
     };
 
     const emptyData = (data) => {
-        return data === undefined || data[0] === undefined || data[0].length === 0
-    }
-    
+        return (
+            data === undefined || data[0] === undefined || data[0].length === 0
+        );
+    };
+
     const getTeamColor = useMemo(() => {
         return (team) => {
             if (teamColors === undefined || teamColors.length === 0)
@@ -105,7 +106,6 @@ function Search() {
     }, [teamColors]);
 
     const selecterConfig = {
-
         control: (base) => ({
             ...base,
             color: 'black',
@@ -133,20 +133,20 @@ function Search() {
                 backgroundColor: isDisabled
                     ? null
                     : isSelected
-                      ? getTeamColor(data.value)
-                      : isFocused
-                        ? getTeamColor(data.value)
-                        : null,
+                    ? getTeamColor(data.value)
+                    : isFocused
+                    ? getTeamColor(data.value)
+                    : null,
                 // color based on whether the option is selected and is focused
                 color: isDisabled
                     ? '#ccc'
                     : isSelected
-                      ? 'white'
-                      : isFocused
-                        ? 'white'
-                        : 'black',
+                    ? 'white'
+                    : isFocused
+                    ? 'white'
+                    : 'black',
 
-                cursor: isDisabled ? 'not-allowed' : 'default'
+                cursor: isDisabled ? 'not-allowed' : 'default',
             };
         },
     };
@@ -167,10 +167,12 @@ function Search() {
                     return {
                         value: team,
                         label: team,
-                        color: teamColor ? teamColor.colors.primaryHex : '#000'
+                        color: teamColor ? teamColor.colors.primaryHex : '#000',
                     };
                 })}
-                onChange={(selected) => {setTeam(selected.value)}}
+                onChange={(selected) => {
+                    setTeam(selected.value);
+                }}
                 styles={selecterConfig}
                 isMulti={false} // Set isMulti to false for single selection
                 defaultValue={team} // Pass the selectedTeam value here
@@ -186,9 +188,7 @@ function Search() {
                 <div className="search-bar">
                     <div className="search-input">{renderSelect()}</div>
                 </div>
-                <div className="team-stats">
-                    No Data
-                </div>
+                <div className="team-stats">No Data</div>
             </div>
         );
     }
@@ -200,9 +200,9 @@ function Search() {
             if (dataPoint === radarDataPoints[i]) return true;
         }
         return false;
-    }
+    };
 
-    // selects data points from teamData and formats them for 
+    // selects data points from teamData and formats them for
     // the radar chart
     const convertRadar = () => {
         let arr = [];
@@ -212,26 +212,26 @@ function Search() {
                 let min = maxMin.get(teamData[0][i])[0];
                 let max = maxMin.get(teamData[0][i])[1];
                 let val = ((teamData[1][i] - min) / (max - min)) * 100;
-                arr.push({key: teamData[0][i], value: val})
+                arr.push({ key: teamData[0][i], value: val });
             }
         }
         // console.log(arr);
         return arr;
-    }
+    };
 
     // returns the section of the match data to display based on if the current data
     // type is either numbers or comments
     const matchContent = (matches) => {
-        if (matchDataType === "num") {
+        if (matchDataType === 'num') {
             return matches.slice(commentLength);
         }
         return matches.slice(1, commentLength);
-    }
+    };
 
     // changes match data type to either num or comment
     const handleSelectChange = (e) => {
         setMatchDataType(e.target.value);
-    }
+    };
 
     let headers = teamData[0].slice(1);
     let stats = teamData[1].slice(1);
@@ -245,7 +245,7 @@ function Search() {
         <div className="search">
             <div className="search-bar">
                 <div className="search-input">{renderSelect()}</div>
-            </div>  
+            </div>
 
             <div className="team-stats">
                 <div className="team-average-header">Averages</div>
@@ -259,13 +259,15 @@ function Search() {
                                 ))}
                             </tr>
                         </thead>
-                        
+
                         {/* Render content */}
                         <tbody>
                             <tr>
                                 {stats.map((cellData, index) => (
                                     <td key={index}>
-                                        {(isNaN(cellData)) ? cellData : Math.round(cellData * 100) / 100}
+                                        {isNaN(cellData)
+                                            ? cellData
+                                            : Math.round(cellData * 100) / 100}
                                     </td>
                                 ))}
                             </tr>
@@ -278,10 +280,10 @@ function Search() {
                         angleKey="key"
                         radiusDomain={[0, 100]}
                         radar1={{
-                            name: {team},
-                            dataKey: "value",
-                            stroke: "#d4af37",
-                            fill: "#d4af37",
+                            name: { team },
+                            dataKey: 'value',
+                            stroke: '#d4af37',
+                            fill: '#d4af37',
                             fillOpacity: 0.6,
                         }}
                     />
@@ -289,12 +291,8 @@ function Search() {
                 <div className="team-match-header">Matches</div>
                 <div className="match-content-selector">
                     <select className="selector" onChange={handleSelectChange}>
-                        <option value="num">
-                            Numbers
-                        </option>
-                        <option value="comment">
-                            Comments
-                        </option>
+                        <option value="num">Numbers</option>
+                        <option value="comment">Comments</option>
                     </select>
                 </div>
                 <div className="match-stats-container">
@@ -302,19 +300,23 @@ function Search() {
                         {/* Render headers */}
                         <thead className="header">
                             <tr>
-                                {matchContent(matchHeads).map((header, index) => (
-                                    <th key={index}>{header}</th>
-                                ))}
+                                {matchContent(matchHeads).map(
+                                    (header, index) => (
+                                        <th key={index}>{header}</th>
+                                    )
+                                )}
                             </tr>
                         </thead>
-                        
+
                         {/* Render data */}
                         <tbody>
                             {matchStats.map((rowData, rowIndex) => (
                                 <tr key={rowIndex}>
-                                    {matchContent(rowData).map((cellData, cellIndex) => (
-                                        <td key={cellIndex}>{cellData}</td>
-                                    ))}
+                                    {matchContent(rowData).map(
+                                        (cellData, cellIndex) => (
+                                            <td key={cellIndex}>{cellData}</td>
+                                        )
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
@@ -325,4 +327,4 @@ function Search() {
     );
 }
 
-export default Search
+export default Search;
