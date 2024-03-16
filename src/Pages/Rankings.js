@@ -51,7 +51,7 @@ function Rankings() {
                 "children": [
                     {
                         "name": data.rankingTable[i]["Team"],
-                        "Score": data.rankingTable[i]["Score"]
+                        "Score": data.rankingTable[i][sortCol]
                     }
                 ]
             });
