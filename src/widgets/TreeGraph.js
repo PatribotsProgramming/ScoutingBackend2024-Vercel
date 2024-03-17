@@ -14,6 +14,7 @@ const TreeGraph = (props) => {
                 aspectRatio={4 / 3}
                 stroke="#d4af37"
                 fill="#282828"
+                // isAnimationActive={false}y
             />
         </div>
     );
