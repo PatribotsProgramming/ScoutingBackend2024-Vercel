@@ -15,7 +15,7 @@ function Compare() {
     const [allTeams, setAllTeams] = useState([]);
     const [teamData, setTeamData] = useState([]);
     const [teamMatchData, setTeamMatchData] = useState([]);
-    const [maxMin, setMaxMin] = useState({});
+    const [maxMinAverages, setMaxMinAverages] = useState({});
     const [teamColors, setTeamColors] = useState([]);
     const [teamList, setTeamList] = useState([]);
 
@@ -60,7 +60,7 @@ function Compare() {
                 setAllTeams(getAllTeams(data));
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMap);
-                setMaxMin(data.maxMin);
+                setMaxMinAverages(data.maxMinOfAverages);
             });
         }, 1000);
     }, []);
@@ -236,27 +236,23 @@ function Compare() {
 
     // selects data points from teamData and formats them for
     // the radar chart
-    const convertForReCharts = (isBar) => {
+    const convertForReCharts = () => {
         let arr = [];
         for (let i = 1; i < teamData[0][0].length; i++) {
             if (isRadarPoint(teamData[0][0][i])) {
                 let categoryObj = { key: teamData[0][0][i] };
                 for (let j = 0; j < teamData.length; j++) {
-                    let min = maxMin.get(teamData[j][0][i])[0];
-                    let max = maxMin.get(teamData[j][0][i])[1];
+                    let min = maxMinAverages.get(teamData[j][0][i])[0];
+                    let max = maxMinAverages.get(teamData[j][0][i])[1];
                     let val = ((teamData[j][1][i] - min) / (max - min)) * 100;
-                    if (isBar) {
-                        categoryObj[teamList[j]] = teamData[j][1][i];
-                    } else {
-                        categoryObj[teamList[j]] = val;
-                    }
+                    categoryObj[teamList[j]] = val; // Use team number as key
                 }
                 arr.push(categoryObj);
             }
         }
         console.log(arr);
         return arr;
-    };    
+    };   
 
     const colors = [
         '#d4af37',
@@ -287,7 +283,7 @@ function Compare() {
                     <MyBarChart
                         width={1000}
                         height={250}
-                        data={convertForReCharts(true)}
+                        data={convertForReCharts()}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
                         barConfigs={teamList.map(
                             (team, index) => colorConfig[`team${index + 1}`]
@@ -299,7 +295,7 @@ function Compare() {
 
                 <div className="radar-ct">
                     <RadarGraph
-                        data={convertForReCharts(false)}
+                        data={convertForReCharts()}
                         angleKey="key"
                         radiusDomain={[0, 100]}
                         radars={teamList.slice(0, 10).map((team, index) => ({

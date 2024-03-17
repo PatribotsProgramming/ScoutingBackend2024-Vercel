@@ -47,7 +47,7 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
         <BarChart width={width} height={height} data={data} margin={margin}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="key" tick={<CustomizedAxisTick />} />
-            <YAxis domain={[0, 'dataMax+2']} tickFormatter={(value) => `${Math.min(100, ((value/max)*100)).toFixed(0)}%`}/>
+            <YAxis domain={[0, 'dataMax']} tickFormatter={(value) => `${Math.min(100, ((value/max)*100)).toFixed(1)}%`}/>
             <Tooltip cursor={false} />
             <Legend verticalAlign='top' height={36} />
             {teamList.map((team, index) => {
