@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {fetchDataAndProcess} from '../Data.js';
 import { getMaxMin } from '../Data.js';
 import RadarGraph from "../widgets/RadarGraphSearch.js";
-import {resortColumnsByArray} from "../Data.js";
 import "./Search.css";
 import "./Tables.css";
 
@@ -118,17 +117,10 @@ function Search() {
     // returns the section of the match data to display based on if the current data
     // type is either numbers or comments
     const matchContent = (matches) => {
-        console.log(matches);
         if (matchDataType === "num") {
-            return resortColumnsByArray(matches.slice(commentLength),
-                [
-
-                ] );
+            return matches.slice(commentLength);
         }
-        return resortColumnsByArray(matches.slice(1, commentLength),
-            [
-
-            ]);
+        return matches.slice(1, commentLength);
     }
 
     // changes match data type to either num or comment
