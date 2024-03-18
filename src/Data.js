@@ -24,6 +24,7 @@ let rankingsNumData;
 let maxMin;
 let maxMinOfAverages;
 let rawDataMap;
+let bigTeamMapSplit;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -68,6 +69,17 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ]);
+    commentData = resortColumnsByArray(commentData, 
+        [
+          "Team",
+          "Match Number",
+          "Name",
+          "Auto Pieces",
+          "Auto Description",
+          "What They Did Bad", 
+          "What They Did Well",
+          "Additional Comments"
+        ]);
     // console.log(numData);
     // console.log(numData[1]);
     maxMin = getMaxMin(numData);
@@ -77,6 +89,7 @@ export const fetchDataAndProcess = async () => {
     console.log(getTeamAverage("4738"));
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
+    bigTeamMapSplit = [convertToTeamMap(numData), convertToTeamMap(commentData)];
     rawDataMap = convertTableToMap(numData);
     rankingTable = getRankingTable();
     maxMinOfAverages = getMaxMinOfAverages();
@@ -110,7 +123,8 @@ export const fetchDataAndProcess = async () => {
         rawDataMap: rawDataMap,
         rankingTable: rankingTable,
         maxMin: maxMin,
-        maxMinOfAverages: maxMinOfAverages
+        maxMinOfAverages: maxMinOfAverages,
+        bigTeamMapSplit: bigTeamMapSplit
     };
 };
 
@@ -265,7 +279,7 @@ function resortColumn(data, columnInitial, columnGoal) {
 }
 
 // Working but EXTREMELY INEFFICIENT?
-function resortColumnsByArray(data, orderArr) { 
+export function resortColumnsByArray(data, orderArr) { 
   console.log(data);
   let newData = [...data];
   for (let i = 0; i < orderArr.length; i++) {
