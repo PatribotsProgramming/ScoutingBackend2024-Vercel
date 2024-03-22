@@ -35,7 +35,6 @@ function Search() {
         "Amp Teleop",
         "Fumbles Speaker",
         "Fumbles Amp",
-        "Average Cycle Time",
         "Trap",
         "Co-Op",
         "End Park",

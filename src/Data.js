@@ -58,7 +58,6 @@ export const fetchDataAndProcess = async () => {
             "Fumbles Speaker",
             "Fumbles Amp",
             "Co-Op",
-            "Average Cycle Time",
             "Driving",
             "Human Player",
             "Endgame",
