@@ -30,7 +30,16 @@ let bigTeamMapSplit;
 export const fetchDataAndProcess = async () => {
 
     const data = await getAllData();
-    rawData = JSON.parse(data)["scouting"][eventCode];
+    console.log(eventCode);
+    if (eventCode.toLowerCase() === "all") {
+        let bigData = JSON.parse(data)["scouting"];
+        rawData = mergeEventCodes(bigData);
+        console.log(rawData);
+    }
+    else {
+        rawData = JSON.parse(data)["scouting"][eventCode];
+    }
+    
     console.log(rawData);
     commentData = resortColumnByPoint(
         convertCommentsToTableForm(rawData),
@@ -68,6 +77,7 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ]);
+    console.log(numData);   
     commentData = resortColumnsByArray(commentData, 
         [
           "Team",
@@ -205,6 +215,20 @@ function convertNumDataToTableForm(data) {
   return convertToTableForm(data, "data");
 }
 
+function mergeEventCodes(data) {
+    let keys = Object.keys(data);
+    let mergedData = {};
+    for (let i = 0; i < keys.length; i++) {
+        console.log(data[keys[i]]);
+        let code = keys[i];
+        let matches = Object.keys(data[keys[i]]);
+        for(let j = 0; j < matches.length; j++) {
+            mergedData[code + ": " + matches[j]] = data[code][matches[j]];
+            console.log(mergedData);
+        }
+    }
+    return mergedData;
+}
 // Working:
 function convertAllToTableForm(data) {
   console.log(data);
