@@ -265,7 +265,7 @@ function Search() {
         if (matchDataType === 'num') {
             matches = resortColumnsByArray(matches, numHeaders);
         } else {
-            matches = resortColumnsByArray(matches, commentHeaders).slice(0, commentHeaders.length);
+            matches = resortColumnsByArray(matches, commentHeaders);
         }
         for (let i = 0; i < matches.length; i++) {
             matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
