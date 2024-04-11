@@ -25,6 +25,9 @@ let maxMin;
 let maxMinOfAverages;
 let rawDataMap;
 let bigTeamMapSplit;
+let rankingsMap;
+let teamScoreMap;
+let teamRankingArr;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -102,6 +105,9 @@ export const fetchDataAndProcess = async () => {
     rawDataMap = convertTableToMap(numData);
     rankingTable = getRankingTable();
     maxMinOfAverages = getMaxMinOfAverages();
+    teamScoreMap = getDataPointMap("Score");
+    teamRankingArr = getTeamRankingArr;
+
     // console.log(teamAverageMap.get("1323"));
     // console.log(predictTeamScore(
     // [
@@ -133,7 +139,8 @@ export const fetchDataAndProcess = async () => {
         rankingTable: rankingTable,
         maxMin: maxMin,
         maxMinOfAverages: maxMinOfAverages,
-        bigTeamMapSplit: bigTeamMapSplit
+        bigTeamMapSplit: bigTeamMapSplit,
+        teamRankingArr: teamRankingArr
     };
 };
 
@@ -323,10 +330,6 @@ function resortColumnByPoint(data, point, columnGoal) {
   return data;
 }
 
-function getRankingDisplayData() {
-
-}
-
 
 function renameHeader(data, headerInitial, headerFinal) {
     for (let i = 0; i < data[0].length; i++) {
@@ -335,6 +338,45 @@ function renameHeader(data, headerInitial, headerFinal) {
             break;
         }
     }
+}
+
+function getDataPointMap(dataPoint) {
+    let keys = Array.from(teamAverageMap.keys());
+    if (keys.length == 0) {
+        return;
+    }
+    let scoreTeamMap = {};
+    let pointIndex = 0;
+    for (let j = 0; j < teamAverageMap.get(keys[0])[0].length; j++) {
+        if (teamAverageMap.get(keys[0])[0][j] === dataPoint) {
+            pointIndex = j;
+            break;
+        }
+    }
+    for (let i = 0; i < keys.length; i++) {
+        scoreTeamMap[keys[i]] = teamAverageMap.get(keys[i])[1][pointIndex];
+    }
+    return scoreTeamMap;
+}
+
+
+function getTeamRankingArr() {
+    let orderedTeamMap = new Map();
+    let keys = Object.keys(teamScoreMap);
+    for (let i = 0; i < keys.length; i++) {
+        orderedTeamMap.set(keys[i], teamScoreMap[keys[i]]);
+    }
+    orderedTeamMap = new Map([...orderedTeamMap.entries()].sort((a, b) => b[1] - a[1]));
+    return Array.from(orderedTeamMap.keys());
+}
+
+function getTeamRank(team) {
+    for (let i = 0; i < teamRankingArr.length; i++) {
+        if (teamRankingArr[i] == team) {
+            return i + 1;
+        }
+    }
+    return -1;
 }
 
 function removeDataPoint(data, dataPoint) {
