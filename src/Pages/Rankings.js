@@ -56,7 +56,6 @@ function Rankings() {
                 ]
             });
         }
-        console.log(arr);
         return arr;
     }
 

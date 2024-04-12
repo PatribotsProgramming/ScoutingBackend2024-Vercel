@@ -48,7 +48,6 @@ function Compare() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.teams);
                 setTeamColors(data.teams);
             })
             .catch((error) => console.error(error));
@@ -69,7 +68,6 @@ function Compare() {
         let allTeamData = [];
         let allTeamMatchData = [];
         teamList.forEach((team) => {
-            console.log(team);
             let thisTeamData;
             let thisTeamMatchData;
 
@@ -84,8 +82,6 @@ function Compare() {
             allTeamData.push(thisTeamData);
             allTeamMatchData.push(thisTeamMatchData);
 
-            console.log(allTeamData);
-            console.log(allTeamMatchData);
         });
 
         setTeamData(allTeamData);
@@ -96,10 +92,8 @@ function Compare() {
         // if the team exists, remove it from the list of teams, otherwise add it
         if (teamList.includes(e)) {
             setTeamList(teamList.filter((team) => team !== e));
-            console.log(teamList.filter((team) => team !== e));
         } else {
             setTeamList([...teamList, e]);
-            console.log([...teamList, e]);
         }
     };
 
@@ -109,12 +103,9 @@ function Compare() {
         );
     };
 
-    // console.log(teamMatchData);
 
     const updateAfterSelect = (selectedOption) => {
-        console.log(selectedOption);
         setTeamList(selectedOption.map((option) => option.value));
-        console.log(selectedOption.map((option) => option.value));
         selectedOption.map((option) => handleSearch(option.value));
     };
 
@@ -122,13 +113,10 @@ function Compare() {
         return (team) => {
             if (teamColors === undefined || teamColors.length === 0)
                 return 'black';
-            console.log(teamColors);
-            console.log(team);
             try {
                 if (!(teamColors[team] && teamColors[team].colors))
                     return 'grey';
                 const teamColor = teamColors[team]['colors']['primaryHex'];
-                console.log(teamColor);
                 return teamColor;
             } catch (error) {
                 console.error(error);
@@ -254,7 +242,6 @@ function Compare() {
                 arr.push(categoryObj);
             }
         }
-        console.log(arr);
         return arr;
     };    
 

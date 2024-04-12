@@ -21,7 +21,7 @@ const endGameWeights =
 {
     "End Park" :1,
     "End Onstage" : 3,
-    "Climb Failure" : (-2),
+    "Climb Failure" : (0),
     "Critical Failure"  : 0,
     "Temp Failure" : 0,
     "Trap" : 3.4
@@ -76,7 +76,6 @@ export function assignMatchScoreToEach(data, dataType) {
 export function assignScores(data, dataTypeArr) {
     let newData = [...data];
     for (let i = 0; i < dataTypeArr.length; i++) {
-        // console.log(newData);
         newData = assignMatchScoreToEach(newData, dataTypeArr[i]);
     }
     return newData;

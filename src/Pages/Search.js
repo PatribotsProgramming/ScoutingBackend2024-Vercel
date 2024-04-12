@@ -61,7 +61,6 @@ function Search() {
                 setMatchData(data.bigTeamMap);
                 setMaxMin(data.maxMin);
                 setAllTeams(getAllTeams(data));
-                // console.log(data.bigTeamMap);
             });
         }, 1000);
     }, []);
@@ -79,20 +78,16 @@ function Search() {
     useEffect(() => {
         // check if the team list is empty or undefined
         if (!allTeams || allTeams.length === 0) return;
-        console.log(allTeams);
         let teamQueryString = '';
         allTeams.forEach((team) => {
             teamQueryString += `team=${team}&`;
         });
 
-        console.log(teamQueryString);
         const url = `https://api.frc-colors.com/v1/team?${teamQueryString}`;
-        console.log(url);
 
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.teams);
                 setTeamColors(data.teams);
             })
             .catch((error) => console.error(error));
@@ -103,7 +98,6 @@ function Search() {
         data.teamAverageMap.forEach((value, key) => {
             teams.add(key);
         });
-        console.log(teams);
         return teams;
     };
 
@@ -117,13 +111,10 @@ function Search() {
         return (team) => {
             if (teamColors === undefined || teamColors.length === 0)
                 return 'black';
-            console.log(teamColors);
-            console.log(team);
             try {
                 if (!(teamColors[team] && teamColors[team].colors))
                     return 'grey';
                 const teamColor = teamColors[team]['colors']['primaryHex'];
-                console.log(teamColor);
                 return teamColor;
             } catch (error) {
                 console.error(error);
@@ -220,7 +211,6 @@ function Search() {
         );
     };
 
-    // console.log(teamMatchData);
 
     if (emptyData(teamData) || emptyData(teamMatchData)) {
         return (
@@ -246,7 +236,6 @@ function Search() {
     // the radar chart
     const convertRadar = () => {
         let arr = [];
-        console.log(teamData);
         for (let i = 1; i < teamData[0].length; i++) {
             if (isRadarPoint(teamData[0][i])) {
                 let min = maxMin.get(teamData[0][i])[0];
@@ -255,7 +244,6 @@ function Search() {
                 arr.push({ key: teamData[0][i], value: val });
             }
         }
-        // console.log(arr);
         return arr;
     };
 
@@ -270,7 +258,6 @@ function Search() {
         for (let i = 0; i < matches.length; i++) {
             matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
         }
-        console.log(matches);
         return matches;
     };
 
@@ -287,7 +274,6 @@ function Search() {
     let matchHeads = matches[0];
     let matchStats = matches.slice(1);
 
-    // console.log(convertRadar());
 
     return (
         <div className="search">
