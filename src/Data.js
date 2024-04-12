@@ -484,6 +484,7 @@ function getTeamAverage(team, includeDead, first, last) {
   // not a bug
   for (let i = 0; i < dataArrTest[1].length; i++) {
     dataArrTest[1][i] /= newTeamData.length - 1;
+    dataArrTest[1][i] = dataArrTest[1][i].toFixed(1);
   }
   return dataArrTest;
 }

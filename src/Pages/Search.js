@@ -22,7 +22,7 @@ function Search() {
         'Endgame',
         'Teleop',
         'Auto',
-        'Human Player',
+        'Passes',
     ];
 
     const numHeaders = [

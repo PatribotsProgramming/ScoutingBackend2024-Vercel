@@ -25,7 +25,7 @@ function Compare() {
         'Amp',
         'Speaker',
         'Endgame',
-        'Human Player',
+        'Passes'
     ];
 
     const getAllTeams = (data) => {
