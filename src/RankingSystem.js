@@ -10,7 +10,6 @@ const autoWeights =
 const endGameWeights = 
 {
     "End Onstage" : 3,
-    "Trap" : 5
 }
 
 const teleopPieceWeights = {
@@ -24,7 +23,8 @@ const teleopPieceWeights = {
     "Pass Center Cycles" : 0.233,
     "Pass Wing Cycles" : 0.155,
     "Fumbles Amp Full Cycles" : 0.466,
-    "Fumbles Speaker Full Cycles" : 0.4
+    "Fumbles Speaker Full Cycles" : 0.4,
+    "Trap": 1.36239782
 }
 
 const autoPieceWeights = {
@@ -45,8 +45,9 @@ const ampWeights =
     "Amp Full Cycles" : 1,
     "Amp Center Cycles" : 0.5,
     "Amp Wing Cycles" : 0.333,
-    "Amp Auto" : 1
   }
+
+// TODO: should I include auto pieces into this metric?
 const speakerWeights = 
   {
     "Speaker Source Cycles" : 1,
@@ -62,6 +63,15 @@ const passWeights =
     "Fumbles Speaker Full Cycles" : 0.4
   }
 
+const fumbleWeights = 
+{
+    "Fumbles Amp Center Cycles" : 1,
+    "Fumbles Amp Full Cycles" : 1,
+    "Fumbles Amp Wing Cycles" : 1,
+    "Fumbles Speaker Center Cycles" : 1,
+    "Fumbles Speaker Wing Cycles" : 1,
+    "Fumbles Speaker Full Cycles" : 1
+}
 
 
 
@@ -73,7 +83,7 @@ export function assignMatchScoreToEach(data, dataType) {
         case "Auto" :
             weightMap = autoWeights;
             break;
-        case "Teleop Pieces" :
+        case "Tele Pieces" :
             weightMap = teleopPieceWeights
             break;
         case "Teleop" :
@@ -90,6 +100,9 @@ export function assignMatchScoreToEach(data, dataType) {
             break;
         case "Passes" :
             weightMap = passWeights;
+            break;
+        case "Fumbles" :
+            weightMap = fumbleWeights;
             break;
     }
     for (let i = 1; i < newData.length; i++) {
@@ -109,7 +122,7 @@ export function assignScores(data, dataTypeArr) {
 }
 
 export function assignAllScores(data) {
-    return assignScores(data, ["Score", "Auto", "Teleop", "Endgame", "Amp", "Speaker", "Passes"]);
+    return assignScores(data, ["Score", "Auto", "Teleop", "Endgame", "Amp", "Speaker", "Passes", "Tele Pieces"]);
 }
 
 function assignScore(match, dataPoints, weightMap) {

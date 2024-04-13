@@ -36,7 +36,6 @@ function Search() {
         "Fumbles Speaker",
         "Fumbles Amp",
         "Trap",
-        "Co-Op",
         "End Park",
         "End Onstage",
         "Climb Failure",
@@ -50,7 +49,7 @@ function Search() {
         "Auto Pieces",
         "Auto Description",
         "What they did well",
-        "What they did bad",
+        "What they did bad",    
         "Additional Comments"
     ]
 

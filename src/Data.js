@@ -1,9 +1,5 @@
-import { data } from "./SampleData.js";
-import { Chart } from "react-google-charts";
+
 import { getAllData } from "./widgets/JsonData.js";
-import { fetchData } from "./SampleData.js";
-import { async } from "@firebase/util";
-import { assignMatchScoreToEach } from "./RankingSystem.js";
 import { assignAllScores } from "./RankingSystem.js";
 import { eventCode } from "./App.js";
 // import { predictTeamScore } from "./MatchPredictor.js";
@@ -51,7 +47,7 @@ export const fetchDataAndProcess = async () => {
     );
     numData = convertNumDataToTableForm(rawData);
     numData = assignAllScores(numData);
-    
+    console.log(numData);
     numData = resortColumnsByArray(numData, 
         [
             "Team",
