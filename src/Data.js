@@ -162,25 +162,7 @@ function convertToTableForm(data, datatype) {
     for (let j = 0; j < bots.length; j++) {
 
       if (Object.keys(matchData[bots[j]]).length < 2) {
-        console.log("MISSING MATCH DATA");
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        console.log("MISSING MATCH DATA")
-        break;
+        continue;
       }
       row = [];
       //  gets either num or comment data of each bot
