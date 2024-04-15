@@ -21,11 +21,12 @@ function Rankings() {
 
     useEffect(() => {
         if (data.rankingTable !== undefined && data.rankingTable !== null) {
-            sortByKey(data.rankingTable, sortCol);
+            let newData = {...data};
+            sortByKey(newData.rankingTable, sortCol);
+            setData(newData);
         }
     }, [sortOrder, sortCol]);
 
-    // TODO: make working
     function sortByKey(arr, key) {
         return arr.sort((a, b) => {
             if (Number(a[key]) > Number(b[key])) return -1 * sortOrder;
@@ -35,8 +36,10 @@ function Rankings() {
     }
 
     const handleSort = (header) => { // New function to handle sorting
+        if (header === sortCol) {
+            setSortOrder(sortOrder * -1); // Toggle the sort order
+        }
         setSortCol(header);
-        setSortOrder(sortOrder * -1); // Toggle the sort order
     };
 
     if (data.length === 0) {

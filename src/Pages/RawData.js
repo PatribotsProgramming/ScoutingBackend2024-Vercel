@@ -15,28 +15,32 @@ function RawData() {
             fetchDataAndProcess().then((data) => {
                 setData(data);
                 setHeaders(Object.keys(data[selectedDataMap][0]));
+                sortByKey(data[selectedDataMap], sortCol);
             });
         }, 100);
     }, [selectedDataMap]); // Add selectedDataMap to the dependency array
 
     useEffect(() => {
-        console.log(data[selectedDataMap]);
         if (data[selectedDataMap] !== undefined) {
-            sortByKey(data[selectedDataMap], sortCol);
+            let newData = {...data};
+            sortByKey(newData[selectedDataMap], sortCol);
+            setData(newData);   
         }
     }, [sortOrder, sortCol]);
 
     function sortByKey(arr, key) {
         return arr.sort((a, b) => {
-            if (Number(a[key]) > Number(b[key])) return -1 * sortOrder;
-            else if (Number(a[key]) < Number(b[key])) return 1 * sortOrder;
+            if (Number(a[key]) > Number(b[key])) return 1 * sortOrder;
+            else if (Number(a[key]) < Number(b[key])) return -1 * sortOrder;
             else return 0;
         });
     }
 
     const handleSort = (header) => { // New function to handle sorting
+        if (header === sortCol) {
+            setSortOrder(sortOrder * -1); // Toggle the sort order
+        }
         setSortCol(header);
-        setSortOrder(sortOrder * -1); // Toggle the sort order
     };
 
     if (data.length === 0) {
