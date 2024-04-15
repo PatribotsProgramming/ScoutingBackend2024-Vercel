@@ -13,7 +13,7 @@ const endGameWeights =
 }
 
 const teleopPieceWeights = {
-    "Speaker Source Cycles" : 1,
+    "Speaker Full Cycles" : 1,
     "Speaker Center Cycles" : 0.5,
     "Speaker Wing Cycles" : 0.333,
     "Amp Full Cycles" : 1,
@@ -50,7 +50,7 @@ const ampWeights =
 // TODO: should I include auto pieces into this metric?
 const speakerWeights = 
   {
-    "Speaker Source Cycles" : 1,
+    "Speaker Full Cycles" : 1,
     "Speaker Center Cycles" : 0.5,
     "Speaker Wing Cycles" : 0.333,
   }
@@ -62,16 +62,24 @@ const passWeights =
     "Fumbles Amp Full Cycles" : 0.466,
     "Fumbles Speaker Full Cycles" : 0.4
   }
-
-const fumbleWeights = 
-{
-    "Fumbles Amp Center Cycles" : 1,
-    "Fumbles Amp Full Cycles" : 1,
-    "Fumbles Amp Wing Cycles" : 1,
+const fumbleSpeakerWeights = {
     "Fumbles Speaker Center Cycles" : 1,
     "Fumbles Speaker Wing Cycles" : 1,
     "Fumbles Speaker Full Cycles" : 1
 }
+const fumbleAmpWeights = {
+    "Fumbles Amp Center Cycles" : 1,
+    "Fumbles Amp Full Cycles" : 1,
+    "Fumbles Amp Wing Cycles" : 1,
+}
+
+
+const fumbleWeights = 
+{
+    ...fumbleSpeakerWeights,
+    ...fumbleAmpWeights
+}
+
 
 
 
@@ -104,6 +112,15 @@ export function assignMatchScoreToEach(data, dataType) {
         case "Fumbles" :
             weightMap = fumbleWeights;
             break;
+        case "Fumbles Speaker" :
+            weightMap = fumbleSpeakerWeights;
+            break;
+        case "Fumbles Amp" :
+            weightMap = fumbleAmpWeights;
+            break;
+        case "Auto Pieces" :
+            weightMap = autoPieceWeights;
+            break;
     }
     for (let i = 1; i < newData.length; i++) {
         newData[i].push(assignScore(newData[i], newData[0], weightMap));
@@ -122,7 +139,7 @@ export function assignScores(data, dataTypeArr) {
 }
 
 export function assignAllScores(data) {
-    return assignScores(data, ["Score", "Auto", "Teleop", "Endgame", "Amp", "Speaker", "Passes", "Tele Pieces"]);
+    return assignScores(data, ["Score", "Auto", "Auto Pieces", "Teleop", "Endgame", "Amp", "Speaker", "Passes", "Tele Pieces", "Fumbles", "Fumbles Amp", "Fumbles Speaker"]);
 }
 
 function assignScore(match, dataPoints, weightMap) {

@@ -28,7 +28,6 @@ let bigTeamMap;
 let allData;
 let teamAverageMap;
 let rankingTable;
-let rankingsNumData;
 let maxMin;
 let maxMinOfAverages;
 let rawDataMap;
@@ -36,8 +35,6 @@ let bigTeamMapSplit;
 let rankingsMap;
 let teamScoreMap;
 let teamRankingArr;
-let teamAverageMapWithoutDead;
-let rankingTableWithoutDead;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -58,7 +55,6 @@ export const fetchDataAndProcess = async () => {
     );
     numData = convertNumDataToTableForm(rawData);
     numData = assignAllScores(numData);
-    console.log(numData);
     numData = resortColumnsByArray(numData, 
         [
             "Team",
@@ -87,6 +83,7 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ]);   
+    console.log(numData);
     commentData = resortColumnsByArray(commentData, 
         [
           "Team",
@@ -287,6 +284,18 @@ export function resortColumnsByArray(data, orderArr) {
   return newData;
 }
 
+export function whitelistDataPoints(data, orderArr) {
+    let arr = [];
+    for (let i = 0; i < data[0].length; i++) {
+        if (!orderArr.includes(data[0][i])) {
+            arr.push(data[0][i]);
+        }
+    }
+    console.log(arr);
+    console.log(removeDataPoints(data, arr));
+    return removeDataPoints(data, arr);
+}
+
 // Working but need to make easier to use:
 function resortColumnByPoint(data, point, columnGoal) {
   for (let i = 0; i < data[0].length; i++) {
@@ -370,9 +379,10 @@ function removeDataPoint(data, dataPoint) {
 
 function removeDataPoints(data, dataPointArr) {
     let newData = [...data];
-    for (let i = 0; i < dataPointArr; i++) {
+    for (let i = 0; i < dataPointArr.length; i++) {
         newData = removeDataPoint(newData, dataPointArr[i]);
     }
+    return newData
 }
 // Working
 function convertTableToMap(data) {
