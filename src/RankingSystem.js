@@ -13,7 +13,7 @@ const endGameWeights =
 }
 
 const teleopPieceWeights = {
-    "Speaker Source Cycles" : 1,
+    "Speaker Full Cycles" : 1,
     "Speaker Center Cycles" : 0.5,
     "Speaker Wing Cycles" : 0.333,
     "Amp Full Cycles" : 1,
@@ -50,7 +50,7 @@ const ampWeights =
 // TODO: should I include auto pieces into this metric?
 const speakerWeights = 
   {
-    "Speaker Source Cycles" : 1,
+    "Speaker Full Cycles" : 1,
     "Speaker Center Cycles" : 0.5,
     "Speaker Wing Cycles" : 0.333,
   }

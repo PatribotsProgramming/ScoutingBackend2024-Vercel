@@ -34,6 +34,7 @@ function Search() {
         "Failed Intakes Auto",
         "Teleop",
         "Tele Pieces",
+        "Passes",
         "Speaker",
         "Fumbles Speaker",
         "Amp",
