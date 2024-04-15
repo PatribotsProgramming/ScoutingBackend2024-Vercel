@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { fetchDataAndProcess, resortColumnsByArray } from '../Data.js';
+import { fetchDataAndProcess, resortColumnsByArray, whitelistDataPoints } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraphSearch.js';
 import './Search.css';
 import './Tables.css';
@@ -28,16 +28,17 @@ function Search() {
 
     const numHeaders = [
         "Match Number",
-        "Speaker Auto",
-        "Amp Auto",
-        "Leave in Auto",
-        "Speaker Teleop",
-        "Amped Speaker",
-        "Amp Teleop",
+        "Auto Pieces",
+        "Auto",
+        "Failed Shots Auto",
+        "Failed Intakes Auto",
+        "Teleop",
+        "Tele Pieces",
+        "Speaker",
         "Fumbles Speaker",
+        "Amp",
         "Fumbles Amp",
         "Trap",
-        "End Park",
         "End Onstage",
         "Climb Failure",
         "Temp Failure",
@@ -257,9 +258,9 @@ function Search() {
     const matchContent = (matchesNum, matchesComment) => {
         let matches;
         if (matchDataType === 'num') {
-            matches = resortColumnsByArray(matchesNum, numHeaders);
+            matches = resortColumnsByArray(whitelistDataPoints(matchesNum, numHeaders), numHeaders);
         } else {
-            matches = resortColumnsByArray(matchesComment, commentHeaders);
+            matches = resortColumnsByArray(whitelistDataPoints(matchesComment, commentHeaders), commentHeaders);
         }
         // for (let i = 0; i < matches.length; i++) {
         //     matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);

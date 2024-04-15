@@ -273,6 +273,18 @@ export function resortColumnsByArray(data, orderArr) {
   return newData;
 }
 
+export function whitelistDataPoints(data, orderArr) {
+    let arr = [];
+    for (let i = 0; i < data[0].length; i++) {
+        if (!orderArr.includes(data[0][i])) {
+            arr.push(data[0][i]);
+        }
+    }
+    console.log(arr);
+    console.log(removeDataPoints(data, arr));
+    return removeDataPoints(data, arr);
+}
+
 // Working but need to make easier to use:
 function resortColumnByPoint(data, point, columnGoal) {
   for (let i = 0; i < data[0].length; i++) {
@@ -356,9 +368,10 @@ function removeDataPoint(data, dataPoint) {
 
 function removeDataPoints(data, dataPointArr) {
     let newData = [...data];
-    for (let i = 0; i < dataPointArr; i++) {
+    for (let i = 0; i < dataPointArr.length; i++) {
         newData = removeDataPoint(newData, dataPointArr[i]);
     }
+    return newData
 }
 // Working
 function convertTableToMap(data) {
