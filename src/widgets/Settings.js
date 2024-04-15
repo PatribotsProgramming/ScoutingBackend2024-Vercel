@@ -42,7 +42,10 @@ function Settings() {
 
     const handleSettingEdit = (setting) => {
         let newValue = prompt(`Type new ${setting}:`);
-        localStorage.setItem(setting, newValue);
+        if (newValue !== null) {
+            localStorage.setItem(setting, newValue);
+            window.location.reload();
+        }
     }
 
     const settingsWindow = () => {
