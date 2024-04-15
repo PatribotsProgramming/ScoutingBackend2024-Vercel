@@ -19,12 +19,6 @@ const teleopPieceWeights = {
     "Amp Full Cycles" : 1,
     "Amp Center Cycles" : 0.5,
     "Amp Wing Cycles" : 0.333,
-    "Pass Full Cycles" : 0.466,
-    "Pass Center Cycles" : 0.233,
-    "Pass Wing Cycles" : 0.155,
-    "Fumbles Amp Full Cycles" : 0.466,
-    "Fumbles Speaker Full Cycles" : 0.4,
-    "Trap": 1.36239782
 }
 
 const autoPieceWeights = {
@@ -32,7 +26,16 @@ const autoPieceWeights = {
     "Amp Auto" : 1
 }
 
-const teleopWeights = multiplyByPieceWeights(teleopPieceWeights);
+const teleopWeights = {
+    ...multiplyByPieceWeights(teleopPieceWeights),
+    "Pass Full Cycles" : 1.71,
+    "Pass Center Cycles" : 0.855,
+    "Pass Wing Cycles" : 0.57,
+    "Fumbles Amp Full Cycles" : 1.71,
+    "Fumbles Speaker Full Cycles" : 1.468,
+    "Trap" : 5
+};
+
 
 
 const scoreWeights = {
@@ -47,7 +50,6 @@ const ampWeights =
     "Amp Wing Cycles" : 0.333,
   }
 
-// TODO: should I include auto pieces into this metric?
 const speakerWeights = 
   {
     "Speaker Full Cycles" : 1,
