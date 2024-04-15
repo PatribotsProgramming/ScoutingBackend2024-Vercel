@@ -32,8 +32,7 @@ let maxMin;
 let maxMinOfAverages;
 let rawDataMap;
 let bigTeamMapSplit;
-let rankingsMap;
-let teamScoreMap;
+let teamScoreMap;   
 let teamRankingArr;
 // Use an async function to fetch and process your data
 // Working:
@@ -83,7 +82,6 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ]);   
-    console.log(numData);
     commentData = resortColumnsByArray(commentData, 
         [
           "Team",

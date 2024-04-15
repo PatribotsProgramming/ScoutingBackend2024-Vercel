@@ -28,19 +28,19 @@ function Search() {
 
     const numHeaders = [
         "Match Number",
-        "Auto Pieces",
         "Auto",
-        "Failed Shots Auto",
-        "Failed Intakes Auto",
         "Teleop",
+        "Endgame",
+        "Auto Pieces",
         "Tele Pieces",
         "Passes",
         "Speaker",
-        "Fumbles Speaker",
         "Amp",
+        "Failed Shots Auto",
+        "Failed Intakes Auto",
+        "Fumbles Speaker",
         "Fumbles Amp",
         "Trap",
-        "End Onstage",
         "Climb Failure",
         "Temp Failure",
         "Critical Failure"
@@ -62,7 +62,7 @@ function Search() {
             fetchDataAndProcess().then((data) => {
                 setAverageData(data.teamAverageMap);
                 setMatchData(data.bigTeamMapSplit);
-                setMaxMin(data.maxMin);
+                setMaxMin(data.maxMinOfAverages);
                 setAllTeams(getAllTeams(data));
             });
         }, 1000);
@@ -70,15 +70,14 @@ function Search() {
 
     useEffect(() => {
         if (averageData.size !== 0 && averageData.size !== undefined) {
-            setTeamData(averageData.get(team));
+            setTeamData(resortColumnsByArray(whitelistDataPoints(averageData.get(team), numHeaders), numHeaders));
+            // setTeamData(averageData.get(team));
         }
         console.log(matchData.length !== 0 && matchData.length !== undefined)
         if (matchData.length !== 0 && matchData.length !== undefined) {
             console.log(matchData[0].get(team));
             setTeamMatchDataNum(matchData[0].get(team));
             setTeamMatchDataComment(matchData[1].get(team));
-            console.log(matchData[0].get(team));
-            console.log(matchData[1].get(team));
         }
         // eslint-disable-next-line
     }, [team]);
