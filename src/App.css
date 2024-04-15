@@ -209,9 +209,10 @@ h3 {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     height: 50px;
-    position: absolute;
+    position: fixed;
     top: 0px;
     width: 100%;
+    z-index: 2000000
 }
 
 .navbar-but {

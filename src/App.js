@@ -10,13 +10,22 @@ import {
 import Rankings from "./Pages/Rankings";
 import RawData from "./Pages/RawData";
 import Search from "./Pages/Search";
+import Settings from "./widgets/Settings";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Compare from "./Pages/CompareTeams";
 
 const queryClient = new QueryClient();
 
-export const eventCode = prompt("Event Code:");
+let eventCodeTemp;
+if (localStorage.getItem("eventCode") === null) {
+	eventCodeTemp = prompt("Event Code:");
+	localStorage.setItem("eventCode", eventCodeTemp);
+} else {
+	eventCodeTemp = localStorage.getItem("eventCode");
+}
+
+export const eventCode = eventCodeTemp;
 
 class App extends Component {
 	render() {
@@ -46,6 +55,7 @@ class App extends Component {
 								</div>
 							</Link>
 						</div>
+						<Settings/>
 						<Routes>
 							<Route
 								exact

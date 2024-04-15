@@ -5,9 +5,20 @@ import { eventCode } from "./App.js";
 // import { predictTeamScore } from "./MatchPredictor.js";
 // import { predictTeamScore2 } from "./MatchPredictor2.js"
 //const data = getAllData();
-let minQual = 0;
-let maxQual = 10000;
-let includeDead = true;
+
+let minQual = localStorage.getItem("minQual") === null 
+                ? 0 
+                : parseInt(localStorage.getItem("minQual"));
+let maxQual = localStorage.getItem("maxQual") === null 
+                ? 10000 
+                : parseInt(localStorage.getItem("maxQual"));
+
+let includeDead = localStorage.getItem("includeDead") === null 
+                ? true 
+                : localStorage.getItem("includeDead") === 'true' 
+                    ? true 
+                    : false;
+
 let rawData;
 let commentData;
 let numData;
