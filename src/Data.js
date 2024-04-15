@@ -17,7 +17,6 @@ let bigTeamMap;
 let allData;
 let teamAverageMap;
 let rankingTable;
-let rankingsNumData;
 let maxMin;
 let maxMinOfAverages;
 let rawDataMap;
@@ -25,8 +24,6 @@ let bigTeamMapSplit;
 let rankingsMap;
 let teamScoreMap;
 let teamRankingArr;
-let teamAverageMapWithoutDead;
-let rankingTableWithoutDead;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -47,7 +44,6 @@ export const fetchDataAndProcess = async () => {
     );
     numData = convertNumDataToTableForm(rawData);
     numData = assignAllScores(numData);
-    console.log(numData);
     numData = resortColumnsByArray(numData, 
         [
             "Team",
@@ -76,6 +72,7 @@ export const fetchDataAndProcess = async () => {
             "Temp Failure", 
             "Trap"
         ]);   
+    console.log(numData);
     commentData = resortColumnsByArray(commentData, 
         [
           "Team",

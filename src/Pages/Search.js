@@ -10,7 +10,8 @@ function Search() {
     const [matchData, setMatchData] = useState([]);
     const [team, setTeam] = useState('');
     const [teamData, setTeamData] = useState([]);
-    const [teamMatchData, setTeamMatchData] = useState([]);
+    const [teamMatchDataNum, setTeamMatchDataNum] = useState([]);
+    const [teamMatchDataComment, setTeamMatchDataComment] = useState([]);
     const [matchDataType, setMatchDataType] = useState('num');
     const [maxMin, setMaxMin] = useState({});
     const [allTeams, setAllTeams] = useState([]);
@@ -57,7 +58,7 @@ function Search() {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setAverageData(data.teamAverageMap);
-                setMatchData(data.bigTeamMap);
+                setMatchData(data.bigTeamMapSplit);
                 setMaxMin(data.maxMin);
                 setAllTeams(getAllTeams(data));
             });
@@ -68,8 +69,13 @@ function Search() {
         if (averageData.size !== 0 && averageData.size !== undefined) {
             setTeamData(averageData.get(team));
         }
-        if (matchData.size !== 0 && matchData.size !== undefined) {
-            setTeamMatchData(matchData.get(team));
+        console.log(matchData.length !== 0 && matchData.length !== undefined)
+        if (matchData.length !== 0 && matchData.length !== undefined) {
+            console.log(matchData[0].get(team));
+            setTeamMatchDataNum(matchData[0].get(team));
+            setTeamMatchDataComment(matchData[1].get(team));
+            console.log(matchData[0].get(team));
+            console.log(matchData[1].get(team));
         }
         // eslint-disable-next-line
     }, [team]);
@@ -211,7 +217,7 @@ function Search() {
     };
 
 
-    if (emptyData(teamData) || emptyData(teamMatchData)) {
+    if (emptyData(teamData) || emptyData(teamMatchDataNum)) {
         return (
             <div className="search">
                 <div className="search-bar">
@@ -248,15 +254,16 @@ function Search() {
 
     // returns the section of the match data to display based on if the current data
     // type is either numbers or comments
-    const matchContent = (matches) => {
+    const matchContent = (matchesNum, matchesComment) => {
+        let matches;
         if (matchDataType === 'num') {
-            matches = resortColumnsByArray(matches, numHeaders);
+            matches = resortColumnsByArray(matchesNum, numHeaders);
         } else {
-            matches = resortColumnsByArray(matches, commentHeaders);
+            matches = resortColumnsByArray(matchesComment, commentHeaders);
         }
-        for (let i = 0; i < matches.length; i++) {
-            matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
-        }
+        // for (let i = 0; i < matches.length; i++) {
+        //     matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
+        // }
         return matches;
     };
 
@@ -267,8 +274,8 @@ function Search() {
 
     let headers = teamData[0].slice(1);
     let stats = teamData[1].slice(1);
-
-    let matches = matchContent(teamMatchData);
+    let matches = matchContent(teamMatchDataNum, teamMatchDataComment);
+    console.log(matches);
 
     let matchHeads = matches[0];
     let matchStats = matches.slice(1);
