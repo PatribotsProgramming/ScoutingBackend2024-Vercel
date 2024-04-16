@@ -31,10 +31,10 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
         console.log(data);
         let myMax;
         // find the max value in the array of objects and ignore any values that are not numbers or could be a number
+        myMax = findMax(data);
+        
         setMax(myMax);
         console.log(myMax);
-
-        myMax = findMax(data);
     }, [data]);
 
     const CustomizedAxisTick = (props) => {
