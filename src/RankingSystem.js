@@ -1,31 +1,42 @@
 // Working
-let scores = new Map();
 const autoWeights = 
 {
     "Leave in Auto" : 1,
-    "Amp Auto" : 1,
-    "Speaker Auto" : 5,
-}
-const teleopWeights = 
-{
-    "Speaker Teleop" : 3.4,
-    "Amp Teleop" : 3.4,
-    "Amped Speaker" : 3.4,
-    "Fumbles Amp" : 0,
-    "Fumbles Speaker" : 0,
-    "Co-Op" : 0,
-    "Driving" : 0,
-    "Human Player" : 0,
+    "Amp Auto" : 2.55,
+    "Speaker Auto" : 2.55,
+    "Center Intakes Auto" : 3.67
+
 }
 const endGameWeights = 
 {
-    "End Park" :1,
     "End Onstage" : 3,
-    "Climb Failure" : (-2),
-    "Critical Failure"  : 0,
-    "Temp Failure" : 0,
-    "Trap" : 3.4
 }
+
+const teleopPieceWeights = {
+    "Speaker Full Cycles" : 1,
+    "Speaker Center Cycles" : 0.5,
+    "Speaker Wing Cycles" : 0.333,
+    "Amp Full Cycles" : 1,
+    "Amp Center Cycles" : 0.5,
+    "Amp Wing Cycles" : 0.333,
+}
+
+const autoPieceWeights = {
+    "Speaker Auto" : 1,
+    "Amp Auto" : 1
+}
+
+const teleopWeights = {
+    ...multiplyByPieceWeights(teleopPieceWeights),
+    "Pass Full Cycles" : 1.71,
+    "Pass Center Cycles" : 0.855,
+    "Pass Wing Cycles" : 0.57,
+    "Fumbles Amp Full Cycles" : 1.71,
+    "Fumbles Speaker Full Cycles" : 1.468,
+    "Trap" : 5
+};
+
+
 
 const scoreWeights = {
     ...autoWeights,
@@ -34,15 +45,45 @@ const scoreWeights = {
   };
 const ampWeights = 
   {
-      "Amp Auto" : 1,
-      "Amp Teleop" : 1
+    "Amp Full Cycles" : 1,
+    "Amp Center Cycles" : 0.5,
+    "Amp Wing Cycles" : 0.333,
   }
+
 const speakerWeights = 
   {
-    "Speaker Auto" : 1,
-    "Speaker Teleop" : 1,
-    "Amped Speaker" : 1
+    "Speaker Full Cycles" : 1,
+    "Speaker Center Cycles" : 0.5,
+    "Speaker Wing Cycles" : 0.333,
   }
+const passWeights = 
+  {
+    "Pass Full Cycles" : 1,
+    "Pass Center Cycles" : .5,
+    "Pass Wing Cycles" : .333,
+    "Fumbles Amp Full Cycles" : 0.466,
+    "Fumbles Speaker Full Cycles" : 0.4
+  }
+const fumbleSpeakerWeights = {
+    "Fumbles Speaker Center Cycles" : 1,
+    "Fumbles Speaker Wing Cycles" : 1,
+    "Fumbles Speaker Full Cycles" : 1
+}
+const fumbleAmpWeights = {
+    "Fumbles Amp Center Cycles" : 1,
+    "Fumbles Amp Full Cycles" : 1,
+    "Fumbles Amp Wing Cycles" : 1,
+}
+
+
+const fumbleWeights = 
+{
+    ...fumbleSpeakerWeights,
+    ...fumbleAmpWeights
+}
+
+
+
 
 
 export function assignMatchScoreToEach(data, dataType) {
@@ -52,8 +93,11 @@ export function assignMatchScoreToEach(data, dataType) {
         case "Auto" :
             weightMap = autoWeights;
             break;
+        case "Tele Pieces" :
+            weightMap = teleopPieceWeights
+            break;
         case "Teleop" :
-            weightMap = teleopWeights;
+            weightMap = teleopWeights
             break;
         case "Endgame" :
             weightMap = endGameWeights;
@@ -63,6 +107,21 @@ export function assignMatchScoreToEach(data, dataType) {
             break;
         case "Speaker" :
             weightMap = speakerWeights;
+            break;
+        case "Passes" :
+            weightMap = passWeights;
+            break;
+        case "Fumbles" :
+            weightMap = fumbleWeights;
+            break;
+        case "Fumbles Speaker" :
+            weightMap = fumbleSpeakerWeights;
+            break;
+        case "Fumbles Amp" :
+            weightMap = fumbleAmpWeights;
+            break;
+        case "Auto Pieces" :
+            weightMap = autoPieceWeights;
             break;
     }
     for (let i = 1; i < newData.length; i++) {
@@ -76,21 +135,33 @@ export function assignMatchScoreToEach(data, dataType) {
 export function assignScores(data, dataTypeArr) {
     let newData = [...data];
     for (let i = 0; i < dataTypeArr.length; i++) {
-        // console.log(newData);
         newData = assignMatchScoreToEach(newData, dataTypeArr[i]);
     }
     return newData;
 }
 
 export function assignAllScores(data) {
-    return assignScores(data, ["Score", "Auto", "Teleop", "Endgame", "Amp", "Speaker"]);
+    return assignScores(data, ["Score", "Auto", "Auto Pieces", "Teleop", "Endgame", "Amp", "Speaker", "Passes", "Tele Pieces", "Fumbles", "Fumbles Amp", "Fumbles Speaker"]);
 }
+
 function assignScore(match, dataPoints, weightMap) {
     let score = 0;
     for (let i = 0; i < match.length; i++) {
         if (weightMap[dataPoints[i]] === undefined) continue;
         score += parseFloat(match[i]) * weightMap[dataPoints[i]];
     }
-    return score;
+    return score.toFixed(2);
+}
+
+function multiplyByPieceWeights(obj) {
+    let newObj = {...obj};
+    for (let key in obj) {
+
+        if (obj.hasOwnProperty(key)) {
+            newObj[key] = obj[key] * 3.67;
+          }
+        }
+    console.log(newObj);
+    return newObj;
 }
 

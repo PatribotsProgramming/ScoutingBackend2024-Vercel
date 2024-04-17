@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { fetchDataAndProcess, resortColumnsByArray } from '../Data.js';
+import { fetchDataAndProcess, resortColumnsByArray, whitelistDataPoints } from '../Data.js';
 import RadarGraph from '../widgets/RadarGraphSearch.js';
 import './Search.css';
 import './Tables.css';
@@ -10,7 +10,8 @@ function Search() {
     const [matchData, setMatchData] = useState([]);
     const [team, setTeam] = useState('');
     const [teamData, setTeamData] = useState([]);
-    const [teamMatchData, setTeamMatchData] = useState([]);
+    const [teamMatchDataNum, setTeamMatchDataNum] = useState([]);
+    const [teamMatchDataComment, setTeamMatchDataComment] = useState([]);
     const [matchDataType, setMatchDataType] = useState('num');
     const [maxMin, setMaxMin] = useState({});
     const [allTeams, setAllTeams] = useState([]);
@@ -22,23 +23,24 @@ function Search() {
         'Endgame',
         'Teleop',
         'Auto',
-        'Human Player',
+        'Passes',
     ];
 
     const numHeaders = [
         "Match Number",
-        "Speaker Auto",
-        "Amp Auto",
-        "Leave in Auto",
-        "Speaker Teleop",
-        "Amped Speaker",
-        "Amp Teleop",
+        "Auto",
+        "Teleop",
+        "Endgame",
+        "Auto Pieces",
+        "Tele Pieces",
+        "Passes",
+        "Speaker",
+        "Amp",
+        "Failed Shots Auto",
+        "Failed Intakes Auto",
         "Fumbles Speaker",
         "Fumbles Amp",
         "Trap",
-        "Co-Op",
-        "End Park",
-        "End Onstage",
         "Climb Failure",
         "Temp Failure",
         "Critical Failure"
@@ -47,10 +49,11 @@ function Search() {
     const commentHeaders = [
         "Match Number",
         "Name",
+        "Auto Start",
         "Auto Pieces",
         "Auto Description",
         "What they did well",
-        "What they did bad",
+        "What they did bad",    
         "Additional Comments"
     ]
 
@@ -58,20 +61,23 @@ function Search() {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setAverageData(data.teamAverageMap);
-                setMatchData(data.bigTeamMap);
-                setMaxMin(data.maxMin);
+                setMatchData(data.bigTeamMapSplit);
+                setMaxMin(data.maxMinOfAverages);
                 setAllTeams(getAllTeams(data));
-                // console.log(data.bigTeamMap);
             });
         }, 1000);
     }, []);
 
     useEffect(() => {
         if (averageData.size !== 0 && averageData.size !== undefined) {
-            setTeamData(averageData.get(team));
+            setTeamData(resortColumnsByArray(whitelistDataPoints(averageData.get(team), numHeaders), numHeaders));
+            // setTeamData(averageData.get(team));
         }
-        if (matchData.size !== 0 && matchData.size !== undefined) {
-            setTeamMatchData(matchData.get(team));
+        console.log(matchData.length !== 0 && matchData.length !== undefined)
+        if (matchData.length !== 0 && matchData.length !== undefined) {
+            console.log(matchData[0].get(team));
+            setTeamMatchDataNum(matchData[0].get(team));
+            setTeamMatchDataComment(matchData[1].get(team));
         }
         // eslint-disable-next-line
     }, [team]);
@@ -79,20 +85,16 @@ function Search() {
     useEffect(() => {
         // check if the team list is empty or undefined
         if (!allTeams || allTeams.length === 0) return;
-        console.log(allTeams);
         let teamQueryString = '';
         allTeams.forEach((team) => {
             teamQueryString += `team=${team}&`;
         });
 
-        console.log(teamQueryString);
         const url = `https://api.frc-colors.com/v1/team?${teamQueryString}`;
-        console.log(url);
 
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.teams);
                 setTeamColors(data.teams);
             })
             .catch((error) => console.error(error));
@@ -103,7 +105,6 @@ function Search() {
         data.teamAverageMap.forEach((value, key) => {
             teams.add(key);
         });
-        console.log(teams);
         return teams;
     };
 
@@ -117,13 +118,10 @@ function Search() {
         return (team) => {
             if (teamColors === undefined || teamColors.length === 0)
                 return 'black';
-            console.log(teamColors);
-            console.log(team);
             try {
                 if (!(teamColors[team] && teamColors[team].colors))
                     return 'grey';
                 const teamColor = teamColors[team]['colors']['primaryHex'];
-                console.log(teamColor);
                 return teamColor;
             } catch (error) {
                 console.error(error);
@@ -220,9 +218,8 @@ function Search() {
         );
     };
 
-    // console.log(teamMatchData);
 
-    if (emptyData(teamData) || emptyData(teamMatchData)) {
+    if (emptyData(teamData) || emptyData(teamMatchDataNum)) {
         return (
             <div className="search">
                 <div className="search-bar">
@@ -246,33 +243,38 @@ function Search() {
     // the radar chart
     const convertRadar = () => {
         let arr = [];
-        console.log(teamData);
         for (let i = 1; i < teamData[0].length; i++) {
             if (isRadarPoint(teamData[0][i])) {
                 let min = maxMin.get(teamData[0][i])[0];
                 let max = maxMin.get(teamData[0][i])[1];
                 let val = ((teamData[1][i] - min) / (max - min)) * 100;
-                arr.push({ key: teamData[0][i], value: val });
+                arr.push({ key: teamData[0][i], value: val});
             }
         }
-        // console.log(arr);
         return arr;
     };
 
     // returns the section of the match data to display based on if the current data
     // type is either numbers or comments
-    const matchContent = (matches) => {
+    const matchContent = (matchesNum, matchesComment) => {
+        let matches;
         if (matchDataType === 'num') {
-            matches = resortColumnsByArray(matches, numHeaders);
+            matches = resortColumnsByArray(whitelistDataPoints(matchesNum, numHeaders), numHeaders);
         } else {
-            matches = resortColumnsByArray(matches, commentHeaders);
+            matches = resortColumnsByArray(whitelistDataPoints(matchesComment, commentHeaders), commentHeaders);
         }
-        for (let i = 0; i < matches.length; i++) {
-            matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
-        }
-        console.log(matches);
-        return matches;
+        let matchDataNoKeys = matches.slice(1);
+        sortByIndex(matchDataNoKeys, 0);
+        return [matches[0], ...matchDataNoKeys];
     };
+
+    function sortByIndex(arr, index) {
+        return arr.sort((a, b) => {
+            if (Number(a[index]) > Number(b[index])) return 1;
+            else if (Number(a[index]) < Number(b[index])) return -1;
+            else return 0;
+        });
+    }
 
     // changes match data type to either num or comment
     const handleSelectChange = (e) => {
@@ -281,13 +283,11 @@ function Search() {
 
     let headers = teamData[0].slice(1);
     let stats = teamData[1].slice(1);
-
-    let matches = matchContent(teamMatchData);
+    let matches = matchContent(teamMatchDataNum, teamMatchDataComment);
 
     let matchHeads = matches[0];
     let matchStats = matches.slice(1);
 
-    // console.log(convertRadar());
 
     return (
         <div className="search">
