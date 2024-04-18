@@ -161,7 +161,6 @@ function multiplyByPieceWeights(obj) {
             newObj[key] = obj[key] * 3.67;
           }
         }
-    console.log(newObj);
     return newObj;
 }
 

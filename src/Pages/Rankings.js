@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TreeGraph from "../widgets/TreeGraph";
-import {fetchDataAndProcess} from '../Data.js'
+import {fetchDataAndProcess, resortColumnsByArray, whitelistDataPoints, whitelistDataPointObjArr} from '../Data.js'
 import "./Tables.css";
 import "./Rankings.css";
 
@@ -8,21 +8,46 @@ function Rankings() {
     const [data, setData] = useState([]);
     const [sortCol, setSortCol] = useState("Score");
     const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
+    const [rankingTableGlobal, setRankingTableGlobal] = useState([]);
 
+    const numHeaders = [
+        "Team",
+        "Match Number",
+        "Score",
+        "Auto",
+        "Teleop",
+        "Endgame",
+        "Auto Pieces",
+        "Tele Pieces",
+        "Passes",
+        "Speaker",
+        "Amp",
+        "Failed Shots Auto",
+        "Failed Intakes Auto",
+        "Fumbles Speaker",
+        "Fumbles Amp",
+        "Trap",
+        "Climb Failure",
+        "Temp Failure",
+        "Critical Failure"
+    ];
 
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setData(data);
+                setRankingTableGlobal(whitelistDataPointObjArr(data.rankingTable, numHeaders));
                 sortByKey(data.rankingTable, sortCol);
             });
-        }, 1000);
-    }, []);
+        }, 1000);}, []);
 
     useEffect(() => {
         if (data.rankingTable !== undefined && data.rankingTable !== null) {
             let newData = {...data};
             sortByKey(newData.rankingTable, sortCol);
+           
+            newData['rankingTable'] = whitelistDataPointObjArr(newData.rankingTable, numHeaders);  
+            setRankingTableGlobal(newData.rankingTable);    
             setData(newData);
         }
     }, [sortOrder, sortCol]);
@@ -61,8 +86,7 @@ function Rankings() {
         }
         return arr;
     }
-
-    let headers = Object.keys(data.rankingTable[0]);
+    let headers = Object.keys(rankingTableGlobal[0]);
 
     return (
         <div className="rankings-wrapper">
@@ -82,10 +106,11 @@ function Rankings() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.rankingTable.map((item, index) => (
+                        {console.log(rankingTableGlobal)}
+                        {rankingTableGlobal.map((item, index) => (
                             <tr key={index}>
                                 {headers.map((header, index) => (
-                                    <td key={index}>
+                                  <td key={index}>
                                         {(isNaN(item[header])) ? item[header] : Math.round(item[header] * 100) / 100}
                                     </td>
                                 ))}

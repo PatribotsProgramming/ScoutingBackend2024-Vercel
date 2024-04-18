@@ -52,6 +52,7 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
+    console.log("test");
     numData = convertNumDataToTableForm(rawData);
     numData = assignAllScores(numData);
     numData = resortColumnsByArray(numData, 
@@ -294,6 +295,21 @@ export function whitelistDataPoints(data, orderArr) {
     return removeDataPoints(data, arr);
 }
 
+export function whitelistDataPointObjArr(data, orderArr) {
+    let newArr = [];
+    for (let i = 0; i < data.length; i++) {
+        let newObj = {};
+        for (let j = 0; j < orderArr.length; j++) {
+            if (data[i][orderArr[j]] === undefined) {
+                continue;
+            }
+            newObj[orderArr[j]] = data[i][orderArr[j]];
+        }
+        newArr.push(newObj)
+    }
+    return newArr;
+}
+
 // Working but need to make easier to use:
 function resortColumnByPoint(data, point, columnGoal) {
   for (let i = 0; i < data[0].length; i++) {
@@ -353,7 +369,7 @@ function getTeamRankingArr() {
     return Array.from(orderedTeamMap.keys());
 }
 
-function getTeamRank(team) {
+export function getTeamRank(team) {
     for (let i = 0; i < teamRankingArr.length; i++) {
         if (teamRankingArr[i] == team) {
             return i + 1;

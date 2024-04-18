@@ -28,6 +28,7 @@ function Search() {
 
     const numHeaders = [
         "Match Number",
+        "Score",
         "Auto",
         "Teleop",
         "Endgame",
