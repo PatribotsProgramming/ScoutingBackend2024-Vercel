@@ -7,41 +7,24 @@ function RawData() {
     const [data, setData] = useState([]);
     const [headers, setHeaders] = useState([]);
     const [selectedDataMap, setSelectedDataMap] = useState('rawDataMap'); // New state variable for selected data map
-    const [sortOrder, setSortOrder] = useState(1);
-    const [sortCol, setSortCol] = useState("Match Number");
 
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
                 setData(data);
                 setHeaders(Object.keys(data[selectedDataMap][0]));
-                sortByKey(data[selectedDataMap], sortCol);
+                sortByKey(data[selectedDataMap], "Match Number");
             });
         }, 100);
     }, [selectedDataMap]); // Add selectedDataMap to the dependency array
 
-    useEffect(() => {
-        if (data[selectedDataMap] !== undefined) {
-            let newData = {...data};
-            sortByKey(newData[selectedDataMap], sortCol);
-            setData(newData);   
-        }
-    }, [sortOrder, sortCol]);
-
     function sortByKey(arr, key) {
         return arr.sort((a, b) => {
-            if (Number(a[key]) > Number(b[key])) return 1 * sortOrder;
-            else if (Number(a[key]) < Number(b[key])) return -1 * sortOrder;
+            if (Number(a[key]) > Number(b[key])) return 1;
+            else if (Number(a[key]) < Number(b[key])) return -1;
             else return 0;
         });
     }
-
-    const handleSort = (header) => { // New function to handle sorting
-        if (header === sortCol) {
-            setSortOrder(sortOrder * -1); // Toggle the sort order
-        }
-        setSortCol(header);
-    };
 
     if (data.length === 0) {
         return <div>Loading...</div>;
@@ -62,7 +45,7 @@ function RawData() {
                 ></link>
                 <table className="table">
                     <thead className="header">
-                        <tr onClick={handleSort}>
+                        <tr>
                             {headers.map((header, index) => (
                                 <th key={index}>
                                     {header}

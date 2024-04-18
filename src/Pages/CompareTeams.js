@@ -25,7 +25,7 @@ function Compare() {
         'Amp',
         'Speaker',
         'Endgame',
-        'Passes'
+        'Passes',
     ];
 
     const getAllTeams = (data) => {
@@ -85,6 +85,7 @@ function Compare() {
         });
 
         setTeamData(allTeamData);
+        console.log(allTeamData);
         setTeamMatchData(allTeamMatchData);
     }, [teamList]);
 
@@ -234,11 +235,13 @@ function Compare() {
                     let max = maxMin.get(teamData[j][0][i])[1];
                     let val = ((teamData[j][1][i] - min) / (max - min)) * 100;
                     if (isBar) {
+                        
                         categoryObj[teamList[j]] = teamData[j][1][i];
                     } else {
                         categoryObj[teamList[j]] = val;
                     }
                 }
+                console.log(categoryObj)
                 arr.push(categoryObj);
             }
         }
@@ -273,7 +276,7 @@ function Compare() {
                 <div className="bar-chart">
                     <MyBarChart
                         width={1000}
-                        height={250}
+                        height={200}
                         data={convertForReCharts(true)}
                         margin={{ top: 5, right: 30, left: 20, bottom: 50 }}
                         barConfigs={teamList.map(

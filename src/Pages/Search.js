@@ -249,7 +249,7 @@ function Search() {
                 let min = maxMin.get(teamData[0][i])[0];
                 let max = maxMin.get(teamData[0][i])[1];
                 let val = ((teamData[1][i] - min) / (max - min)) * 100;
-                arr.push({ key: teamData[0][i], value: val });
+                arr.push({ key: teamData[0][i], value: val});
             }
         }
         return arr;
@@ -264,11 +264,18 @@ function Search() {
         } else {
             matches = resortColumnsByArray(whitelistDataPoints(matchesComment, commentHeaders), commentHeaders);
         }
-        // for (let i = 0; i < matches.length; i++) {
-        //     matches[i] = matches[i].slice(0, matchDataType === 'num' ? numHeaders.length : commentHeaders.length);
-        // }
-        return matches;
+        let matchDataNoKeys = matches.slice(1);
+        sortByIndex(matchDataNoKeys, 0);
+        return [matches[0], ...matchDataNoKeys];
     };
+
+    function sortByIndex(arr, index) {
+        return arr.sort((a, b) => {
+            if (Number(a[index]) > Number(b[index])) return 1;
+            else if (Number(a[index]) < Number(b[index])) return -1;
+            else return 0;
+        });
+    }
 
     // changes match data type to either num or comment
     const handleSelectChange = (e) => {
@@ -278,7 +285,6 @@ function Search() {
     let headers = teamData[0].slice(1);
     let stats = teamData[1].slice(1);
     let matches = matchContent(teamMatchDataNum, teamMatchDataComment);
-    console.log(matches);
 
     let matchHeads = matches[0];
     let matchStats = matches.slice(1);

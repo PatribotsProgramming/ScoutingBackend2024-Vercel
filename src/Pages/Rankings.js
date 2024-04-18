@@ -78,12 +78,13 @@ function Rankings() {
                 "name": data.rankingTable[i]["Team"],
                 "children": [
                     {
-                        "name": data.rankingTable[i]["Team"],
-                        "Score": data.rankingTable[i]["Score"]
+                        "name": data.rankingTable[i]["Team"].slice(0, -2),
+                        "Score": parseInt(data.rankingTable[i]["Score"])
                     }
                 ]
             });
         }
+        console.log(arr);
         return arr;
     }
     let headers = Object.keys(rankingTableGlobal[0]);
