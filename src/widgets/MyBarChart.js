@@ -28,19 +28,16 @@ function MyBarChart({ width, height, data, margin, barConfigs, teamList }) {
     }
 
     useEffect(() => {
-        console.log(data);
         let myMax;
         // find the max value in the array of objects and ignore any values that are not numbers or could be a number
         myMax = findMax(data);
         
         setMax(myMax);
-        console.log(myMax);
     }, [data]);
 
     const CustomizedAxisTick = (props) => {
         const { x, y, payload } = props;
         let label = payload.value;
-        console.log(label);
         if (label.length > 7) {
             // Change this value to adjust the maximum length
             label = label.slice(0, 10) + '...'; // Truncate and add ellipsis

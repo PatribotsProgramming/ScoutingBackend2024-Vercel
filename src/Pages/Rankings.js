@@ -8,7 +8,6 @@ function Rankings() {
     const [data, setData] = useState([]);
     const [sortCol, setSortCol] = useState("Score");
     const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
-    const [rankingTableGlobal, setRankingTableGlobal] = useState([]);
 
     const numHeaders = [
         "Team",
@@ -35,19 +34,18 @@ function Rankings() {
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
-                setData(data);
-                setRankingTableGlobal(whitelistDataPointObjArr(data.rankingTable, numHeaders));
-                sortByKey(data.rankingTable, sortCol);
+                let newData = whitelistDataPointObjArr([...data.rankingTable], numHeaders);
+                sortByKey(newData, sortCol);
+                setData(newData);
             });
         }, 1000);}, []);
 
     useEffect(() => {
-        if (data.rankingTable !== undefined && data.rankingTable !== null) {
-            let newData = {...data};
-            sortByKey(newData.rankingTable, sortCol);
-           
-            newData['rankingTable'] = whitelistDataPointObjArr(newData.rankingTable, numHeaders);  
-            setRankingTableGlobal(newData.rankingTable);    
+        if (data !== undefined && data !== null) {
+            let newData = [...data];
+
+            sortByKey(newData, sortCol);
+              
             setData(newData);
         }
     }, [sortOrder, sortCol]);
@@ -73,21 +71,20 @@ function Rankings() {
 
     const convertTreeMap = () => {
         let arr = [];
-        for (let i = 0; i < data.rankingTable.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             arr.push({
-                "name": data.rankingTable[i]["Team"],
+                "name": data[i]["Team"],
                 "children": [
                     {
-                        "name": data.rankingTable[i]["Team"].slice(0, -2),
-                        "Score": parseInt(data.rankingTable[i]["Score"])
+                        "name": data[i]["Team"].slice(0, -2),
+                        "Score": parseInt(data[i]["Score"])
                     }
                 ]
             });
         }
-        console.log(arr);
         return arr;
     }
-    let headers = Object.keys(rankingTableGlobal[0]);
+    let headers = Object.keys(data[0]);
 
     return (
         <div className="rankings-wrapper">
@@ -107,8 +104,7 @@ function Rankings() {
                         </tr>
                     </thead>
                     <tbody>
-                        {console.log(rankingTableGlobal)}
-                        {rankingTableGlobal.map((item, index) => (
+                        {data.map((item, index) => (
                             <tr key={index}>
                                 {headers.map((header, index) => (
                                   <td key={index}>

@@ -31,9 +31,7 @@ function RawData() {
     }
     const handleChange = (e) => {
         const selectedOption = e.target.value;
-        console.log(selectedOption);
         setSelectedDataMap(selectedOption === 'Num Data' ? 'rawDataMap' : 'commentDataMap'); // Update selectedDataMap based on selected option
-        console.log(selectedDataMap);
     }
 
     return (

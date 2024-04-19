@@ -47,22 +47,18 @@ function getSpeakers(data) {
 }
 function getTeamScore(data) {
     let score = 0;
-    // console.log(data);
     for (let i = 0; i < data[0].length; i++) {
         if (realScores[data[0][i]] != undefined) {
             score += realScores[data[0][i]] * data[1][i];
         }
     }
-    console.log(score);
     return score;
 }
-export function getAutoEndgameScore(teamArr) { 
-    console.log(teamArr);
+export function getAutoEndgameScore(teamArr) {
     let score = 0;
     for (let i = 0; i < teamArr.length; i++) {
         score += getTeamScore(teamArr[i]);
     }
-    console.log(score);
     return score;
 }  
 
