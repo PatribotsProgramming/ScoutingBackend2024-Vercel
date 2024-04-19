@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TreeGraph from "../widgets/TreeGraph";
-import {fetchDataAndProcess} from '../Data.js'
+import {fetchDataAndProcess, resortColumnsByArray, whitelistDataPoints, whitelistDataPointObjArr} from '../Data.js'
 import "./Tables.css";
 import "./Rankings.css";
 
@@ -9,20 +9,43 @@ function Rankings() {
     const [sortCol, setSortCol] = useState("Score");
     const [sortOrder, setSortOrder] = useState(1); // New state variable for sort order
 
+    const numHeaders = [
+        "Team",
+        "Match Number",
+        "Score",
+        "Auto",
+        "Teleop",
+        "Endgame",
+        "Auto Pieces",
+        "Tele Pieces",
+        "Passes",
+        "Speaker",
+        "Amp",
+        "Failed Shots Auto",
+        "Failed Intakes Auto",
+        "Fumbles Speaker",
+        "Fumbles Amp",
+        "Trap",
+        "Climb Failure",
+        "Temp Failure",
+        "Critical Failure"
+    ];
 
     useEffect(() => {
         setTimeout(() => {
             fetchDataAndProcess().then((data) => {
-                setData(data);
-                sortByKey(data.rankingTable, sortCol);
+                let newData = whitelistDataPointObjArr([...data.rankingTable], numHeaders);
+                sortByKey(newData, sortCol);
+                setData(newData);
             });
-        }, 1000);
-    }, []);
+        }, 1000);}, []);
 
     useEffect(() => {
-        if (data.rankingTable !== undefined && data.rankingTable !== null) {
-            let newData = {...data};
-            sortByKey(newData.rankingTable, sortCol);
+        if (data !== undefined && data !== null) {
+            let newData = [...data];
+
+            sortByKey(newData, sortCol);
+              
             setData(newData);
         }
     }, [sortOrder, sortCol]);
@@ -48,22 +71,20 @@ function Rankings() {
 
     const convertTreeMap = () => {
         let arr = [];
-        for (let i = 0; i < data.rankingTable.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             arr.push({
-                "name": data.rankingTable[i]["Team"],
+                "name": data[i]["Team"],
                 "children": [
                     {
-                        "name": data.rankingTable[i]["Team"].slice(0, -2),
-                        "Score": parseInt(data.rankingTable[i]["Score"])
+                        "name": data[i]["Team"].slice(0, -2),
+                        "Score": parseInt(data[i]["Score"])
                     }
                 ]
             });
         }
-        console.log(arr);
         return arr;
     }
-
-    let headers = Object.keys(data.rankingTable[0]);
+    let headers = Object.keys(data[0]);
 
     return (
         <div className="rankings-wrapper">
@@ -83,10 +104,10 @@ function Rankings() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.rankingTable.map((item, index) => (
+                        {data.map((item, index) => (
                             <tr key={index}>
                                 {headers.map((header, index) => (
-                                    <td key={index}>
+                                  <td key={index}>
                                         {(isNaN(item[header])) ? item[header] : Math.round(item[header] * 100) / 100}
                                     </td>
                                 ))}

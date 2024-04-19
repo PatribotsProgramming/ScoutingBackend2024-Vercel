@@ -85,7 +85,6 @@ function Compare() {
         });
 
         setTeamData(allTeamData);
-        console.log(allTeamData);
         setTeamMatchData(allTeamMatchData);
     }, [teamList]);
 
@@ -241,7 +240,6 @@ function Compare() {
                         categoryObj[teamList[j]] = val;
                     }
                 }
-                console.log(categoryObj)
                 arr.push(categoryObj);
             }
         }

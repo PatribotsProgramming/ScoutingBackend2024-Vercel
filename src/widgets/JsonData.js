@@ -30,7 +30,6 @@ export async function getData(path) {
     if (snapshot.exists()) {
       const data = snapshot.val();
       const jsonString = JSON.stringify(data);
-      console.log(jsonString)
       return jsonString;
     } else {
       console.log("No data available");

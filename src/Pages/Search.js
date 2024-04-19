@@ -28,6 +28,7 @@ function Search() {
 
     const numHeaders = [
         "Match Number",
+        "Score",
         "Auto",
         "Teleop",
         "Endgame",
@@ -73,9 +74,7 @@ function Search() {
             setTeamData(resortColumnsByArray(whitelistDataPoints(averageData.get(team), numHeaders), numHeaders));
             // setTeamData(averageData.get(team));
         }
-        console.log(matchData.length !== 0 && matchData.length !== undefined)
         if (matchData.length !== 0 && matchData.length !== undefined) {
-            console.log(matchData[0].get(team));
             setTeamMatchDataNum(matchData[0].get(team));
             setTeamMatchDataComment(matchData[1].get(team));
         }
