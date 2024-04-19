@@ -36,6 +36,7 @@
     border-collapse: separate;
     top: 0px;
     background-color: gray;
+    min-width: 100%;
 }
 
 .table th,
