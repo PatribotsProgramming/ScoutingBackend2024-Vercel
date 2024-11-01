@@ -18,6 +18,11 @@ let includeDead = localStorage.getItem("includeDead") === null
                 : localStorage.getItem("includeDead") === 'true' 
                     ? true 
                     : false;
+let mean = localStorage.getItem("average") === null 
+                ? true 
+                : localStorage.getItem("average") === 'median' 
+                    ? false
+                    : true;
 
 let rawData;
 let commentData;
@@ -37,7 +42,6 @@ let teamRankingArr;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
-
     const data = await getAllData();
     if (eventCode.toLowerCase() === "all") {
         let bigData = JSON.parse(data)["scouting"];
@@ -97,12 +101,12 @@ export const fetchDataAndProcess = async () => {
     maxMin = getMaxMin(numData);
     commentTeamMap = convertTableToMap(commentData);
     numTeamMap = convertToTeamMap(numData);
-    teamAverageMap = getTeamAverageMap(includeDead, minQual, maxQual);
+    teamAverageMap = getTeamAverageMap(includeDead, minQual, maxQual, mean);
     allData = resortColumnByPoint(convertAllToTableForm(rawData), "Team", 0);
     bigTeamMap = convertToTeamMap(allData);
     bigTeamMapSplit = [convertToTeamMap(numData), convertToTeamMap(commentData)];
     rawDataMap = convertTableToMap(numData);
-    rankingTable = getRankingTable(true);
+    rankingTable = getRankingTable(true, mean);
     maxMinOfAverages = getMaxMinOfAverages();
     teamScoreMap = getDataPointMap("Score");
     teamRankingArr = getTeamRankingArr();
@@ -257,7 +261,10 @@ function getMaxMinOfAverages() {
     let keys = Array.from(teamAverageMap.keys());
     arr.push(teamAverageMap.get(keys[0])[0]);
     for (let i = 0; i < keys.length; i++) {
-        arr.push(getTeamAverage(keys[i], true, minQual, maxQual)[1]);
+        arr.push(
+            mean ? 
+                getTeamAverage(keys[i], true, minQual, maxQual)[1] :
+                getTeamAverageMedian(keys[i], true, minQual, maxQual)[1])
     } 
     return getMaxMin(arr);
 }
@@ -416,8 +423,11 @@ function getRankingTable() {
   let dataArr = [];
   let teams = Array.from(teamAverageMap.keys());
   for (let i = 0; i < teams.length; i++) {
-    dataArr.push(convertTableToMap(getTeamAverage(teams[i], includeDead, minQual, maxQual))[0]);
+    dataArr.push(convertTableToMap(
+        mean ? getTeamAverage(teams[i], includeDead, minQual, maxQual)
+               : getTeamAverageMedian(teams[i], includeDead, minQual, maxQual))[0]);
   }
+  console.log(dataArr);
   return dataArr;
 }
 
@@ -523,18 +533,71 @@ function getTeamAverage(team, includeDead, first, last) {
   }
   return dataArrTest;
 }
+function getTeamAverageMedian(team, includeDead, first, last) {
+    let teamData = getTeamNumData(team);
+    let critFailIndex = getDataPointIndex("Critical Failure", teamData[0]);
+    let newTeamData = [];
+    let dataArrTest = [[],[]];
+    let matchNumberIndex = getDataPointIndex("Match Number", teamData[0]);
+    let jMinusValue = 0;
+    for (let j = 0; j < teamData.length; j++) {
+        if ((teamData[j][critFailIndex] == 1 && !includeDead)
+             || (teamData[j][matchNumberIndex] < minQual) || teamData[j][matchNumberIndex] > maxQual)
+        {
+            jMinusValue++;
+            continue;
+        }
+        newTeamData.push([]);
+        for (let i = 0; i < teamData[j].length; i++) {
+          if (teamData[0][i] != "Match Number") {
+            newTeamData[j - jMinusValue].push(teamData[j][i]);
+          }
+        }
+      }
+      dataArrTest[0].push(...newTeamData[0]);
+      if (newTeamData.length <= 1) {
+        return dataArrTest;
+      }
+    for (let i = 0; i < newTeamData[0].length; i++) {
+      let samples = [];
+      for (let j = 1; j < newTeamData.length; j++) {
+          samples.push(parseFloat(newTeamData[j][i]));
+      }
+      dataArrTest[1].push(median(samples));
+    }
+    for (let i = 0; i < dataArrTest[1].length; i++) {
+        dataArrTest[1][i] = dataArrTest[1][i].toFixed(1);
+    }
+    console.log(dataArrTest);
+    return dataArrTest;
+      
+}
+
+function median(arr) {
+  arr.sort((a, b) => a - b);
+
+  const mid = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    return (arr[mid - 1] + arr[mid]) / 2;
+  } else {
+    return arr[mid];
+  }
+}
 
 // Working:
-function getTeamAverageMap(includeDead, first, last) {
+function getTeamAverageMap(includeDead, first, last, mean) {
   let averageMap = new Map();
   let teams = [];
   numTeamMap.forEach((value, key) => {
     teams.push(key);
   });
   for (let i = 0; i < teams.length; i++) {
-    if (getTeamAverage(teams[i], includeDead, first, last).length > 1
-            && getTeamAverage(teams[i], includeDead, first, last)[1].length > 0) {
-        averageMap.set(teams[i], getTeamAverage(teams[i], includeDead, first, last));
+    let teamAverage = mean ? getTeamAverage(teams[i], includeDead, first, last)
+                 : getTeamAverageMedian(teams[i], includeDead, first, last);
+    if (teamAverage.length > 1
+            && teamAverage[1].length > 0) {
+        averageMap.set(teams[i], teamAverage);
     }
   }
   return averageMap;

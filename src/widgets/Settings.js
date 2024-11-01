@@ -10,7 +10,8 @@ function Settings() {
         "eventCode",
         "minQual",
         "maxQual",
-        "includeDead"
+        "includeDead",
+        "average"
     ]
 
     const settingsListUI = () => {
