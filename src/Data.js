@@ -2,9 +2,6 @@
 import { getAllData } from "./widgets/JsonData.js";
 import { assignAllScores } from "./RankingSystem.js";
 import { eventCode } from "./App.js";
-// import { predictTeamScore } from "./MatchPredictor.js";
-// import { predictTeamScore2 } from "./MatchPredictor2.js"
-//const data = getAllData();
 
 let minQual = localStorage.getItem("minQual") === null 
                 ? 0 
@@ -39,6 +36,7 @@ let rawDataMap;
 let bigTeamMapSplit;
 let teamScoreMap;   
 let teamRankingArr;
+let globalAverageScore;
 // Use an async function to fetch and process your data
 // Working:
 export const fetchDataAndProcess = async () => {
@@ -108,8 +106,8 @@ export const fetchDataAndProcess = async () => {
     rankingTable = getRankingTable(true, mean);
     maxMinOfAverages = getMaxMinOfAverages();
     teamScoreMap = getDataPointMap("Score");
+    globalAverageScore = getGlobalAverage("Score");
     teamRankingArr = getTeamRankingArr();
-
     return {
         rawData: rawData,
         commentData: commentData,
@@ -332,6 +330,22 @@ function renameHeader(data, headerInitial, headerFinal) {
             break;
         }
     }
+}
+
+function getGlobalAverage(dataPoint) {
+    let dataPointMap = getDataPointMap(dataPoint);
+    let keys = Object.keys(dataPointMap);
+    let total = 0;
+    for (let i = 0; i < keys.length; i++) {
+        total += parseFloat(dataPointMap[keys[i]]);
+    }
+    return total / keys.length;
+}
+
+
+function getLocalAverage(team, dataPoint) {
+    let map = getDataPointMap(dataPoint);
+    return map[team];
 }
 
 function getDataPointMap(dataPoint) {
