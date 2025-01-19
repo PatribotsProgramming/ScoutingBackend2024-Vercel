@@ -56,7 +56,6 @@ export const fetchDataAndProcess = async () => {
         "Team",
         0
     );
-    console.log("test");
     numData = convertNumDataToTableForm(rawData);
     numData = assignAllScores(numData);
     numData = resortColumnsByArray(numData, 
@@ -297,8 +296,6 @@ export function whitelistDataPoints(data, orderArr) {
             arr.push(data[0][i]);
         }
     }
-    console.log(arr);
-    console.log(removeDataPoints(data, arr));
     return removeDataPoints(data, arr);
 }
 
@@ -427,7 +424,6 @@ function getRankingTable() {
         mean ? getTeamAverage(teams[i], includeDead, minQual, maxQual)
                : getTeamAverageMedian(teams[i], includeDead, minQual, maxQual))[0]);
   }
-  console.log(dataArr);
   return dataArr;
 }
 
@@ -568,7 +564,6 @@ function getTeamAverageMedian(team, includeDead, first, last) {
     for (let i = 0; i < dataArrTest[1].length; i++) {
         dataArrTest[1][i] = dataArrTest[1][i].toFixed(1);
     }
-    console.log(dataArrTest);
     return dataArrTest;
       
 }
